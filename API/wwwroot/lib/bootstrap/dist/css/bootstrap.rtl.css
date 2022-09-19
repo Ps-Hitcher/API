@@ -4566,7 +4566,7 @@ textarea.form-control-lg {
     flex: 1 0 0%;
     margin-bottom: 0;
   }
-  .card-group > .card + .card {
+  .card-group > .card1 + .card2 + .card3{
     margin-right: 0;
     border-right: 0;
   }

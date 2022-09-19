@@ -2,111 +2,180 @@
 @model PrivacyModel
 
 <div class="text-center">
-    <body style="background-color:#b6d4fe">
-    <h1 class="display-4">View and edit profile</h1>
-    <br><br>
-    </body>
+	<h1 class="display-4">View and edit profile</h1>
+	<br><br>
 </div>
 
-<img src="img/profile.jpg" alt="logo" width="200" height="200" />
-<br><br>
+<body>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">User info</h4>
-  </div>
-  
-  <div class="panel-body">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Location</label>
-      <div class="col-sm-10">
-        <select class="form-control">
-          <option selected="">Select country</option>
-          <option>Lithuania</option>
-        </select>
-      </div>
-    </div>
-  </div>
+@* first table *@
+<div class="container">
+	<div class="row gutters">
+		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			<div class="card1 h-100">
+				<div class="card1-body">
+					<div class="account-settings">
+						<div class="user-profile">
+							<div class="user-avatar">
+								<img src="img/profile.jpg" alt="Profile photo">
+							</div>
+							<h5 class="user-name">Kamile Samusiovaite</h5>
+							<h6 class="user-email">kamilesamusiovaite@gmail.com</h6>
+						</div>
+						<div class="about">
+							<h5 class="mb-2 text-primary">About</h5>
+							<p>Mano vardas Kamile, studijuoju Vilniaus universitete:)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@* second table  *@
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+			<div class="card2 h-100">
+				<div class="card2-body">
+					<div class="row gutters">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<h6 class="mb-3 text-primary">Personal Details</h6>
+						</div>
+						<br><br>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">User Type</label>
+								<div class="col-sm-10">
+									<select class="form-control">
+										<option selected="">Select User Type</option>
+										<option>Driver</option>
+										<option>Passenger</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br><br>
+						<br><br>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">Location</label>
+								<div class="col-sm-10">
+									<select class="form-control">
+										<option selected="">Select country</option>
+										<option>Lithuania</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group">
+							<label for="fullName">Full Name</label>
+							<input type="text" class="form-control" id="fullName" placeholder="Enter full name">
+						</div>
+					</div>
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group">
+							<label for="eMail">Email</label>
+							<input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
+						</div>
+					</div>
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+						</div>
+					</div>
+					<br><br>
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<h6 class="mb-3 text-primary">Address</h6>
+						</div>
+						<br><br>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+								<label for="Street">Street</label>
+								<input type="name" class="form-control" id="Street" placeholder="Enter Street">
+							</div>
+						</div>
+						<br><br>
+						<br><br>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+								<label for="ciTy">City</label>
+								<input type="name" class="form-control" id="ciTy" placeholder="Enter City">
+							</div>
+						</div>
+						<br><br>
+						<br><br>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+								<label for="sTate">State</label>
+								<input type="text" class="form-control" id="sTate" placeholder="Enter State">
+							</div>
+						</div>
+						<br><br>
+						<br><br>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<div class="form-group">
+								<label for="zIp">Zip Code</label>
+								<input type="text" class="form-control" id="zIp" placeholder="Zip Code">
+							</div>
+						</div>
+					</div>
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="text-right">
+								<button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+								<button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@* third table *@
+	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+		<div class="card3 h-80">
+			<div class="card3-body">
+				<div class="car-settings">
+					<div class="car-driver-profile">
+						<div class="car-avatar">
+							<img src="img/profile.jpg" alt="Profile photo">
+						</div>
+						<div class="row gutters">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<h6 class="mb-3 text-primary">Car Details</h6>
+							</div>
+							<h5 class="car-model">BMW</h5>
+						</div>
+						<br><br>
+						<div class="about">
+							<h5 class="mb-2 text-primary">About</h5>
+							<p>TETE NUPIRKO</p>
+							<br><br>
+							<div class="mb-2 text-primary">
+								<label for="CarNumber">Car number: </label>
+								<input type="text" class="form-control" id="CarNumber" placeholder="Enter car number">
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+								<br><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="form-group">
-  <label class="col-sm-2 control-label">Name</label>
-  <div class="col-sm-10">
-    <input type="text" class="form-control">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Surname</label>
-  <div class="col-sm-10">
-    <input type="text" class="form-control">
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">Contact info</h4>
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Mobile number</label>
-  <div class="col-sm-10">
-    <input type="tel" class="form-control">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">E-mail address</label>
-  <div class="col-sm-10">
-    <input type="email" class="form-control">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Home address</label>
-  <div class="col-sm-10">
-    <textarea rows="1" class="form-control"></textarea>
-  </div>
-</div>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">Security</h4>
-  </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Current password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">New password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-        <div class="checkbox">
-          <input type="checkbox" id="checkbox_1">
-          <label for="checkbox_1">Make this account public</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- 
-
-
- 
-
-        
+</body>
 

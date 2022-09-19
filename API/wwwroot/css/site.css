@@ -4,7 +4,12 @@ html {
   font-family: "Arial Black", serif;
 
 }
+.logo{
+  position:relative;
+  top:0;
+  left:0;
 
+}
 
 @media (min-width: 768px) {
   html {
@@ -18,6 +23,113 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom:50px;
+}
 
+.footer {
+  position: fixed;
+  height: 20px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+
+body{margin-top:0px;
+  color: #bcd0f7;
+  background: #1A233A;
+}
+.account-settings .user-profile {
+  margin: 0 0 1rem 0;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.car-settings .car-driver-profile {
+  margin: 0 0 1rem 0;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.account-settings .user-profile .user-avatar {
+  margin: 0 0 1rem 0;
+}
+
+.car-settings .car-driver-profile .car-avatar {
+  margin: 0 0 1rem 0;
+}
+
+.account-settings .user-profile .user-avatar img {
+  width: 90px;
+  height: 90px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+}
+
+.car-settings .car-driver-profile .car-avatar img {
+  width: 90px;
+  height: 90px;
+}
+
+.account-settings .user-profile h5.user-name {
+  margin: 0 0 0.5rem 0;
+}
+.account-settings .user-profile h6.user-email {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.account-settings .about {
+  margin: 1rem 0 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+.card1 {
+  background: #272E48;
+  top: 0; left: 0;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 15px;
+  border: 0;
+  margin-bottom: 1rem;
+  position: relative;
+  alignment: left;
+}
+.card2 {
+  background: #272E48;
+  top: 0; left: 0;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 15px;
+  border: 0;
+  margin-bottom: 1rem;
+  position: relative;
+  alignment: left;
+}
+.card3 {
+  background: #272E48;
+  position: relative;
+  top: -860px; left:970px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 15px;
+  border: 0;
+  margin-bottom: 1rem;
+  alignment: left;
+  display: block;
+}
+.container {
+  position: relative;
+}
+
+.form-control {
+  border: 1px solid #596280;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: .825rem;
+  background: #1A233A;
+  color: #bcd0f7;
+  position: relative;
 }
