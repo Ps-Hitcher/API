@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <body>
+    <div class="logo">
+        <h1 class="display-4">
+            <img src="img/logo.jpg" alt="logo" width=350px height=350px></h1>
+    </div>
+    </body>
+</div>
+
+
+@* travel information - entered by the users  *@
+<div class="text-left">
+    <form>
+        <label for="wantToGo">Where would you want to go?</label><br>
+        <input type="text" id="wantToGo" name="wantToGo" placeholder="City name:" required><br><br/>
+        <label for="comingFrom">Where are you coming from?</label><br>
+        <input type="text" id="comingFrom" name="comingFrom" placeholder="City name:" required><br><br>
+        <input type="submit" value="Submit" name="button" >
+    </form>
+</div>
