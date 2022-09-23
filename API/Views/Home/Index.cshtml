@@ -1,6 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    ViewData["API_KEY"] = "AIzaSyDH9LtK-1LVM8G-Ie0A16Uxb4KN1HFy1Ck";
 }
+
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
 
 <div class="text-center">
     <body>
@@ -21,4 +29,16 @@
         <input type="text" id="comingFrom" name="comingFrom" placeholder="City name:" required><br><br>
         <input type="submit" value="Submit" name="button" >
     </form>
+    <br><br><br>
+        <div id="map"></div>
+            <script>
+                var map;//54.687157, 25.279652
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: 54.687157, lng: 25.279652 },
+                        zoom: 12
+                    });
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewData["API_KEY"])&callback=initMap" async defer></script>
 </div>
