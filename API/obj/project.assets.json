@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Domas\\.nuget\\packages\\": {}
+    "C:\\Users\\kamil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Domas\\Desktop\\Uni_3semestras\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\kamil\\RiderProjects\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Domas\\Desktop\\Uni_3semestras\\API\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\Domas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Domas\\Desktop\\Uni_3semestras\\API\\API\\obj\\",
+      "projectPath": "C:\\Users\\kamil\\RiderProjects\\API\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\kamil\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kamil\\RiderProjects\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Domas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\kamil\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -62,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Domas\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\kamil\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
