@@ -4,13 +4,34 @@ html {
   font-family: "Arial Black", serif;
 
 }
-.logo{
-  position:relative;
-  top:0;
-  left:0;
+.logo {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.column {
+  float: left;
+  padding: 20px;
 
 }
 
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+ 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -75,17 +96,21 @@ body{margin-top:0px;
 .account-settings .user-profile h5.user-name {
   margin: 0 0 0.5rem 0;
 }
+
 .account-settings .user-profile h6.user-email {
   margin: 0;
   font-size: 0.8rem;
   font-weight: 400;
 }
+
 .account-settings .about {
   margin: 1rem 0 0 0;
   font-size: 0.8rem;
   text-align: center;
 }
+
 .card1 {
+  width: 300px;
   background: #272E48;
   top: 0; left: 0;
   -webkit-border-radius: 10px;
@@ -93,10 +118,19 @@ body{margin-top:0px;
   border-radius: 15px;
   border: 0;
   margin-bottom: 1rem;
-  position: relative;
   alignment: left;
 }
+
+.card1 .card1-body{
+  height: 850px;
+}
+
+.card3 .card3-body{
+  height: 850px;
+} 
+
 .card2 {
+  width: 630px;  
   background: #272E48;
   top: 0; left: 0;
   -webkit-border-radius: 10px;
@@ -104,22 +138,32 @@ body{margin-top:0px;
   border-radius: 15px;
   border: 0;
   margin-bottom: 1rem;
-  position: relative;
+  
   alignment: left;
 }
 .card3 {
+  width: 300px; 
   background: #272E48;
   position: relative;
-  top: -860px; left:970px;
+  top: 0; left: 0;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 15px;
   border: 0;
   margin-bottom: 1rem;
   alignment: left;
-  display: block;
+
 }
-.container {
+.col-form-label{
+  display: inline-block;
+  width:180px;
+  border: 1px solid #596280;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  font-size: .825rem;
+  background: #1A233A;
+  color: #bcd0f7;
   position: relative;
 }
 
@@ -132,4 +176,9 @@ body{margin-top:0px;
   background: #1A233A;
   color: #bcd0f7;
   position: relative;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
 }
