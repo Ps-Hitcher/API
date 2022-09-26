@@ -15,15 +15,15 @@ public class HomeController : Controller
         _userRepository = userRepository;
     }
 
-    // public IActionResult Index()
-    // {
-    //     return View();
-    // }
-    
-    public string Index()
+    public IActionResult Index()
     {
-        return _userRepository.GetUser(2).Name;//Testing
+        return View();
     }
+    
+    // public string Index()
+    // {
+    //     return _userRepository.GetUser(2).Name;//Testing
+    // }
 
     public IActionResult Privacy()
     {
