@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mFGM+eajAikSxeR9GGWjm7OhjlZoSZ7DJDgbI/XulFs=",
+  "Hash": "3xIqYM4vz39mx06VNRE5wbj83p9xK3KT5MNh+Gp7myU=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\img\\edit.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "img/edit.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\edit.jpg"
+    },
+    {
       "Identity": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\img\\logo.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
@@ -117,23 +134,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\profile.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\img\\user.jpg",
-      "SourceId": "API",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\",
-      "BasePath": "_content/API",
-      "RelativePath": "img/user.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\user.jpg"
     },
     {
       "Identity": "C:\\Users\\kamil\\RiderProjects\\API\\API\\wwwroot\\js\\site.js",
