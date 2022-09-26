@@ -2,5 +2,5 @@
 
 public interface IUserRepository
 {
-    UserModel GetUser(/*Guid Id*/ int Id);
+    UserModel GetUser(Guid Id);
 }

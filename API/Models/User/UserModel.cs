@@ -2,8 +2,7 @@
 
 public class UserModel
 {
-    //public Guid Id { get; set; }
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int UserType { get; set; }//enum
     public string Name { get; set; }
     public string Surname { get; set; }
