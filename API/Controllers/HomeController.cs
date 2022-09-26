@@ -1,21 +1,28 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
+using WebApplication2.Models.User;
 
 namespace WebApplication2.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private IUserRepository _userRepository;
+    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository) //Using dependency injection for UserModel
     {
         _logger = logger;
+        _userRepository = userRepository;
     }
 
-    public IActionResult Index()
+    // public IActionResult Index()
+    // {
+    //     return View();
+    // }
+    
+    public string Index()
     {
-        return View();
+        return _userRepository.GetUser(2).Name;//Testing
     }
 
     public IActionResult Privacy()
