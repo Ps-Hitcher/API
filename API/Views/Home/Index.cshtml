@@ -3,13 +3,9 @@
     ViewData["API_KEY"] = "AIzaSyDH9LtK-1LVM8G-Ie0A16Uxb4KN1HFy1Ck";
 }
 
-<style>
-  #map {
-    height: 400px;
-    width: 100%;
-  }
-</style>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
 <div class="text-center">
     <body>
     <div class="logo">
@@ -17,21 +13,27 @@
             <img src="img/logo.jpg" alt="logo" width=350px height=350px></h1>
     </div>
     </body>
+       
 </div>
 
+<div class="grid-container">
+    @* travel information - entered by the users  *@
+    <div class="item2">
+        <div class="text-left">
+            <form>
+                <label for="wantToGo">Where would you want to go?</label><br>
+                <input type="text" id="wantToGo" name="wantToGo" placeholder="City name:" required><br><br/>
+                <label for="comingFrom">Where are you coming from?</label><br>
+                <input type="text" id="comingFrom" name="comingFrom" placeholder="City name:" required><br><br>
+                <input type="submit" value="Submit" name="button">
+            </form>
+        </div>
+        <br><br><br>
+    </div>
 
-@* travel information - entered by the users  *@
-<div class="text-left">
-    <form>
-        <label for="wantToGo">Where would you want to go?</label><br>
-        <input type="text" id="wantToGo" name="wantToGo" placeholder="City name:" required><br><br/>
-        <label for="comingFrom">Where are you coming from?</label><br>
-        <input type="text" id="comingFrom" name="comingFrom" placeholder="City name:" required><br><br>
-        <input type="submit" value="Submit" name="button" >
-    </form>
-    <br><br><br>
+    <div class="item3">
         <div id="map"></div>
-            <script>
+        <script>
                 var map;//54.687157, 25.279652
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
@@ -40,5 +42,106 @@
                     });
                 }
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewData["API_KEY"])&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewData["API_KEY"])&callback=initMap" async defer></script>
+    </div>
+    
+    <div class="item4">
+        <div class="container mt-5">
+            <table class="table table-borderless table-responsive card-1 p-4">
+                <thead>
+                <tr class="border-bottom">
+                    <th>
+                        <span class="ml-2">Time</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Driver</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Car</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Trip</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Action</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-bottom">
+                    <td>
+                        <div class="p-2">
+                            <span class="d-block font-weight-bold">Tomorrow</span>
+                            <small>2:30PM</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 d-flex flex-row align-items-center mb-2">
+                            <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                            <div class="d-flex flex-column p-2">
+                                <span class="d-block font-weight-bold">Kamile Samusiovaite</span>
+                                <small class="text-muted">kamilesamusiovaite@gmail.com</small>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="p-2">
+                            <span class="font-weight-bold">AUDI A4</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 d-flex flex-column">
+                            <span>Vilnius -></span>
+                            <span> Ukmerge</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 icons">
+                            <i class="material-icons">person_add</i>
+                            <i class="material-icons">directions_car</i>
+                            <i class="material-icons">mail</i>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="border-bottom">
+                    <td>
+                        <div class="p-2">
+                            <span class="d-block font-weight-bold">Tomorrow</span>
+                            <small>3:30PM</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 d-flex flex-row align-items-center mb-2">
+                            <img src="~/img/profile.jpg" class="rounded-circle" width="40">           
+                            <div class="d-flex flex-column p-2">
+                                <span class="d-block font-weight-bold">Domas Nemanius</span>
+                                <small class="text-muted">domas.nemanius@gmail.com</small>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="p-2">
+                            <span class="font-weight-bold">SUBARU</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 d-flex flex-column">
+                            <span>Vilnius -> </span>
+                            <span> Šiauliai </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 icons">
+                              <i class="material-icons">person_add</i>
+                              <i class="material-icons">directions_car</i>
+                              <i class="material-icons">mail</i>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
+
