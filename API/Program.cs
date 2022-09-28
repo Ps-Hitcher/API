@@ -1,7 +1,10 @@
+using WebApplication2.Models.User;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
 
 var app = builder.Build();
 
