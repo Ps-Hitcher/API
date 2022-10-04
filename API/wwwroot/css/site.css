@@ -4,6 +4,7 @@ html {
   font-family: "Arial Black", serif;
 
 }
+
 .logo {
   position: relative;
   top: 0;
@@ -16,10 +17,10 @@ html {
 
 }
 
-.left, .right {
+.left,
+.right {
   width: 25%;
 }
-
 
 .middle {
   width: 50%;
@@ -32,7 +33,6 @@ html {
   clear: both;
 }
 
- 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -45,7 +45,7 @@ html {
 }
 
 body {
-  margin-bottom:50px;
+  margin-bottom: 50px;
 }
 
 .footer {
@@ -57,10 +57,12 @@ body {
   margin-bottom: 0px;
 }
 
-body{margin-top:0px;
+body {
+  margin-top: 0px;
   color: #bcd0f7;
   background: #1A233A;
 }
+
 .account-settings .user-profile {
   margin: 0 0 1rem 0;
   padding-bottom: 1rem;
@@ -113,7 +115,8 @@ body{margin-top:0px;
 .card1 {
   width: 300px;
   background: #272E48;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 15px;
@@ -122,18 +125,19 @@ body{margin-top:0px;
   alignment: left;
 }
 
-.card1 .card1-body{
+.card1 .card1-body {
   height: 850px;
 }
 
-.card3 .card3-body{
+.card3 .card3-body {
   height: 850px;
-} 
+}
 
 .card2 {
-  width: 630px;  
+  width: 630px;
   background: #272E48;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 15px;
@@ -141,11 +145,13 @@ body{margin-top:0px;
   margin-bottom: 1rem;
   alignment: left;
 }
+
 .card3 {
-  width: 300px; 
+  width: 300px;
   background: #272E48;
   position: relative;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 15px;
@@ -154,9 +160,10 @@ body{margin-top:0px;
   alignment: left;
 
 }
-.col-form-label{
+
+.col-form-label {
   display: inline-block;
-  width:180px;
+  width: 180px;
   border: 1px solid #596280;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -178,33 +185,41 @@ body{margin-top:0px;
   position: relative;
 }
 
-#map {
+#googleMap {
   height: 300px;
   width: 520px;
 }
-.grid-container{
+
+#output {
+  text-align: center;
+  margin: 20px auto;
+  height: 300px;
+  width: 520px;
+}
+
+.grid-container {
   display: grid;
   grid-template-columns: 1fr repeat(6, minmax(auto, 10em)) 1fr;
   grid-template-rows: minmax(1em, auto) 1fr auto minmax(1em, auto)
 }
 
-
-.item2{
+.item2 {
   grid-column: 1/6;
 }
 
-.item3{
+.item3 {
   grid-column: 6/7;
 }
 
-.item4{
+.item4 {
   grid-column: 1/8;
 }
 
-.border-bottom{
-  color:#bcd0f7;
+.border-bottom {
+  color: #bcd0f7;
 }
-.card-1{
+
+.card-1 {
   border-color: #bcd0f7;
   border-radius: 30px;
   width: 120%;
@@ -216,10 +231,10 @@ body{margin-top:0px;
   margin-left: 20px;
 }
 
-.border-bottom{
+.border-bottom {
   background-color: #1A233A;
 }
 
-.ml-2{
-color: #F6B3D8;
+.ml-2 {
+  color: #F6B3D8;
 }
