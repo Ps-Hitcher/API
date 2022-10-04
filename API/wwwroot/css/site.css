@@ -26,6 +26,13 @@ html {
   width: 50%;
 }
 
+.form-control1{
+  height: 30px;
+  width: 660px;
+  background-color: #E6EFFF;
+}
+
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -200,19 +207,22 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: 1fr repeat(6, minmax(auto, 10em)) 1fr;
-  grid-template-rows: minmax(1em, auto) 1fr auto minmax(1em, auto)
+  grid-template-rows: minmax(1em, auto) 0fr auto minmax(1em, auto) repeat(0,1fr);
+  
 }
 
 .item2 {
   grid-column: 1/6;
+  grid-row: 1 / 4;
 }
 
 .item3 {
-  grid-column: 6/7;
+  grid-column: 6/8;
 }
 
 .item4 {
   grid-column: 1/8;
+  grid-row: 2 / 4;
 }
 
 .border-bottom {
@@ -238,3 +248,12 @@ body {
 .ml-2 {
   color: #F6B3D8;
 }
+
+.container-fluid{
+  background-color: white;
+  font-style: italic;
+  padding-right: 0;
+  padding-left: 0;
+  width: 100%;
+}
+
