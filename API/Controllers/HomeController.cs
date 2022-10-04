@@ -9,6 +9,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private IUserRepository _userRepository;
+    public List<UserModel> _userList;
     public HomeController(ILogger<HomeController> logger, IUserRepository userRepository) //Using dependency injection for UserModel
     {
         _logger = logger;
@@ -17,7 +18,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        _userList = _userRepository.GetUserList();
+        return View(_userList);
     }
     
     // public string Index()
