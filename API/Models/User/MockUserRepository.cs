@@ -19,4 +19,9 @@ public class MockUserRepository : IUserRepository
     {
         return _userList.FirstOrDefault(e => e.Id == Id);
     }
+
+    public List<UserModel> GetUserList()
+    {
+        return _userList;
+    }
 }
