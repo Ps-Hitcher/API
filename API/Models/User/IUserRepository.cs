@@ -3,4 +3,5 @@
 public interface IUserRepository
 {
     UserModel GetUser(Guid Id);
+    List<UserModel> GetUserList();
 }

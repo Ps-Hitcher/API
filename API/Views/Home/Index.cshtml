@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<WebApplication2.Models.User.UserModel>
+@{
     ViewData["Title"] = "Home Page";
     ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
 }
@@ -29,77 +30,76 @@
         <div class="text-left">
             <form>
                 <label for="destination">Where would you want to go?</label><br>
-                <input type="text" id="destination" placeholder="City name:" class="form-control" required><br><br />
+                <input type="text" id="destination" placeholder="City name:" class="form-control1" required><br><br />
                 <label for="origin">Where are you coming from?</label><br>
-                <input type="text" id="origin" placeholder="City name:" class="form-control" required><br><br>
-
+                <input type="text" id="origin" placeholder="City name:" class="form-control1" required><br><br>
             </form>
-            <button onclick="userLocation()">location</button>
-            <button onclick="calcRoute()">goggleMap</button>
+            <div class="wrap">
+                <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
+                <button onclick="userLocation()" type="button" id="userLocation" name="userLocation">Use your location</button>
+            </div>
         </div>
         <div id="output">
-
         </div>
     </div>
 
     <div class="item3">
         <div id="googleMap">
-
         </div>
-
     </div>
 
     <div class="item4">
         <div class="container mt-5">
             <table class="table table-borderless table-responsive card-1 p-4">
                 <thead>
-                    <tr class="border-bottom">
-                        <th>
-                            <span class="ml-2">Time</span>
-                        </th>
-                        <th>
-                            <span class="ml-2">Driver</span>
-                        </th>
-                        <th>
-                            <span class="ml-2">Car</span>
-                        </th>
-                        <th>
-                            <span class="ml-2">Trip</span>
-                        </th>
-                        <th>
-                            <span class="ml-2">Action</span>
-                        </th>
-                    </tr>
+                <tr class="border-bottom">
+                    <th>
+                        <span class="ml-2">Id</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Driver</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">User Type</span>
+                    </th>
+                    @* <th> *@
+                    @*     <span class="ml-2">Trip</span> *@
+                    @* </th> *@
+                    <th>
+                        <span class="ml-2">Action</span>
+                    </th>
+                </tr>
                 </thead>
-                <tbody>
+                @foreach (var user in Model)
+                {
                     <tr class="border-bottom">
                         <td>
                             <div class="p-2">
-                                <span class="d-block font-weight-bold">Tomorrow</span>
-                                <small>2:30PM</small>
+                                <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Id)</span>
+                                @* <small>2:30PM</small> *@
                             </div>
                         </td>
                         <td>
                             <div class="p-2 d-flex flex-row align-items-center mb-2">
                                 <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                 <div class="d-flex flex-column p-2">
-                                    <span class="d-block font-weight-bold">Kamile Samusiovaite</span>
-                                    <small class="text-muted">kamilesamusiovaite@gmail.com</small>
+                                    <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span>
+                                    <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small>
                                 </div>
                             </div>
 
                         </td>
                         <td>
                             <div class="p-2">
-                                <span class="font-weight-bold">AUDI A4</span>
+                                <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span>
                             </div>
                         </td>
-                        <td>
-                            <div class="p-2 d-flex flex-column">
-                                <span>Vilnius -></span>
-                                <span> Ukmerge</span>
-                            </div>
-                        </td>
+                        @* <td> *@
+                        @*     <div class="p-2 d-flex flex-column"> *@
+                        @*         <span>Vilnius -></span> *@
+                        @*         <span> Ukmerge</span> *@
+                        @*     </div> *@
+                        @* </td> *@
                         <td>
                             <div class="p-2 icons">
                                 <i class="material-icons">person_add</i>
@@ -108,42 +108,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="border-bottom">
-                        <td>
-                            <div class="p-2">
-                                <span class="d-block font-weight-bold">Tomorrow</span>
-                                <small>3:30PM</small>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-2 d-flex flex-row align-items-center mb-2">
-                                <img src="~/img/profile.jpg" class="rounded-circle" width="40">
-                                <div class="d-flex flex-column p-2">
-                                    <span class="d-block font-weight-bold">Domas Nemanius</span>
-                                    <small class="text-muted">domas.nemanius@gmail.com</small>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>
-                            <div class="p-2">
-                                <span class="font-weight-bold">SUBARU</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-2 d-flex flex-column">
-                                <span>Vilnius -> </span>
-                                <span> Šiauliai </span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-2 icons">
-                                <i class="material-icons">person_add</i>
-                                <i class="material-icons">directions_car</i>
-                                <i class="material-icons">mail</i>
-                            </div>
-                        </td>
-                    </tr>
+                }
             </table>
         </div>
     </div>
