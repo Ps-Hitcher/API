@@ -70,3 +70,5 @@ var options = {
 var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("origin"), options);
 
 var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("destination"), options);
+
+
