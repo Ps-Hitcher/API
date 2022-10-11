@@ -6,7 +6,11 @@
 		"Surname": "Nemanius",
 		"Email": "domas@nemanius.com",
 		"PhoneNumber": "+37063666660",
-		"CarId": null
+		"Car": {
+			"FuelConsumption": 5.4,
+			"Make": "Wolkswagen Passat 1986",
+			"RegistrationNumber": "ABC-123"
+		}
 	},
 	{
 		"Id": "5330265b-1668-42c2-91d2-a963da01f144",
@@ -15,7 +19,7 @@
 		"Surname": "Vensas",
 		"Email": "adomas@vensas.com",
 		"PhoneNumber": "+37063666661",
-		"CarId": null
+		"Car": null
 	},
 	{
 		"Id": "ac8e4bda-9159-4a42-acf0-a77053d8a664",
@@ -24,7 +28,7 @@
 		"Surname": "Paulauskas",
 		"Email": "andrius@paulauskas.com",
 		"PhoneNumber": "+37063666662",
-		"CarId": null
+		"Car": null
 	},
 	{
 		"Id": "f4228c15-c46f-4f85-b586-f7da30738c27",
@@ -33,6 +37,6 @@
 		"Surname": "Samusiovaite",
 		"Email": "domas@nemanius.com",
 		"PhoneNumber": "+37063666663",
-		"CarId": null
+		"Car": null
 	}
 ]
