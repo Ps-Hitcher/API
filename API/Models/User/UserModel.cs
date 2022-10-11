@@ -10,6 +10,7 @@ public class UserModel
     public string Surname { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public Guid?  CarId{ get; set; }
+    public CarStruct? Car { get; set; }
+    public Guid? CarId{ get; set; }
     
 }
