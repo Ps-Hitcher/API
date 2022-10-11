@@ -14,16 +14,12 @@ html {
 .column {
   float: left;
   padding: 20px;
-
 }
 
-.left,
-.right {
-  width: 25%;
-}
+
 
 .middle {
-  width: 50%;
+  width: 25%;
 }
 
 .form-control1{
@@ -133,15 +129,20 @@ body {
 }
 
 .card1 .card1-body {
-  height: 850px;
+  top: 100px;
+  height: 700px;
+  /*height: 800px;*/
+}
+.card2 .card2-body {
+  height: 800px;
 }
 
 .card3 .card3-body {
-  height: 850px;
+  height: 800px;
 }
 
 .card2 {
-  width: 630px;
+  width: 635px;
   background: #272E48;
   top: 0;
   left: 0;

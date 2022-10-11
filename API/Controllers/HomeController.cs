@@ -14,11 +14,12 @@ public class HomeController : Controller
     {
         _logger = logger;
         _userRepository = userRepository;
+        _userList = _userRepository.GetUserList();//debug
     }
 
     public IActionResult Index()
     {
-        _userList = _userRepository.GetUserList();
+        //_userList = _userRepository.GetUserList();
         return View(_userList);
     }
     // public string Index()
@@ -26,9 +27,11 @@ public class HomeController : Controller
     //     return _userRepository.GetUser(2).Name;//Testing
     // }
 
-    public IActionResult Privacy()
+    public IActionResult Privacy(UserModel user)
     {
-        return View();
+        //var user = new UserModel(){Id = Guid.NewGuid(), Type = UserType.Driver, Name = "Domas", Surname = "Nemanius", Email = "Domas@gmail.com", PhoneNumber = "+37063666660", CarId = null, Address = "adresas"};
+        user = user ?? new UserModel();
+        return View(user);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -36,4 +39,13 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult AddUser(UserModel user)
+    {
+        user.Id = Guid.NewGuid();
+        _userList.Add(user);
+        
+        return RedirectToAction(nameof(Index));
+    }
+
 }

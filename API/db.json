@@ -6,6 +6,7 @@
 		"Surname": "Nemanius",
 		"Email": "domas@nemanius.com",
 		"PhoneNumber": "+37063666660",
+		"Address": null,
 		"CarId": null
 	},
 	{
@@ -15,6 +16,7 @@
 		"Surname": "Vensas",
 		"Email": "adomas@vensas.com",
 		"PhoneNumber": "+37063666661",
+		"Address": null,
 		"CarId": null
 	},
 	{
@@ -24,6 +26,7 @@
 		"Surname": "Paulauskas",
 		"Email": "andrius@paulauskas.com",
 		"PhoneNumber": "+37063666662",
+		"Address": null,
 		"CarId": null
 	},
 	{
@@ -33,6 +36,7 @@
 		"Surname": "Samusiovaite",
 		"Email": "domas@nemanius.com",
 		"PhoneNumber": "+37063666663",
+		"Address": null,
 		"CarId": null
 	}
 ]
