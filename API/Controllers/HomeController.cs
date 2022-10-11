@@ -21,7 +21,6 @@ public class HomeController : Controller
         _userList = _userRepository.GetUserList();
         return View(_userList);
     }
-    
     // public string Index()
     // {
     //     return _userRepository.GetUser(2).Name;//Testing
