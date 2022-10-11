@@ -37,7 +37,12 @@ public class MockUserRepository : IUserRepository
     /// </summary>
     private async void GetJSONData()
     {
-        _userList = await DesirializeJSON<List<UserModel>>(_jsonPath);
+        var task = Task.Factory.StartNew(() => DesirializeJSON<List<UserModel>>(_jsonPath));
+
+        //Makes async useless but currently the only way it works
+        Task.WaitAll(task);
+        _userList = await task;
+
     }
 
     /// <summary>
@@ -46,7 +51,7 @@ public class MockUserRepository : IUserRepository
     /// <typeparam name="T">A desirable type</typeparam>
     /// <param name="jsonPath">Path were the JSON file is located</param>
     /// <returns>A specified type's object with desirialized JSON data</returns>
-    private async Task<T> DesirializeJSON<T>(string jsonPath)
+    private T DesirializeJSON<T>(string jsonPath)
     {
         T? tempList = default(T);
         try
