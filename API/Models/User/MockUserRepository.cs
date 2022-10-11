@@ -11,7 +11,7 @@ public class MockUserRepository : IUserRepository
     private const string _jsonPath = "db.json";
     public MockUserRepository()
     {
-        GetJSONData();
+        _userList = DesirializeJSON<List<UserModel>>(_jsonPath);
 
         //_userList = new List<UserModel>()
         //{
@@ -35,15 +35,15 @@ public class MockUserRepository : IUserRepository
     /// <summary>
     /// Intermediary function to retrieve JSON data to _userList
     /// </summary>
-    private async void GetJSONData()
-    {
-        var task = Task.Factory.StartNew(() => DesirializeJSON<List<UserModel>>(_jsonPath));
+    //private async void GetJSONData()
+    //{
+        //var task = Task.Factory.StartNew(() => DesirializeJSON<List<UserModel>>(_jsonPath));
 
         //Makes async useless but currently the only way it works
-        Task.WaitAll(task);
-        _userList = await task;
+        //Task.WaitAll(task);
+        //_userList = await task;
 
-    }
+    //}
 
     /// <summary>
     /// Desirializes a JSON file to a desirable type
