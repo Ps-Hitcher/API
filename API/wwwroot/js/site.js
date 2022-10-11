@@ -128,3 +128,4 @@ function geocodeLatLng(geocoder, userCoords) {
         })
         .catch((e) => window.alert("Geocoder failed due to: " + e));
 }
+
