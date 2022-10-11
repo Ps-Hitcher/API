@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models.User;
+﻿using Newtonsoft.Json;
+
+namespace WebApplication2.Models.User;
 
 public class UserModel
 {
