@@ -9,7 +9,6 @@ var mapOptions = {
     center: myLatLng,
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-
 };
 
 //create map
@@ -24,6 +23,11 @@ var directionsRenderer = new google.maps.DirectionsRenderer();
 //bind the DirectionsRenderer to the map
 directionsRenderer.setMap(map);
 
+//Create a Geocoder object, used for reverse geocoding.
+var geocoder = new google.maps.Geocoder();
+
+//Create a user marker.
+var userMarker = google.maps.Marker;
 
 //define calcRoute function
 function calcRoute() {
@@ -47,12 +51,19 @@ function calcRoute() {
                 result.routes[0].legs[0].duration.text + ".</div>";
 
             //display route
+            userMarker.setMap(null);
             directionsRenderer.setDirections(result);
         } else {
             //delete route from map
             directionsRenderer.setDirections({ routes: [] });
             //center map in Vilnius
-            map.setCenter(myLatLng);
+            if (userMarker == null) {
+                map.setCenter(myLatLng);
+                map.setZoom(12);
+            }
+            else {
+
+            }
 
             //show error message
             output.innerHTML = "<div class='alert-danger'> Could not retrieve driving distance.</div>";
@@ -71,4 +82,50 @@ var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById(
 
 var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("destination"), options);
 
+
+
+function userLocation() {
+    x = navigator.geolocation;
+    x.getCurrentPosition(success, failure);
+}
+
+function success(position) {
+    var userLat = position.coords.latitude;
+    var userLng = position.coords.longitude;
+
+    var userCoords = new google.maps.LatLng(userLat, userLng);
+
+    var userMapOptions = {
+        zoom: 14,
+        center: userCoords,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map.setOptions(userMapOptions);
+
+    userMarker = new google.maps.Marker({
+        map: map,
+        position: userCoords
+    });
+
+    geocodeLatLng(geocoder, userCoords);
+}
+
+function failure() {
+    window.alert("Cannot get location data.");
+}
+
+
+function geocodeLatLng(geocoder, userCoords) {
+
+    geocoder
+        .geocode({ location: userCoords })
+        .then((response) => {
+            if (response.results[0]) {
+                document.getElementById("origin").value = response.results[0].formatted_address;
+            } else {
+                window.alert("No results found");
+            }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
+}
 
