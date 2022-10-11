@@ -1,44 +1,115 @@
-﻿@{
+﻿@model List<WebApplication2.Models.User.UserModel>
+@{
     ViewData["Title"] = "Home Page";
-    ViewData["API_KEY"] = "AIzaSyDH9LtK-1LVM8G-Ie0A16Uxb4KN1HFy1Ck";
+    ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
 }
+<script src="/js/Map_API.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
+<script src="site.js"></script>
 
-<style>
-  #map {
-    height: 400px;
-    width: 100%;
-  }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="site.css" rel="stylesheet" />
 
 <div class="text-center">
+
     <body>
-    <div class="logo">
-        <h1 class="display-4">
-            <img src="img/logo.jpg" alt="logo" width=350px height=350px></h1>
-    </div>
+        <div class="logo">
+            <h1 class="display-4">
+                <img src="img/logo.jpg" alt="logo" width=350px height=350px>
+            </h1>
+        </div>
     </body>
+
 </div>
 
 
-@* travel information - entered by the users  *@
-<div class="text-left">
-    <form>
-        <label for="wantToGo">Where would you want to go?</label><br>
-        <input type="text" id="wantToGo" name="wantToGo" placeholder="City name:" required><br><br/>
-        <label for="comingFrom">Where are you coming from?</label><br>
-        <input type="text" id="comingFrom" name="comingFrom" placeholder="City name:" required><br><br>
-        <input type="submit" value="Submit" name="button" >
-    </form>
-    <br><br><br>
-        <div id="map"></div>
-            <script>
-                var map;//54.687157, 25.279652
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: 54.687157, lng: 25.279652 },
-                        zoom: 12
-                    });
+<div class="grid-container">
+    @* travel information - entered by the users *@
+    <div class="item2">
+        <div class="text-left">
+            <form>
+                <label for="destination">Where would you want to go?</label><br>
+                <input type="text" id="destination" placeholder="City name:" class="form-control1" required><br><br />
+                <label for="origin">Where are you coming from?</label><br>
+                <input type="text" id="origin" placeholder="City name:" class="form-control1" required><br><br>
+            </form>
+            <div class="wrap">
+                <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
+                <button onclick="userLocation()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+            </div>
+        </div>
+        <div id="output">
+        </div>
+    </div>
+
+    <div class="item3">
+        <div id="googleMap">
+        </div>
+    </div>
+
+    <div class="item4">
+        <div class="container mt-5">
+            <table class="table table-borderless table-responsive card-1 p-4">
+                <thead>
+                <tr class="border-bottom">
+                    <th>
+                        <span class="ml-2">Id</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">Driver</span>
+                    </th>
+                    <th>
+                        <span class="ml-2">User Type</span>
+                    </th>
+                    @* <th> *@
+                    @*     <span class="ml-2">Trip</span> *@
+                    @* </th> *@
+                    <th>
+                        <span class="ml-2">Action</span>
+                    </th>
+                </tr>
+                </thead>
+                @foreach (var user in Model)
+                {
+                    <tr class="border-bottom">
+                        <td>
+                            <div class="p-2">
+                                <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Id)</span>
+                                @* <small>2:30PM</small> *@
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-2 d-flex flex-row align-items-center mb-2">
+                                <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                <div class="d-flex flex-column p-2">
+                                    <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span>
+                                    <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="p-2">
+                                <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span>
+                            </div>
+                        </td>
+                        @* <td> *@
+                        @*     <div class="p-2 d-flex flex-column"> *@
+                        @*         <span>Vilnius -></span> *@
+                        @*         <span> Ukmerge</span> *@
+                        @*     </div> *@
+                        @* </td> *@
+                        <td>
+                            <div class="p-2 icons">
+                                <i class="material-icons">person_add</i>
+                                <i class="material-icons">directions_car</i>
+                                <i class="material-icons">mail</i>
+                            </div>
+                        </td>
+                    </tr>
                 }
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewData["API_KEY"])&callback=initMap" async defer></script>
+            </table>
+        </div>
+    </div>
 </div>

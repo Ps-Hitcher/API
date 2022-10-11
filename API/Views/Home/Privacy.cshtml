@@ -1,16 +1,16 @@
 ﻿@page
 
 <div class="text-center">
-	<h1 class="display-4">View and edit profile</h1>
+	@* <h1 class="display-4">View and edit profile</h1> *@
+	 <img src="~/img/edit.jpg" alt="user" width=600px height=150px>
 	<br><br>
 </div>
 
 <body>
-
-@* first table *@
-<div class="container">
-	<div class="row gutters">
-		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="row">
+	@* first table *@
+	<div class="column left">
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 			<div class="card1 h-100">
 				<div class="card1-body">
 					<div class="account-settings">
@@ -26,11 +26,14 @@
 							<p>Mano vardas Kamile, studijuoju Vilniaus universitete:)</p>
 						</div>
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
+	</div>
 
-		@* second table  *@
+
+	@* second table  *@
+	<div class="column middle">
 		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 			<div class="card2 h-100">
 				<div class="card2-body">
@@ -136,38 +139,35 @@
 		</div>
 	</div>
 
+
 	@* third table *@
-	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-		<div class="card3 h-80">
-			<div class="card3-body">
-				<div class="car-settings">
-					<div class="car-driver-profile">
-						<div class="car-avatar">
-							<img src="~/img/profile.jpg" alt="Profile photo">
-						</div>
-						<div class="row gutters">
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<h6 class="mb-3 text-primary">Car Details</h6>
+	<div class="column right">
+		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			<div class="card3 h-100">
+				<div class="card3-body">
+					<div class="car-settings">
+						<div class="car-driver-profile">
+							<div class="car-avatar">
+								<img src="~/img/profile.jpg" alt="Profile photo">
 							</div>
-							<h5 class="car-model">BMW</h5>
-						</div>
-						<br><br>
-						<div class="about">
-							<h5 class="mb-2 text-primary">About</h5>
-							<p>TETE NUPIRKO</p>
+							<div class="row gutters">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<h6 class="mb-3 text-primary">Car Details</h6>
+								</div>
+								<h5 class="car-model">BMW</h5>
+							</div>
 							<br><br>
-							<div class="mb-2 text-primary">
-								<label for="CarNumber">Car number: </label>
-								<input type="text" class="form-control" id="CarNumber" placeholder="Enter car number">
+							<div class="about">
+								<h5 class="mb-2 text-primary">About</h5>
+								<p>TETE NUPIRKO</p>
 								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
-								<br><br>
+								<div class="mb-2 text-primary">
+									<form>
+										<label for="CarNumber">Car number:</label>
+										<input type="text" class="col-form-label" id="CarNumber" placeholder="Enter car number">
+									</form>
+									
+								</div>
 							</div>
 						</div>
 					</div>
