@@ -2,18 +2,26 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 
 
 namespace WebApplication2.Models.User;
 
 public class MockUserRepository : IUserRepository
 {
-    private List<UserModel> _userList = null;
-    private const string _jsonPath = "db.json";
+    private List<UserModel> _userList;
+    public const string _jsonPath = "db.json";
     public MockUserRepository()
     {
-        _userList = DesirializeJSON<List<UserModel>>(_jsonPath);
+        try
+        {
+            _userList = JsonConvertUtil.DesirializeJSON<List<UserModel>>(_jsonPath);
+        }
+        catch (Exception ex)
+        {
+            //TODO: A text file in which all errors are logged
+            Debug.WriteLine(ex.Message);
+            throw;
+        }
 
         //_userList = new List<UserModel>()
         //{
@@ -34,73 +42,4 @@ public class MockUserRepository : IUserRepository
         return _userList;
     }
 
-    /// <summary>
-    /// Intermediary function to retrieve JSON data to _userList
-    /// </summary>
-    //private async void GetJSONData()
-    //{
-        //var task = Task.Factory.StartNew(() => DesirializeJSON<List<UserModel>>(_jsonPath));
-
-        //Makes async useless but currently the only way it works
-        //Task.WaitAll(task);
-        //_userList = await task;
-
-    //}
-
-    /// <summary>
-    /// Desirializes a JSON file to a desirable type
-    /// </summary>
-    /// <typeparam name="T">A desirable type</typeparam>
-    /// <param name="jsonPath">Path were the JSON file is located</param>
-    /// <returns>A specified type's object with desirialized JSON data</returns>
-    private T DesirializeJSON<T>(string jsonPath)
-    {
-        T? tempList = default(T);
-        try
-        {
-            using (StreamReader r = new StreamReader(jsonPath))
-            {
-                var json = r.ReadToEnd();
-                tempList = JsonConvert.DeserializeObject<T>(json);
-            }
-            return tempList;
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return tempList;
-        }
-
-
-        //AN OPTION WITHOUT NEWTONSOFT
-        //JsonSerializer serializer = new JsonSerializer();
-        //using (StreamReader r = new StreamReader(_jsonPath))
-        //{
-        //    using (JsonTextReader reader = new JsonTextReader(r))
-        //    {
-        //        _userList = serializer.Deserialize<List<UserModel>>(reader);
-        //    }
-        //}
-
-
-    }
-    
-    
-    public bool IsValidPhone(string PhoneNumber)
-    {
-        try
-        {
-            if (string.IsNullOrEmpty(PhoneNumber))
-                return false;
-            var r = new Regex(@"^\(?(86|\+3706)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$");
-            return r.IsMatch(PhoneNumber);
-           
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-
-    }
-    
 }

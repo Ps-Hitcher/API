@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
+using WebApplication2.Utilities;
 
 namespace WebApplication2.Controllers;
 
@@ -10,6 +11,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private IUserRepository _userRepository;
     public List<UserModel> _userList;
+    
     public HomeController(ILogger<HomeController> logger, IUserRepository userRepository) //Using dependency injection for UserModel
     {
         _logger = logger;
@@ -36,15 +38,7 @@ public class HomeController : Controller
 
     public IActionResult AddUser(UserModel user)
     {
-        if (_userRepository.IsValidPhone(user.PhoneNumber))
-        {
-            user.Id = Guid.NewGuid();
-            _userList.Add(user);
-            return RedirectToAction(nameof(Index));
-        }
-        else{
-            return RedirectToAction(nameof(Privacy));
-        }
+
     }
 
     public IActionResult Users()
