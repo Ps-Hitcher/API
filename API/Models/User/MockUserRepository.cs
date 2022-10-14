@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+
 
 namespace WebApplication2.Models.User;
 
@@ -82,4 +84,23 @@ public class MockUserRepository : IUserRepository
 
 
     }
+    
+    
+    public bool IsValidPhone(string PhoneNumber)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(PhoneNumber))
+                return false;
+            var r = new Regex(@"^\(?(86|\+3706)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$");
+            return r.IsMatch(PhoneNumber);
+           
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+    }
+    
 }

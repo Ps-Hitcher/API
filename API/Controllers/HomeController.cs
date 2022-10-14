@@ -19,17 +19,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        //_userList = _userRepository.GetUserList();
         return View(_userList);
     }
-    // public string Index()
-    // {
-    //     return _userRepository.GetUser(2).Name;//Testing
-    // }
 
     public IActionResult Privacy(UserModel user)
     {
-        //var user = new UserModel(){Id = Guid.NewGuid(), Type = UserType.Driver, Name = "Domas", Surname = "Nemanius", Email = "Domas@gmail.com", PhoneNumber = "+37063666660", CarId = null, Address = "adresas"};
         user = user ?? new UserModel();
         return View(user);
     }
@@ -42,10 +36,19 @@ public class HomeController : Controller
 
     public IActionResult AddUser(UserModel user)
     {
-        user.Id = Guid.NewGuid();
-        _userList.Add(user);
-        
-        return RedirectToAction(nameof(Index));
+        if (_userRepository.IsValidPhone(user.PhoneNumber))
+        {
+            user.Id = Guid.NewGuid();
+            _userList.Add(user);
+            return RedirectToAction(nameof(Index));
+        }
+        else{
+            return RedirectToAction(nameof(Privacy));
+        }
     }
 
-}
+    public IActionResult Users()
+    {
+        return View(Users());
+    }
+} 

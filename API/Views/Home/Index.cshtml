@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="site.css" rel="stylesheet" />
 
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
 <div class="text-center">
 
     <body>
@@ -54,19 +60,30 @@
                 <thead>
                 <tr class="border-bottom">
                     <th>
-                        <span class="ml-2">Id</span>
+                        <div class="text-left">
+                            <span class="ml-2">Driver</span>
+                        </div>
                     </th>
                     <th>
-                        <span class="ml-2">Driver</span>
+                        <div class="text-center">
+                            <span class="ml-2">From</span>
+                        </div>
                     </th>
                     <th>
-                        <span class="ml-2">User Type</span>
+                        
+                        <div class="text-center">
+                            <span class="ml-2">To</span>
+                        </div>
                     </th>
-                    @* <th> *@
-                    @*     <span class="ml-2">Trip</span> *@
-                    @* </th> *@
                     <th>
-                        <span class="ml-2">Action</span>
+                        <div class="text-center">
+                            <span class="ml-2">Time</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="text-center">
+                            <span class="ml-2">Action</span>
+                        </div>
                     </th>
                 </tr>
                 </thead>
@@ -74,37 +91,58 @@
                 {
                     <tr class="border-bottom">
                         <td>
-                            <div class="p-2">
-                                <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Id)</span>
-                                @* <small>2:30PM</small> *@
-                            </div>
-                        </td>
-                        <td>
-                            <div class="p-2 d-flex flex-row align-items-center mb-2">
-                                <img src="~/img/profile.jpg" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column p-2">
-                                    <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span>
-                                    <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small>
+                     <div class="text-center">
+                             <div class="p-2 d-flex align-items-center  mb-2">
+                                 <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                 <div class="d-flex flex-column  p-2">
+                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span>
+                                     <small class="text-mute">@Html.DisplayFor(modelItem => user.Email)</small>
+                                 </div>
+                             </div>
+                         </div>
+                     <td>
+                            <div class="p-2 d-flex flex-column">
+                                <div class="text-center">
+                                    <span>Vilnius</span>
                                 </div>
                             </div>
-
                         </td>
-                        <td>
+                          <td>
+                              <div class="p-2 d-flex flex-column">
+                                  <div class="text-center">
+                                      <span>Ukmergė</span>
+                                  </div>
+                              </div>
+                          </td>
+                     <td>
                             <div class="p-2">
-                                <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span>
+                                <div class="text-center">
+                                    <small>2:30PM</small>
+                                </div>
                             </div>
-                        </td>
-                        @* <td> *@
-                        @*     <div class="p-2 d-flex flex-column"> *@
-                        @*         <span>Vilnius -></span> *@
-                        @*         <span> Ukmerge</span> *@
-                        @*     </div> *@
-                        @* </td> *@
-                        <td>
-                            <div class="p-2 icons">
-                                <i class="material-icons">person_add</i>
-                                <i class="material-icons">directions_car</i>
-                                <i class="material-icons">mail</i>
+                     <td>
+                            <div class="text-center">
+                            <a>
+                                <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE A TRIP</button>
+                            </a>
+                            </div>
+                            <div id="myModal" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="icon-box">
+                                                <i class="material-icons">&#xebf0;</i>
+                                            </div>
+                                            <h4 class="modal-title w-100">AWESOME!</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-center">SUCCESSFULLY CHOSEN TRIP!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
