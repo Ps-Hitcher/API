@@ -20,9 +20,8 @@ public class MockUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            //TODO: A text file in which all errors are logged
             Debug.WriteLine(ex.ToString());
-            throw;
+            ErrorLogUtil.LogError(ex);
         }
     }
 
@@ -46,9 +45,11 @@ public class MockUserRepository : IUserRepository
             return r.IsMatch(PhoneNumber);
            
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            Debug.WriteLine(ex.Message);
+            ErrorLogUtil.LogError(ex);
+            return false;
         }
     }
 }

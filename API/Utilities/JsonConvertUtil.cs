@@ -22,8 +22,8 @@ namespace WebApplication2.Utilities
             }
             catch(Exception)
             {
-                throw;
                 return default(T);
+                throw;
             }
             
         }
@@ -36,8 +36,8 @@ namespace WebApplication2.Utilities
             }
             catch(Exception)
             {
-                throw;
                 return null;
+                throw;
             }
         }
     }
