@@ -1,0 +1,73 @@
+@* @model IActionResult *@
+@* @using WebApplication2.Models.User *@
+@* @{ *@
+@*     ViewData["Title"] = "Users"; *@
+@*     ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng"; *@
+@* } *@
+@* *@
+@* *@
+@* *@
+@* <div class="item4"> *@
+@*         <div class="container mt-5"> *@
+@*             <table class="table table-borderless table-responsive card-1 p-4"> *@
+@*                 <thead> *@
+@*                 <tr class="border-bottom"> *@
+@*                     <th> *@
+@*                         <span class="ml-2">Id</span> *@
+@*                     </th> *@
+@*                     <th> *@
+@*                         <span class="ml-2">Driver</span> *@
+@*                     </th> *@
+@*                     <th> *@
+@*                         <span class="ml-2">User Type</span> *@
+@*                     </th> *@
+@*                     $1$ <th> #1# *@
+@*                     $1$     <span class="ml-2">Trip</span> #1# *@
+@*                     $1$ </th> #1# *@
+@*                     <th> *@
+@*                         <span class="ml-2">Action</span> *@
+@*                     </th> *@
+@*                 </tr> *@
+@*                 </thead> *@
+@*                 @foreach (var user in Model) *@
+@*                 { *@
+@*                     <tr class="border-bottom"> *@
+@*                         <td> *@
+@*                             <div class="p-2"> *@
+@*                                 <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Id)</span> *@
+@*                                 $1$ <small>2:30PM</small> #1# *@
+@*                             </div> *@
+@*                         </td> *@
+@*                         <td> *@
+@*                             <div class="p-2 d-flex flex-row align-items-center mb-2"> *@
+@*                                 <img src="~/img/profile.jpg" width="40" class="rounded-circle"> *@
+@*                                 <div class="d-flex flex-column p-2"> *@
+@*                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span> *@
+@*                                     <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small> *@
+@*                                 </div> *@
+@*                             </div> *@
+@* *@
+@*                         </td> *@
+@*                         <td> *@
+@*                             <div class="p-2"> *@
+@*                                 <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span> *@
+@*                             </div> *@
+@*                         </td> *@
+@*                         $1$ <td> #1# *@
+@*                         $1$     <div class="p-2 d-flex flex-column"> #1# *@
+@*                         $1$         <span>Vilnius -></span> #1# *@
+@*                         $1$         <span> Ukmerge</span> #1# *@
+@*                         $1$     </div> #1# *@
+@*                         $1$ </td> #1# *@
+@*                         <td> *@
+@*                             <div class="p-2 icons"> *@
+@*                                 <i class="material-icons">person_add</i> *@
+@*                                 <i class="material-icons">directions_car</i> *@
+@*                                 <i class="material-icons">mail</i> *@
+@*                             </div> *@
+@*                         </td> *@
+@*                     </tr> *@
+@*                 } *@
+@*             </table> *@
+@*         </div> *@
+@*     </div> *@
