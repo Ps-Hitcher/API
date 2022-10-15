@@ -21,17 +21,9 @@ public class MockUserRepository : IUserRepository
         catch (Exception ex)
         {
             //TODO: A text file in which all errors are logged
-            Debug.WriteLine(ex.Message);
+            Debug.WriteLine(ex.ToString());
             throw;
         }
-
-        //_userList = new List<UserModel>()
-        //{
-        //    new UserModel(){Id = Guid.NewGuid(), Type = UserType.Driver, Name = "Domas", Surname = "Nemanius", Email = "Domas@gmail.com", PhoneNumber = "+37063666660", CarId = null},
-        //    new UserModel(){Id = Guid.NewGuid(), Type = UserType.User, Name = "Adomas", Surname = "Vensas", Email = "Adomas@gmail.com", PhoneNumber = "+37063666661", CarId = null},
-        //    new UserModel(){Id = Guid.NewGuid(), Type = UserType.User, Name = "Kamile", Surname = "Samusiovaite", Email = "Kamile@gmail.com", PhoneNumber = "+37063666662", CarId = null},
-        //    new UserModel(){Id = Guid.NewGuid(), Type = UserType.User, Name = "Andrius", Surname = "Paulauskas", Email = "Andrius@gmail.com", PhoneNumber = "+37063666663", CarId = null},
-        //};
     }
 
     public UserModel GetUser(Guid Id)
