@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace WebApplication2.Utilities
 {
-    public class JsonConvertUtil
+    public static class JsonConvertUtil
     {
         //TODO: make these functions async
 
@@ -15,40 +15,30 @@ namespace WebApplication2.Utilities
         /// <returns>A specified type's object with desirialized JSON data</returns>
         public static T DesirializeJSON<T>(string jsonPath)
         {
-            T? tempList = default(T);
-            
-            using (StreamReader r = new StreamReader(jsonPath))
+            try
             {
-                var json = r.ReadToEnd();
-                tempList = JsonConvert.DeserializeObject<T>(json);
+                string jsonData = File.ReadAllText(jsonPath);
+                return JsonConvert.DeserializeObject<T>(jsonData);
             }
-            return tempList;
-
-
-            //AN OPTION WITHOUT NEWTONSOFT
-            //JsonSerializer serializer = new JsonSerializer();
-            //using (StreamReader r = new StreamReader(_jsonPath))
-            //{
-            //    using (JsonTextReader reader = new JsonTextReader(r))
-            //    {
-            //        _userList = serializer.Deserialize<List<UserModel>>(reader);
-            //    }
-            //}
-
-
+            catch(Exception)
+            {
+                throw;
+                return default(T);
+            }
+            
         }
 
-
-        /// <summary>
-        /// Serializes and object to JSON format and writes it to a specified .json file
-        /// </summary>
-        /// <typeparam name="T">A desirable type</typeparam>
-        /// <param name="jsonPath">Path were the JSON file is located</param>
-        /// <param name="objectToSerialize">Object which is to be serialized</param>
-        public static void SerializeJSON<T>(string jsonPath, T objectToSerialize)
+        public static string SerializeJSON(this string s, object objectToSerialize)
         {
-            var jsonData = JsonConvert.SerializeObject(objectToSerialize);
-            File.WriteAllText(jsonPath, jsonData);
+            try
+            {
+                return JsonConvert.SerializeObject(objectToSerialize);
+            }
+            catch(Exception)
+            {
+                throw;
+                return null;
+            }
         }
     }
 }

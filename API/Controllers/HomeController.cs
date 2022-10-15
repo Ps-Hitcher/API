@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Utilities;
+using FileIO = System.IO.File;
 
 namespace WebApplication2.Controllers;
 
@@ -31,7 +32,6 @@ public class HomeController : Controller
 
     public IActionResult Privacy(UserModel user)
     {
-        //var user = new UserModel(){Id = Guid.NewGuid(), Type = UserType.Driver, Name = "Domas", Surname = "Nemanius", Email = "Domas@gmail.com", PhoneNumber = "+37063666660", CarId = null, Address = "adresas"};
         user = user ?? new UserModel();
         return View(user);
     }
@@ -53,9 +53,18 @@ public class HomeController : Controller
         user.Id = Guid.NewGuid();
         _userList.Add(user);
 
-        JsonConvertUtil.SerializeJSON(MockUserRepository._jsonPath, _userList);
+        string? jsonData = null;
 
-        
+        try
+        {
+            FileIO.WriteAllText(MockUserRepository._jsonPath, jsonData.SerializeJSON(_userList));
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine(ex.ToString());
+        }
+
+
         return RedirectToAction(nameof(Index));
     }
 
