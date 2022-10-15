@@ -35,6 +35,12 @@ public class HomeController : Controller
         user = user ?? new UserModel();
         return View(user);
     }
+    
+    
+    public IActionResult Users()
+    {
+        return View(_userList);
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
