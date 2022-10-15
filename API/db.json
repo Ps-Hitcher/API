@@ -72,25 +72,5 @@
     "PhoneNumber": "+37060569664",
     "Address": "Bistryčios g.9, Vilnius",
     "Car": null
-  },
-  {
-    "Id": "a10eb143-a597-43e6-b6d4-0d5e3d362582",
-    "Type": 0,
-    "Name": "asdfsdf",
-    "Surname": null,
-    "Email": null,
-    "PhoneNumber": null,
-    "Address": null,
-    "Car": null
-  },
-  {
-    "Id": "ec8b6f7c-01ac-4b1a-b887-c19796e294de",
-    "Type": 0,
-    "Name": null,
-    "Surname": null,
-    "Email": null,
-    "PhoneNumber": "asdfaewrfawfef",
-    "Address": null,
-    "Car": null
   }
 ]

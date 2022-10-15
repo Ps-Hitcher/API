@@ -53,15 +53,16 @@ public class HomeController : Controller
         user.Id = Guid.NewGuid();
         _userList.Add(user);
 
-        string? jsonData = null;
-
         try
         {
+            //throw new Exception("Error here");  //For presentation
+            string? jsonData = null;
             FileIO.WriteAllText(MockUserRepository._jsonPath, jsonData.SerializeJSON(_userList));
         }
         catch(Exception ex)
         {
-            Debug.WriteLine(ex.ToString());
+            Debug.WriteLine(ex.Message);
+            ErrorLogUtil.LogError(ex, "Adomas is responsible for this mess");
         }
 
 
