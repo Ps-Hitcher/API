@@ -31,7 +31,9 @@
         <th>
             <span class="ml-2">Address</span>
         </th>
-                    
+        <th>
+            <span class="ml-2">Action</span>
+        </th>
     </tr>
     </thead>
     @foreach (var user in Model)
@@ -65,6 +67,13 @@
                 <div class="p-2">
                     <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Address)</span>
                 </div>
+            </td>
+         
+            <td>
+                 <div class="">
+                     <input type="submit" class="btn btn-success mb-2" name="btnEdit" value="Edit">
+                     <input type="submit" class="btn btn-danger mb-2" name="btnDel" value="Delete">
+                 </div>
             </td>
         </tr>
     }
