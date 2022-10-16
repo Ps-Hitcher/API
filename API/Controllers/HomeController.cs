@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Utilities;
@@ -50,13 +53,20 @@ public class HomeController : Controller
 
     public IActionResult AddUser(UserModel user)
     {
-        user.Id = Guid.NewGuid();
-        _userList.Add(user);
+        if (_userRepository.IsValidPhone(user.PhoneNumber))
+        {
+            user.Id = Guid.NewGuid();
+            _userList.Add(user);
+            JsonConvertUtil.SerializeJSON(MockUserRepository._jsonPath, _userList);
 
-        JsonConvertUtil.SerializeJSON(MockUserRepository._jsonPath, _userList);
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+          
+            return RedirectToAction(nameof(Privacy));
+        }
 
-        
-        return RedirectToAction(nameof(Index));
     }
-
 }
+
