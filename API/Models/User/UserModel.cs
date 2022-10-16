@@ -2,7 +2,7 @@
 
 namespace WebApplication2.Models.User;
 
-public class UserModel
+public class UserModel : IComparable<UserModel>
 {
     public Guid Id { get; set; }
     public UserType? Type { get; set; }
@@ -11,6 +11,15 @@ public class UserModel
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
+    
     public CarStruct? Car { get; set; }
+    public Double Rating { get; set; }
 
+
+    public int CompareTo(UserModel? other)
+    {
+        if ((float)this.Rating <  (float)other.Rating) return -1;
+        if ((float)this.Rating == (float)other.Rating) return 0;
+        return 1;
+    }
 }
