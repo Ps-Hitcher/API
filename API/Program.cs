@@ -1,10 +1,12 @@
 using WebApplication2.Models.User;
+using WebApplication2.Models.Travel;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
+builder.Services.AddSingleton<ITravelRepository, TravelRepository>();//Dependancy injection for using TravelModel
 
 var app = builder.Build();
 
