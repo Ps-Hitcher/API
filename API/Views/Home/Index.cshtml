@@ -1,9 +1,10 @@
-﻿@model List<WebApplication2.Models.User.UserModel>
+﻿@model List<TravelModel>
+@using WebApplication2.Models.Travel
+
 @{
     ViewData["Title"] = "Home Page";
     ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
 }
-<script src="/js/Map_API.js"></script>
 <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
 <script src="site.js"></script>
@@ -33,14 +34,14 @@
     <div class="item2">
         <div class="text-left">
             <form>
-                 <label for="origin">Where are you coming from?</label><br>
-                <input type="text" id="origin" placeholder="City name:" class="form-control1" required><br><br>
+                <label for="origin">Where are you coming from?</label><br>
+                <input type="text" id="Origin" placeholder="City name:" class="form-control1" required><br><br>
                 <label for="destination">Where would you want to go?</label><br>
-                <input type="text" id="destination" placeholder="City name:" class="form-control1" required><br><br/>
+                <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br/>
             </form>
             <div class="wrap">
                 <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-                <button onclick="userLocation()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+                <button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
             </div>
         </div>
         <div id="output">
@@ -58,7 +59,7 @@
                 <tr class="border-bottom">
                     <th>
                         <div class="text-left">
-                            <span class="ml-2">Driver</span>
+                            <span class="ml-2">TravelId DriverId</span>
                         </div>
                     </th>
                     <th>
@@ -84,7 +85,7 @@
                     </th>
                 </tr>
                 </thead>
-                @foreach (var user in Model)
+                @foreach (var Travel in Model)
                 {
                     <tr class="border-bottom">
                         <td>
@@ -92,29 +93,29 @@
                              <div class="p-2 d-flex align-items-center  mb-2">
                                  <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                  <div class="d-flex flex-column  p-2">
-                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname) </span>
-                                     <small class="text-mute">@Html.DisplayFor(modelItem => user.Email)</small>
+                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.TravelId) </span>
+                                     <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
                                  </div>
                              </div>
                          </div>
                      <td>
                             <div class="p-2 d-flex flex-column">
                                 <div class="text-center">
-                                    <span>Vilnius</span>
+                                    <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
                                 </div>
                             </div>
                         </td>
                           <td>
                               <div class="p-2 d-flex flex-column">
                                   <div class="text-center">
-                                      <span>Ukmergė</span>
+                                      <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
                                   </div>
                               </div>
                           </td>
                      <td>
                             <div class="p-2">
                                 <div class="text-center">
-                                    <small>2:30PM</small>
+                                    <small>@Html.DisplayFor(modelItem => Travel.LeaveTime)</small>
                                 </div>
                             </div>
                      <td>
