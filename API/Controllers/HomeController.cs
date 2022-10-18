@@ -41,6 +41,12 @@ public class HomeController : Controller
         return View(_userList);
     }
 
+    public IActionResult Trip(TravelModel trip)
+    {
+        trip = trip ?? new TravelModel();
+        return View(trip);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

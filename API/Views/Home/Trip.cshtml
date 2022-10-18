@@ -2,8 +2,14 @@
 @using WebApplication2.Models.Travel
 @model WebApplication2.Models.Travel.TravelModel
 
+@{
+	ViewData["Title"] = "Home Page";
+	ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
+}
+
+
 <script
-    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
+	src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
 <script src="site.js"></script>
 
 <div class="text-center">
@@ -85,7 +91,12 @@
 							<div class="text-right">
 								@* <button type="button" id="submit" name="submit" class="btn
 									btn-secondary">Cancel</button> *@
-								<button type="submit" id="submit" name="submit" class="btn btn-primary">Create Trip</button>
+								<button onclick="calcRoute()" type="button" id="submit" name="submit"
+									class="travel">Submit</button>
+								<button onclick="userLocationTripCreation()" type="button" id="userLocation" name="userLocation"
+									class="travel">Use your location</button>
+								<button type="submit" id="submit" name="submit" class="btn btn-primary">Create
+									Trip</button>
 
 							</div>
 						</div>
@@ -94,4 +105,11 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="item3">
+	<div id="googleMap">
+	</div>
+</div>
+</div>
+<div id="output">
 </div>

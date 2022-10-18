@@ -5,7 +5,6 @@
     ViewData["Title"] = "Home Page";
     ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
 }
-<script src="/js/Map_API.js"></script>
 <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
 <script src="site.js"></script>
@@ -35,14 +34,14 @@
     <div class="item2">
         <div class="text-left">
             <form>
-                 <label for="origin">Where are you coming from?</label><br>
-                <input type="text" id="origin" placeholder="City name:" class="form-control1" required><br><br>
+                <label for="origin">Where are you coming from?</label><br>
+                <input type="text" id="Origin" placeholder="City name:" class="form-control1" required><br><br>
                 <label for="destination">Where would you want to go?</label><br>
-                <input type="text" id="destination" placeholder="City name:" class="form-control1" required><br><br/>
+                <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br/>
             </form>
             <div class="wrap">
                 <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-                <button onclick="userLocation()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+                <button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
             </div>
         </div>
         <div id="output">
