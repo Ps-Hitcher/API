@@ -1,0 +1,12 @@
+[
+    {
+        "TravelId": "5a4f00fb-bce7-4901-b026-337606034630",
+        "Origin": "TestOrigin",
+        "Destination": "TestDestination",
+        "Stopover": null,
+        "LeaveTime": "TestTime",
+        "DriverId": "5a4f00fb-bce7-4901-b026-337606034630",
+        "FreeSeats": 2,
+        "Description": "TestDescription"
+    }
+]

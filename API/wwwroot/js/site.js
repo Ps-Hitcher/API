@@ -33,8 +33,8 @@ var userMarker = google.maps.Marker;
 function calcRoute() {
     //create request
     var request = {
-        origin: document.getElementById("origin").value,
-        destination: document.getElementById("destination").value,
+        origin: document.getElementById("Origin").value,
+        destination: document.getElementById("Destination").value,
         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
         unitSystem: google.maps.UnitSystem.METRIC
     }
@@ -45,13 +45,12 @@ function calcRoute() {
 
             //Get distance and time
             const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("origin").value + ".<br />To: " +
-                document.getElementById("destination").value + ".<br /> Driving distance  : " +
+            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("Origin").value + ".<br />To: " +
+                document.getElementById("Destination").value + ".<br /> Driving distance  : " +
                 result.routes[0].legs[0].distance.text + ".<br />Duration  : " +
                 result.routes[0].legs[0].duration.text + ".</div>";
 
             //display route
-            userMarker.setMap(null);
             directionsRenderer.setDirections(result);
         } else {
             //delete route from map
@@ -78,13 +77,17 @@ var options = {
     componentRestrictions: { country: "lt" }
 }
 
-var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("origin"), options);
+var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("Origin"), options);
 
-var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("destination"), options);
+var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("Destination"), options);
 
 
 
-function userLocation() {
+function userLocationMainPage() {
+    x = navigator.geolocation;
+    x.getCurrentPosition(success, failure);
+}
+function userLocationTripCreation() {
     x = navigator.geolocation;
     x.getCurrentPosition(success, failure);
 }
@@ -121,7 +124,7 @@ function geocodeLatLng(geocoder, userCoords) {
         .geocode({ location: userCoords })
         .then((response) => {
             if (response.results[0]) {
-                document.getElementById("origin").value = response.results[0].formatted_address;
+                document.getElementById("Origin").value = response.results[0].formatted_address;
             } else {
                 window.alert("No results found");
             }

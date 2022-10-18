@@ -120,4 +120,104 @@
     "Car": null,
     "Rating": 0.0
   }
+=======
+    {
+        "Id": "5a4f00fb-bce7-4901-b026-337606034630",
+        "Type": 1,
+        "Name": "Domas",
+        "Surname": "Nemanius",
+        "Email": "domas@nemanius.com",
+        "PhoneNumber": "+37063666660",
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "5330265b-1668-42c2-91d2-a963da01f144",
+        "Type": 0,
+        "Name": "Adomas",
+        "Surname": "Vensas",
+        "Email": "adomas@vensas.com",
+        "PhoneNumber": "+37063666661",
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "ac8e4bda-9159-4a42-acf0-a77053d8a664",
+        "Type": 0,
+        "Name": "Andrius",
+        "Surname": "Paulauskas",
+        "Email": "andrius@paulauskas.com",
+        "PhoneNumber": "+37063666662",
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "f4228c15-c46f-4f85-b586-f7da30738c27",
+        "Type": 0,
+        "Name": "Kamile",
+        "Surname": "Samusiovaite",
+        "Email": "domas@nemanius.com",
+        "PhoneNumber": "+37063666663",
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "faf71c3e-9be4-440e-8d9a-2d25ab19f2b7",
+        "Type": 0,
+        "Name": "naujas",
+        "Surname": "ssas",
+        "Email": "kamilesamusiovaite@gmail.com",
+        "PhoneNumber": "2198372",
+        "Address": "gatve",
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "863cd4cf-d502-4a9f-a14e-64fadce511da",
+        "Type": 0,
+        "Name": null,
+        "Surname": null,
+        "Email": null,
+        "PhoneNumber": "sasdasd",
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "80e894b3-e665-4322-90ab-547f7c9a2a90",
+        "Type": 0,
+        "Name": "Kamile",
+        "Surname": "Samusiovaite",
+        "Email": "kamilesamusiovaite@gmail.com",
+        "PhoneNumber": "+37060569664",
+        "Address": "Bistryčios g.9, Vilnius",
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "849a5c09-5a9d-41f8-ba75-dc4d607e620f",
+        "Type": 1,
+        "Name": "kazkas",
+        "Surname": "bus",
+        "Email": "email@gmail.com",
+        "PhoneNumber": "863601027",
+        "Address": "gatvae",
+        "Car": null,
+        "Rating": 0.0
+    },
+    {
+        "Id": "366a095f-ad4f-4745-bd9a-7db0f6cc0e0d",
+        "Type": 0,
+        "Name": null,
+        "Surname": null,
+        "Email": null,
+        "PhoneNumber": null,
+        "Address": null,
+        "Car": null,
+        "Rating": 0.0
+    }
 ]
