@@ -54,19 +54,8 @@ public class HomeController : Controller
 
     public IActionResult Delete(Guid id)
     {
-        _userList.Remove(_userRepository.GetUser(id));
-        
-        try
-        {
-            //throw new Exception("Error here");  //For presentation
-            string? jsonData = null;
-            FileIO.WriteAllText(MockUserRepository._jsonPath, jsonData.SerializeJSON(_userList));
-        }
-        catch(Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            ErrorLogUtil.LogError(ex, "Adomas is responsible for this mess");
-        }
+        _userRepository.DeleteUser(id);
+        _userRepository.SerializeUserList(_userList);
         
         return RedirectToAction("Users");
     }
@@ -107,19 +96,7 @@ public class HomeController : Controller
             user.Id = Guid.NewGuid();
             _userList.Add(user);
         }
-        
-        try
-        {
-            //throw new Exception("Error here");  //For presentation
-            string? jsonData = null;
-            FileIO.WriteAllText(MockUserRepository._jsonPath, jsonData.SerializeJSON(_userList));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            ErrorLogUtil.LogError(ex, "Adomas is responsible for this mess");
-        }
-
+        _userRepository.SerializeUserList(_userList);
 
         return RedirectToAction(nameof(Index));
     }
@@ -128,19 +105,7 @@ public class HomeController : Controller
     {
         travel.TravelId = Guid.NewGuid();
         _travelList.Add(travel);
-
-        try
-        {
-            //throw new Exception("Error here");  //For presentation
-            string? jsonData = null;
-            FileIO.WriteAllText(TravelRepository._jsonPath, jsonData.SerializeJSON(_travelList));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            ErrorLogUtil.LogError(ex, "Adomas is responsible for this mess too");
-        }
-
+        _travelRepository.SerializeTravelList(_travelList);
 
         return RedirectToAction(nameof(Index));
     }

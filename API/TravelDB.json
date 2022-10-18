@@ -20,5 +20,29 @@
     "DriverID": "00000000-0000-0000-0000-000000000000",
     "FreeSeats": 2,
     "Description": null
+  },
+  {
+    "TravelId": "2a8dc8ad-1418-4791-8d3f-24bb1f7b4de5",
+    "Origin": "Naugarduko gatvė, Vilnius, Lithuania",
+    "Destination": "Didlaukio gatvė, Vilnius, Lithuania",
+    "Stopovers": [
+      null
+    ],
+    "LeaveTime": "8 am.",
+    "DriverID": "00000000-0000-0000-0000-000000000000",
+    "FreeSeats": 0,
+    "Description": null
+  },
+  {
+    "TravelId": "1fa8657e-3c4e-47da-bc2e-6b02d5db93da",
+    "Origin": "Naujamiestis, Vilnius, Lithuania",
+    "Destination": "Baltupiai, Vilnius, Lithuania",
+    "Stopovers": [
+      null
+    ],
+    "LeaveTime": null,
+    "DriverID": "00000000-0000-0000-0000-000000000000",
+    "FreeSeats": 0,
+    "Description": null
   }
 ]
