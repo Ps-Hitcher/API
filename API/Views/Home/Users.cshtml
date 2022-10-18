@@ -1,7 +1,6 @@
 @model List<UserModel>
 @using WebApplication2.Models.User
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @{
     ViewData["Title"] = "Users";
@@ -9,8 +8,7 @@
 }
 
 <div class="text-center">
-	@* <h1 class="display-4">View and edit profile</h1> *@
-	 <img src="~/img/Users1.jpg" alt="user" width=650px height=150px>
+    <img src="~/img/Users1.jpg" alt="user" width=650px height=150px>
 	<br><br>
 </div>
    
@@ -72,10 +70,12 @@
                 </div>
             </td>
             <td>
-                 @* <submit><a href="#" class="neon-button" type="button">Edit</a></submit> *@
-                @Html.ActionLink("Edit", "Edit", new {id = user.Id})
-                @Html.ActionLink("Delete", "Delete", new {id = user.Id})
-                 @* <submit><a href="#" class="neon-button" type="button">Delete</a></submit> *@
+                <div class ="neon-button" type="button"> 
+                    @Html.ActionLink("Edit", "Edit", new {id = user.Id}, new {@style="color: #FFFFFF"})
+                </div>
+                <div class ="neon-button"  type="button">
+                @Html.ActionLink("Delete", "Delete", new {id = user.Id}, new {@style="color: #FFFFFF"})
+                </div>
             </td>
         </tr>
     }

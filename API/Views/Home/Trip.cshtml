@@ -7,109 +7,115 @@
 	ViewData["API_KEY"] = "AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng";
 }
 
+<div class="text-center">
+	<img src="~/img/Trip.jpg" alt="user" width=650px height=150px>
+	<br><br>
+</div>
+
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
 <script src="site.js"></script>
 
-<div class="text-center">
-	@* <h1 class="display-4">View and edit profile</h1> *@
-	<img src="~/img/edit.jpg" alt="user" width=600px height=150px>
-	<br><br>
-</div>
+<div class="grid-container">
 
-@* second table *@
-
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-	<div class="card2 h-100">
-		<div class="card1-body">
-			<div class="row gutters">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-					<h6 class="mb-3 text-primary">Trip Details</h6>
-				</div>
-				<br><br>
-				<form asp-controller="Home" asp-action="AddTravel" method="post">
-					<div class="panel-body">
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<tr>
-								<label for="Origin">Origin</label>
-								<td><input asp-for=Origin type="text" class="form-control" id="Origin"
-										placeholder="Enter Origin" /></td>
-							</tr>
-						</div>
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<tr>
-								<label for="Destination">Destination</label>
-								<td><input asp-for=Destination type="text" class="form-control" id="Destination"
-										placeholder="Enter Destination" /></td>
-							</tr>
-						</div>
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<tr>
-								<label for="Stopovers">Stopovers</label>
-								<td><input asp-for=Stopovers type="text" class="form-control" id="Stopovers"
-										placeholder="Enter Stopovers" /></td>
-							</tr>
-						</div>
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<label for="LeaveTime">LeaveTime</label>
-							<input asp-for=LeaveTime type="LeaveTime" class="form-control" id="LeaveTime"
-								placeholder="Enter LeaveTime">
-						</div>
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<label for="FreeSeats">FreeSeats</label>
-							<input asp-for=FreeSeats type="text" class="form-control" id="FreeSeats"
-								placeholder="Enter FreeSeats">
-						</div>
-					</div>
-					<br><br>
-					<div class="col-sm-10">
-						<div class="form-group">
-							<label for="Description">Description</label>
-							<input asp-for=Description type="text" class="form-control" id="Description"
-								placeholder="Enter Description">
-						</div>
-					</div>
-					<br><br>
+	<div class="item5">
+		<div id="googleMap">
+		</div>
+		<br></br>
+		<div class="wrap">
+		<button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
+		<button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+	</div>
+	
+		<div id="output">
+		</div>
+	</div>
+	
+	@* second table *@
+	<div class="item6">
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+			<div class="card2 h-100">
+				<div class="card1-body">
 					<div class="row gutters">
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<div class="text-right">
-								@* <button type="button" id="submit" name="submit" class="btn
-									btn-secondary">Cancel</button> *@
-								<button onclick="calcRoute()" type="button" id="submit" name="submit"
-									class="travel">Submit</button>
-								<button onclick="userLocationTripCreation()" type="button" id="userLocation" name="userLocation"
-									class="travel">Use your location</button>
-								<button type="submit" id="submit" name="submit" class="btn btn-primary">Create
-									Trip</button>
-
-							</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+							<br><br>
+							<h3 class=" text-primary">TRIP DETAILS</h3>
 						</div>
+						<br><br>
+						<form asp-controller="Home" asp-action="AddTravel" method="post">
+							<div class="panel-body">
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<tr>
+										<label for="Origin">Origin</label>
+										<td><input asp-for=Origin type="text" class="form-control" id="Origin"
+										           placeholder="Enter Origin" /></td>
+									</tr>
+								</div>
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<tr>
+										<label for="Destination">Destination</label>
+										<td><input asp-for=Destination type="text" class="form-control" id="Destination"
+										           placeholder="Enter Destination" /></td>
+									</tr>
+								</div>
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<tr>
+										<label for="Stopovers">Stopovers</label>
+										<td><input asp-for=Stopovers type="text" class="form-control" id="Stopovers"
+										           placeholder="Enter Stopovers" /></td>
+									</tr>
+								</div>
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label for="LeaveTime">LeaveTime</label>
+									<input asp-for=LeaveTime type="LeaveTime" class="form-control" id="LeaveTime"
+									       placeholder="Enter LeaveTime">
+								</div>
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label for="FreeSeats">FreeSeats</label>
+									<input asp-for=FreeSeats type="text" class="form-control" id="FreeSeats"
+									       placeholder="Enter FreeSeats">
+								</div>
+							</div>
+							<br><br>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label for="Description">Description</label>
+									<input asp-for=Description type="text" class="form-control" id="Description"
+									       placeholder="Enter Description">
+								</div>
+							</div>
+							<br><br>
+							<div class="row gutters">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="">
+										<button type="submit" id="submit" name="submit" class="btn btn-primary">Create
+											Trip</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="item3">
-	<div id="googleMap">
-	</div>
-</div>
-</div>
-<div id="output">
-</div>
+
+
+

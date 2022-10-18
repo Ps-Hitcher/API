@@ -17,7 +17,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <div class="text-center">
-
     <body>
         <div class="logo">
             <h1 class="display-4">
@@ -25,12 +24,10 @@
             </h1>
         </div>
     </body>
-
 </div>
 
-
+ @* travel information - entered by the users *@
 <div class="grid-container">
-    @* travel information - entered by the users *@
     <div class="item2">
         <div class="text-left">
             <form>
@@ -52,6 +49,7 @@
         <div id="googleMap">
         </div>
     </div>
+    
  <div class="item4">
         <div class="container mt-5">
             <table class="table table-borderless table-responsive card-1 p-4">
@@ -76,6 +74,11 @@
                     <th>
                         <div class="text-center">
                             <span class="ml-2">Time</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="text-center">
+                            <span class="ml-2">FreeSeets</span>
                         </div>
                     </th>
                     <th>
@@ -112,36 +115,46 @@
                                   </div>
                               </div>
                           </td>
-                     <td>
-                            <div class="p-2">
-                                <div class="text-center">
-                                    <small>@Html.DisplayFor(modelItem => Travel.LeaveTime)</small>
+                            <td>
+                                <div class="p-2">
+                                    <div class="text-center">
+                                        <small>@Html.DisplayFor(modelItem => Travel.LeaveTime)</small>
+                                    </div>
                                 </div>
-                            </div>
-                     <td>
+                     
+                            </td>
+                            <td>
+                                <div class="p-2">
+                                    <div class="text-center">
+                                        <small>@Html.DisplayFor(modelItem => Travel.FreeSeats)</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
                             <div class="text-center">
                             <a>
                                 <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE A TRIP</button>
                             </a>
                             </div>
-                            <div id="myModal" class="modal fade">
-                                <div class="modal-dialog modal-confirm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="icon-box">
-                                                <i class="material-icons">&#xebf0;</i>
+                                <div id="myModal" class="modal fade">
+                                    <div class="modal-dialog modal-confirm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="icon-box">
+                                                    <i class="material-icons">&#xebf0;</i>
+                                                </div>
+                                                <h4 class="modal-title w-100">AWESOME!</h4>
                                             </div>
-                                            <h4 class="modal-title w-100">AWESOME!</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p class="text-center">SUCCESSFULLY CHOSEN TRIP!</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                                            <div class="modal-body">
+                                                <p class="text-center">SUCCESSFULLY CHOSEN TRIP!</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                </td>
                         </td>
                     </tr>
                 }
