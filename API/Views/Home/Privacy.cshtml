@@ -33,10 +33,8 @@
 			</div>
 		</div>
 	</div>
-
-
+	
 	@* second table  *@
-
 	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 		<div class ="card2 h-100">
 			<div class ="card1-body">
@@ -46,45 +44,17 @@
 					</div>
 					<br><br>
 					<form asp-controller="Home" asp-action="AddUser" method="post">
-					<div class="panel-body">
-						@* <div class="form-group"> *@
-						@* 	<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">User Type</label> *@
-						@* 	<div class="col-sm-10"> *@
-						@* 		<select class="form-control"> *@
-						@* 			<option selected="">Select User Type</option> *@
-						@* 			<option>Driver</option> *@
-						@* 			<option>Passenger</option> *@
-						@* 		</select> *@
-						@* 		 *@
-						@* 	</div> *@
-						@* </div> *@
-						<div class="form-group">
+						<div class="panel-body">
+							<div class="form-group">
 								<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"></label>
 								<div class="col-sm-10">
-							<label asp-for=Type class="control-label"></label>
-							<select asp-for=Type asp-items="Html.GetEnumSelectList<UserType>()" class="form-control"></select>
-							<span asp-validation-for=Type class="text-danger"></span>
-						</div>
-					</div>
-				
+									<label asp-for=Type class="control-label"></label>
+									<select asp-for=Type asp-items="Html.GetEnumSelectList<UserType>()" class="form-control"></select>
+									<span asp-validation-for=Type class="text-danger"></span>
+								</div>
+							</div>
 						</div>
 						<br><br>
-						@* <br><br> *@
-						@* *@
-						@* <div class="panel-body"> *@
-						@* 	<div class="form-group"> *@
-						@* 		<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">Location</label> *@
-						@* 		<div class="col-sm-10"> *@
-						@* 			<select class="form-control"> *@
-						@* 				<option selected="">Select country</option> *@
-						@* 				<option>Lithuania</option> *@
-						@* 			</select> *@
-						@* 		</div> *@
-						@* 	</div> *@
-						@* </div> *@
-							
-			
-						@* <form  asp-controller = "Home" asp-action = "AddUser" method="post"> *@
 						<div class="col-sm-10">
 							<div class="form-group">
 								<tr>
@@ -131,7 +101,6 @@
 								<div class="text-right">
 									@* <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> *@
 									<button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
-									
 								</div>
 							</div>
 						</div>
@@ -140,9 +109,8 @@
 			</div>
 		</div>
 	</div>
-
-
-@* third table *@
+	
+	@* third table *@
 	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-6 col-12">
 		<div class="card1 h-100">
 			<div class="card1-body">
@@ -174,6 +142,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
 </body>
 

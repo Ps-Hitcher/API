@@ -1,12 +1,24 @@
 [
-    {
-        "TravelId": "5a4f00fb-bce7-4901-b026-337606034630",
-        "Origin": "TestOrigin",
-        "Destination": "TestDestination",
-        "Stopover": null,
-        "LeaveTime": "TestTime",
-        "DriverId": "5a4f00fb-bce7-4901-b026-337606034630",
-        "FreeSeats": 2,
-        "Description": "TestDescription"
-    }
+  {
+    "TravelId": "5a4f00fb-bce7-4901-b026-337606034630",
+    "Origin": "TestOrigin",
+    "Destination": "TestDestination",
+    "Stopovers": null,
+    "LeaveTime": "TestTime",
+    "DriverID": "5a4f00fb-bce7-4901-b026-337606034630",
+    "FreeSeats": 2,
+    "Description": "TestDescription"
+  },
+  {
+    "TravelId": "37d2e208-3ad2-4c74-a082-3ceed95069dd",
+    "Origin": "Šiauliai, Lithuania",
+    "Destination": "Vilnius, Lithuania",
+    "Stopovers": [
+      "Ukmergės Viada"
+    ],
+    "LeaveTime": "8:00PM",
+    "DriverID": "00000000-0000-0000-0000-000000000000",
+    "FreeSeats": 2,
+    "Description": null
+  }
 ]

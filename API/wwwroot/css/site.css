@@ -226,6 +226,15 @@ body {
   grid-row: 2 / 4;
 }
 
+.item5 {
+  grid-column: 6/9;
+ 
+}
+.item6 {
+  grid-column: 1/4;
+  grid-row: 1 / 8;
+}
+
 
 .border-bottom {
   color: #bcd0f7;
@@ -492,4 +501,8 @@ body {
   display: none;
 }
 
-
+a.Edit{
+  color: white;
+  background-color: white;
+  
+}
