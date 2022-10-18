@@ -72,8 +72,10 @@
                 </div>
             </td>
             <td>
-                <submit><a href="#" class="neon-button" type="button">Edit</a></submit>
-                <submit><a href="#" class="neon-button" type="button">Delete</a></submit>
+                 @* <submit><a href="#" class="neon-button" type="button">Edit</a></submit> *@
+                @Html.ActionLink("Edit", "Edit", new {id = user.Id})
+                @Html.ActionLink("Delete", "Delete", new {id = user.Id})
+                 @* <submit><a href="#" class="neon-button" type="button">Delete</a></submit> *@
             </td>
         </tr>
     }

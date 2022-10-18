@@ -90,6 +90,7 @@
 								<tr>
 									<label for="Name">Name</label>
 									<td><input asp-for=Name type="text" class="form-control" id="Name" placeholder="Enter name"/></td>
+									<input asp-for="Id" type="text" class="unseen" id="id" />
 								</tr>
 							</div>
 						</div>
@@ -114,6 +115,7 @@
 							<div class="form-group">
 								<label for="phone">Phone</label>
 								<input asp-for=PhoneNumber type="text" class="form-control" id="phone" placeholder="Enter phone number">
+								@ViewBag.Message
 							</div>
 						</div>
 						<br><br>

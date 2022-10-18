@@ -488,4 +488,8 @@ body {
   opacity: 1;
 }
 
+.unseen{
+  display: none;
+}
+
 
