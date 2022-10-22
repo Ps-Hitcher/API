@@ -16,6 +16,7 @@ public class HomeController : Controller
     public List<UserModel> _userList;
     private ITravelRepository _travelRepository;
     public List<TravelModel> _travelList;
+    // public List<CarStruct> _carList;
 
     public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository) //Using dependency injection for UserModel
     {
@@ -70,6 +71,11 @@ public class HomeController : Controller
         trip = trip ?? new TravelModel();
         return View(trip);
     }
+    
+    // public IActionResult Car(CarStruct car)
+    // {
+    //     return View(car);
+    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -109,5 +115,14 @@ public class HomeController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-
+    
+    // public IActionResult AddCar(CarStruct car)
+    // {
+    //     car.RegistrationNumber = Guid.NewGuid();
+    //     _carList.Add(car);
+    //     _carList.SerializeCarList(_carList);
+    //
+    //     return RedirectToAction(nameof(Index));
+    // }
+ 
 }

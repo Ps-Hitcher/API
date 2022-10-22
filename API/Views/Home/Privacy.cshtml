@@ -4,48 +4,73 @@
 
 
 <div class="text-center">
-	@* <h1 class="display-4">View and edit profile</h1> *@
-	 <img src="~/img/edit.jpg" alt="user" width=600px height=150px>
+	<img src="~/img/profilee.jpg" alt="user" width=650px height=150px>
 	<br><br>
 </div>
 
 <body>
 <div class="row">
-	@* first table *@
-	<div class="column middle">
-		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-			<div class="card1 h-100">
-				<div class="card1-body">
-					<div class="account-settings">
-						<div class="user-profile">
-							<div class="user-avatar">
-								<img src="~/img/profile.jpg" alt="Profile photo">
-							</div>
-							<h5 class="user-name">Kamile Samusiovaite</h5>
-							<h6 class="user-email">kamilesamusiovaite@gmail.com</h6>
-						</div>
-						<div class="about">
-							<h5 class="mb-2 text-primary">About</h5>
-							<p>Mano vardas Kamile, studijuoju Vilniaus universitete:)</p>
+	@* third table *@
+	<div class="col-xl-0 col-lg-0 col-md-6 col-sm-6 col-6">
+		<div class ="card3 h-100">
+			<div class="row gutters">
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+					<h4 class="text-trip-1">CAR DETAILS</h4>
+				</div>
+				<br><br>
+				<form asp-controller="Home" asp-action="AddUser" method="post">
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group-profile">
+							<tr>
+								<label for="Name">Car Model</label>
+								<td><input asp-for=Name type="text" class="form-control" id="Model" placeholder="Enter car model"/></td>
+								<input asp-for="Id" type="text" class="unseen" id="id" />
+							</tr>
 						</div>
 					</div>
-				</div>	
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group-profile">
+							<tr>
+								<label for="Surname">Registration Number</label>
+								<td><input asp-for=Surname type="text" class="form-control" id="RegistrationNumber" placeholder="Enter car registration number"/></td>
+							</tr>
+						</div>
+					</div>
+					<br><br>
+					<div class="col-sm-10">
+						<div class="form-group-profile">
+							<label for="eMail">Fuel Consumption</label>
+							<input asp-for=Email type="email" class="form-control" id="Consumption" placeholder="Enter Fuel Consumption">
+						</div>
+					</div>
+					<br><br>
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="user-confirm">
+								<button type="submit" id="submit" name="submit" class="btn btn-user">Update</button>
+							</div>
+						</div>
+						<img src="~/img/greencar.jpg" alt="user" width=100px height=350px>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	
+
 	@* second table  *@
 	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 		<div class ="card2 h-100">
 			<div class ="card1-body">
 				<div class="row gutters">
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<h6 class="mb-3 text-primary">Personal Details</h6>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-22">
+						<h4 class="text-trip-1">PERSONAL DETAILS</h4>
 					</div>
 					<br><br>
 					<form asp-controller="Home" asp-action="AddUser" method="post">
 						<div class="panel-body">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"></label>
 								<div class="col-sm-10">
 									<label asp-for=Type class="control-label"></label>
@@ -56,7 +81,7 @@
 						</div>
 						<br><br>
 						<div class="col-sm-10">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<tr>
 									<label for="Name">Name</label>
 									<td><input asp-for=Name type="text" class="form-control" id="Name" placeholder="Enter name"/></td>
@@ -66,7 +91,7 @@
 						</div>
 						<br><br>
 						<div class="col-sm-10">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<tr>
 									<label for="Surname">Surname</label>
 									<td><input asp-for=Surname type="text" class="form-control" id="Surname" placeholder="Enter surname"/></td>
@@ -75,14 +100,14 @@
 						</div>
 						<br><br>
 						<div class="col-sm-10">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<label for="eMail">Email</label>
 								<input asp-for=Email type="email" class="form-control" id="eMail" placeholder="Enter email ID">
 							</div>
 						</div>
 						<br><br>
 						<div class="col-sm-10">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<label for="phone">Phone</label>
 								<input asp-for=PhoneNumber type="text" class="form-control" id="phone" placeholder="Enter phone number">
 								@ViewBag.Message
@@ -90,7 +115,7 @@
 						</div>
 						<br><br>
 						<div class="col-sm-10">
-							<div class="form-group">
+							<div class="form-group-profile">
 								<label for="address">Address</label>
 								<input asp-for=Address type="text" class="form-control" id="address" placeholder="Enter address">
 							</div>
@@ -98,46 +123,12 @@
 						<br><br>
 						<div class="row gutters">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<div class="text-right">
-									@* <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button> *@
-									<button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+								<div class="user-confirm">
+									<button type="submit" id="submit" name="submit" class="btn btn-user">Update</button>
 								</div>
 							</div>
 						</div>
 					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	@* third table *@
-	<div class="col-xl-3 col-lg-3 col-md-12 col-sm-6 col-12">
-		<div class="card1 h-100">
-			<div class="card1-body">
-				<div class="car-settings">
-					<div class="car-driver-profile">
-						<div class="car-avatar">
-							<img src="~/img/profile.jpg" alt="Profile photo">
-						</div>
-						<div class="row gutters">
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<h6 class="mb-3 text-primary">Car Details</h6>
-							</div>
-							<h5 class="car-model">BMW</h5>
-						</div>
-						<br><br>
-						<div class="about">
-							<h5 class="mb-2 text-primary">About</h5>
-							<p>TETE NUPIRKO</p>
-							<br><br>
-							<div class="mb-2 text-primary">
-								<form>
-									<label for="CarNumber">Car number:</label>
-									<input type="text" class="col-form-label" id="CarNumber" placeholder="Enter car number">
-								</form>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
