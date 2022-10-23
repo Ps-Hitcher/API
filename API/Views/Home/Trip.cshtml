@@ -35,39 +35,39 @@
 	@* second table *@
 	<div class="item6">
 		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-			<div class="card2 h-100">
-				<div class="card1-body">
+			<div class="card20 h-100">
+				<div class="card110-body">
 					<div class="row gutters">
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 							<br><br>
-							<h3 class=" text-primary">TRIP DETAILS</h3>
+							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
 						<form asp-controller="Home" asp-action="AddTravel" method="post">
-							<div class="panel-body">
+							<div class="panel-body-trip">
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
 										<label for="Origin">Origin</label>
 										<td><input asp-for=Origin type="text" class="form-control" id="Origin"
-										           placeholder="Enter Origin" /></td>
+										           placeholder="Enter Origin" required/></td>
 									</tr>
 								</div>
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
 										<label for="Destination">Destination</label>
 										<td><input asp-for=Destination type="text" class="form-control" id="Destination"
-										           placeholder="Enter Destination" /></td>
+										           placeholder="Enter Destination" required=""/></td>
 									</tr>
 								</div>
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
 										<label for="Stopovers">Stopovers</label>
@@ -77,23 +77,28 @@
 								</div>
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
-									<label for="LeaveTime">LeaveTime</label>
-									<input asp-for=LeaveTime type="LeaveTime" class="form-control" id="LeaveTime"
-									       placeholder="Enter LeaveTime">
+									<label for="FreeSeats">Leave Time</label>
+									<input asp-for=Time type="Time"  id="LeaveTime" required="">
 								</div>
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<label for="FreeSeats">FreeSeats</label>
-									<input asp-for=FreeSeats type="text" class="form-control" id="FreeSeats"
-									       placeholder="Enter FreeSeats">
+									<select asp-for="FreeSeats" type="int" class="form-control" id="FreeSeats">
+										<option selected="">Select FreeSeats </option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+									
 								</div>
 							</div>
 							<br><br>
-							<div class="col-sm-10">
+							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<label for="Description">Description</label>
 									<input asp-for=Description type="text" class="form-control" id="Description"
@@ -103,8 +108,8 @@
 							<br><br>
 							<div class="row gutters">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<div class="">
-										<button type="submit" id="submit" name="submit" class="btn btn-primary">Create
+									<div class="trip-confirm">
+										<button type="submit" id="submit" name="submit" class="btn trip-confirm">Create
 											Trip</button>
 									</div>
 								</div>
@@ -116,6 +121,3 @@
 		</div>
 	</div>
 </div>
-
-
-
