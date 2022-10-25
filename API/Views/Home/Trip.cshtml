@@ -24,9 +24,9 @@
 		</div>
 		<br></br>
 		<div class="wrap">
-		<button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-		<button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
-	</div>
+			<button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
+			<button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+		</div>
 	
 		<div id="output">
 		</div>
@@ -70,12 +70,22 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
+										
 										<label for="Stopovers">Stopovers</label>
-										<td><input asp-for=Stopovers type="text" class="form-control" id="Stopover"
-										           placeholder="Enter Stopovers" /></td>
+										<td>
+											<input asp-for=Stopovers type="text" class="form-control" id="Stopover"
+											       placeholder="Enter Stopovers"/></td>
+										
+										<button onclick="add()">Add</button>
+										<button onclick="remove()">remove</button>
+										<div id="new_chq"></div>
+										<input type="hidden" value="1" id="total_chq">
+										
 									</tr>
 								</div>
 							</div>
+
+
 							<br><br>
 							<div class="col-sm-10-trip">
 								<div class="form-group">
@@ -121,3 +131,20 @@
 		</div>
 	</div>
 </div>
+
+<script>
+			function add(){
+              var new_chq_no = parseInt($('#total_chq').val())+1;
+              var new_input="<input asp-for=Stopovers type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopovers'>";
+              $('#new_chq').append(new_input);
+              $('#total_chq').val(new_chq_no)
+            }
+            function remove(){
+              var last_chq_no = $('#total_chq').val();
+              if(last_chq_no>1){
+                $('#Stopover'+last_chq_no).remove();
+                $('#total_chq').val(last_chq_no-1);
+              }
+            }
+</script>
+                            									
