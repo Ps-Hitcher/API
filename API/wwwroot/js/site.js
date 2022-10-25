@@ -32,12 +32,29 @@ var userMarker = google.maps.Marker;
 //define calcRoute function
 function calcRoute() {
     //create request
-    var request = {
-        origin: document.getElementById("Origin").value,
-        destination: document.getElementById("Destination").value,
-        travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
-        unitSystem: google.maps.UnitSystem.METRIC
+    if (document.getElementById("Stopover").value == "") {
+        var request = {
+            origin: document.getElementById("Origin").value,
+            destination: document.getElementById("Destination").value,
+            travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+            unitSystem: google.maps.UnitSystem.METRIC
+        }
     }
+    else {
+        var request = {
+            origin: document.getElementById("Origin").value,
+            destination: document.getElementById("Destination").value,
+            waypoints: [{
+                location: document.getElementById("Stopover").value,
+                stopover: true}],
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+            unitSystem: google.maps.UnitSystem.METRIC
+        }
+    }
+
+
+
 
     //pass the request to the route method
     directionsService.route(request, function (result, status) {
@@ -77,11 +94,15 @@ var options = {
     componentRestrictions: { country: "lt" }
 }
 
-var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("Origin"), options);
+var autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("Origin"), options);
 
-var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("Destination"), options);
+var autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById("Destination"), options);
 
+var autocompleteStopover = new google.maps.places.Autocomplete(document.getElementById("Stopover"), options);
 
+function addAutocompleteStopover() {
+
+}
 
 function userLocationMainPage() {
     x = navigator.geolocation;
@@ -131,4 +152,3 @@ function geocodeLatLng(geocoder, userCoords) {
         })
         .catch((e) => window.alert("Geocoder failed due to: " + e));
 }
-
