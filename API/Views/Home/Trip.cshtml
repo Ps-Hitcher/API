@@ -78,11 +78,8 @@
 										</label>
 										<div class="col-sm-10-trip">
 										<td>
-											
-											<input asp-for=Stopovers type="text" class="form-control" id="Stopover"
-											       placeholder="Enter Stopovers"/>
-										</td>
-										</div>
+											<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
+											       placeholder="Enter Stopovers"/></td>
 										
 										@* <button onclick="add()">Add</button> *@
 										@* <button onclick="remove()">remove</button> *@
@@ -143,15 +140,17 @@
 <script>
 			function add(){
               var new_chq_no = parseInt($('#total_chq').val())+1;
-              var new_input="<input asp-for=Stopovers type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopovers'>";
+              var new_input="<input asp-for=Stopovers type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopovers"+new_chq_no+"'>";
               $('#new_chq').append(new_input);
-              $('#total_chq').val(new_chq_no)
+              $('#total_chq').val(new_chq_no);
+			  addAutocompleteStopover();
             }
             function remove(){
               var last_chq_no = $('#total_chq').val();
               if(last_chq_no>1){
                 $('#Stopover'+last_chq_no).remove();
                 $('#total_chq').val(last_chq_no-1);
+				removeAutocompleteStopover();
               }
             }
 </script>

@@ -31,8 +31,25 @@ var userMarker = google.maps.Marker;
 
 //define calcRoute function
 function calcRoute() {
+
+    var stopoverNum = 1;
+    var stopoverList = [];
+
+    while (document.getElementById("Stopover" + stopoverNum) != null) {
+        if (document.getElementById("Stopover" + stopoverNum).value != "") {
+            stopoverList.push({
+                location: document.getElementById("Stopover" + stopoverNum).value,
+                stopover: true
+            })
+            stopoverNum++;
+        }
+        else {
+            stopoverNum++;
+        }
+    }
+
     //create request
-    if (document.getElementById("Stopover").value == "") {
+    if (document.getElementById("Stopover1").value == "") {
         var request = {
             origin: document.getElementById("Origin").value,
             destination: document.getElementById("Destination").value,
@@ -44,9 +61,7 @@ function calcRoute() {
         var request = {
             origin: document.getElementById("Origin").value,
             destination: document.getElementById("Destination").value,
-            waypoints: [{
-                location: document.getElementById("Stopover").value,
-                stopover: true}],
+            waypoints: stopoverList,
             optimizeWaypoints: true,
             travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
             unitSystem: google.maps.UnitSystem.METRIC
@@ -98,10 +113,13 @@ var autocompleteOrigin = new google.maps.places.Autocomplete(document.getElement
 
 var autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById("Destination"), options);
 
-var autocompleteStopover = new google.maps.places.Autocomplete(document.getElementById("Stopover"), options);
-
+var autocompleteStopovers = [new google.maps.places.Autocomplete(document.getElementById("Stopover1"), options)];
 function addAutocompleteStopover() {
+    autocompleteStopovers.push(new google.maps.places.Autocomplete(document.getElementById("Stopover" + (autocompleteStopovers.length + 1)), options));
+}
 
+function removeAutocompleteStopover() {
+    autocompleteStopovers.pop();
 }
 
 function userLocationMainPage() {
