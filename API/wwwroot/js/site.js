@@ -49,7 +49,7 @@ function calcRoute() {
     }
 
     //create request
-    if (document.getElementById("Stopover1").value == "") {
+    if (stopoverList >= 1) {
         var request = {
             origin: document.getElementById("Origin").value,
             destination: document.getElementById("Destination").value,
