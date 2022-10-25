@@ -68,16 +68,21 @@
 							</div>
 							<br><br>
 							<div class="col-sm-10-trip">
-								<div class="form-group">
+								<div class="form-group row">
 									<tr>
 										
-										<label for="Stopovers">Stopovers</label>
+										<label for="Stopovers">Stopovers
+											
+											<button onclick="remove()" class="addStopovers">remove</button>
+											<button onclick="add()" class="addStopovers">add</button>
+										</label>
+										<div class="col-sm-10-trip">
 										<td>
 											<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
 											       placeholder="Enter Stopovers"/></td>
 										
-										<button onclick="add()">Add</button>
-										<button onclick="remove()">remove</button>
+										@* <button onclick="add()">Add</button> *@
+										@* <button onclick="remove()">remove</button> *@
 										<div id="new_chq"></div>
 										<input type="hidden" value="1" id="total_chq">
 										

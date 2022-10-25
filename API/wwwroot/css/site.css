@@ -723,3 +723,17 @@ a.Edit{
     background-position: 0% 50%;
   }
 }
+
+.addStopovers{
+  float: right;
+  text-align: center;
+  border-color: #608df7;
+  box-shadow: 0 0 10px rgb(219, 219, 220);
+  background: none;
+  color: #bcd0f7;
+  width: 15%;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+}
+
