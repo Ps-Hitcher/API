@@ -115,7 +115,7 @@ public class HomeController : Controller
 
     public IActionResult AddTravel(TravelModel travel)
     {
-        travel.TravelId = Guid.NewGuid();
+        travel.Id = Guid.NewGuid();
         _travelList.Add(travel);
         _travelRepository.SerializeTravelList(_travelList);
 

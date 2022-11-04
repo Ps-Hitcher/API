@@ -26,7 +26,7 @@ public class TravelRepository : ITravelRepository
 
     public TravelModel GetTravel(Guid Id)
     {
-        return TravelList.FirstOrDefault(e => e.TravelId == Id);
+        return TravelList.FirstOrDefault(e => e.Id == Id);
     }
 
     public List<TravelModel> GetTravelList()
