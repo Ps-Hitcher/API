@@ -60,7 +60,7 @@ public class HomeController : Controller
     public IActionResult Delete(Guid id)
     {
         _userRepository.DeleteUser(id);
-        //_userRepository.SerializeUserList(_userList);
+        _userRepository.Save();
         
         return RedirectToAction("Users");
     }
@@ -81,11 +81,6 @@ public class HomeController : Controller
         trip = trip ?? new TravelModel();
         return View(trip);
     }
-    
-    // public IActionResult Car(CarStruct car)
-    // {
-    //     return View(car);
-    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -101,11 +96,10 @@ public class HomeController : Controller
             return RedirectToAction("Privacy", new { message = "Phone number is not valid" });
         }
 
-        var obj = _userList.FirstOrDefault(x => x.Id == user.Id);
+        var obj = _userList.AsNoTracking().FirstOrDefault(x => x.Id == user.Id);
 
         if (obj != null)
         {
-            //_userList[_userList.FindIndex(x => x.Id == user.Id)] = user;
             _userList.Update(user);
             _userRepository.Save();
         }
@@ -114,7 +108,6 @@ public class HomeController : Controller
             user.Id = Guid.NewGuid();
             _userList.Add(user);
         }
-        //_userRepository.SerializeUserList(_userList);
         _userRepository.Save();
 
         return RedirectToAction(nameof(Index));
@@ -122,22 +115,14 @@ public class HomeController : Controller
 
     public IActionResult AddTravel(TravelModel travel)
     {
+        var stopovers = travel.Stopovers;
         travel.Id = Guid.NewGuid();
         _travelList.Add(travel);
-        //_travelRepository.SerializeTravelList(_travelList);
         _userRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }
     
-    // public IActionResult AddCar(CarStruct car)
-    // {
-    //     car.RegistrationNumber = Guid.NewGuid();
-    //     _carList.Add(car);
-    //     _carList.SerializeCarList(_carList);
-    //
-    //     return RedirectToAction(nameof(Index));
-    // }
 
     public IActionResult Login()
     {

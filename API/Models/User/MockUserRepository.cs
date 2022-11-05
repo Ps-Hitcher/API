@@ -14,21 +14,10 @@ namespace WebApplication2.Models.User;
 
 public class MockUserRepository : IUserRepository
 {
-    //private List<UserModel> _userList;
     private DbSet<UserModel> _userList;
-    public const string _jsonPath = "db.json";
     public DataContext _context;
     public MockUserRepository(DataContext context)
     {
-        // try
-        // {
-        //     _userList = JsonConvertUtil.DesirializeJSON<List<UserModel>>(_jsonPath);
-        // }
-        // catch (Exception ex)
-        // {
-        //     Debug.WriteLine(ex.ToString());
-        //     ErrorLogUtil.LogError(ex);
-        // }
         _context = context;
         _userList = context.Users;
     }
@@ -43,11 +32,6 @@ public class MockUserRepository : IUserRepository
         _context.SaveChanges();
     }
 
-    // public List<UserModel> GetUserList()
-    // {
-    //     return _userList;
-    // }
-    
     public DbSet<UserModel> GetUserList()
     {
         return _userList;
@@ -70,24 +54,9 @@ public class MockUserRepository : IUserRepository
             return false;
         }
     }
-
     public void DeleteUser(Guid Id)
     {
         _userList.Remove(GetUser(Id));
     }
-
-    public void SerializeUserList(List<UserModel> UserList)
-    {
-        try
-        {
-            //throw new Exception("Error here");  //For presentation
-            string? jsonData = null;
-            FileIO.WriteAllText(_jsonPath, jsonData.SerializeJSON(UserList));
-        }
-        catch(Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            ErrorLogUtil.LogError(ex, "Adomas is responsible for this mess");
-        }
-    }
+    
 }

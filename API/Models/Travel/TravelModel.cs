@@ -8,8 +8,7 @@ public class TravelModel
     public Guid Id { get; set; }
     public string Origin { get; set; }
     public string Destination { get; set; }
-    
-    public List<StopoverModel> Stopovers { get; set; }
+    public List<String> Stopovers { get; set; }
     public String Time { get; set; }
     public Guid DriverID { get; set; }
     public int FreeSeats { get; set; }

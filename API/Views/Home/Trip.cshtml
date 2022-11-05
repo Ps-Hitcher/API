@@ -1,6 +1,7 @@
 ﻿@* @page *@
 @using WebApplication2.Models.Travel
 @model WebApplication2.Models.Travel.TravelModel
+@* @model WebApplication2.Models.Travel.StopoverModel *@
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -77,9 +78,9 @@
 											<button onclick="add()" class="addStopovers">add</button>
 										</label>
 										<div class="col-sm-10-trip">
-										@* <td> *@
-										@* 	<input asp-for=Stopovers type="text" class="form-control" id="Stopover1" *@
-										@* 	       placeholder="Enter Stopover"/></td> *@
+										<td>
+											<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
+											       placeholder="Enter Stopover"/></td>
 										
 										@* <button onclick="add()">Add</button> *@
 										@* <button onclick="remove()">remove</button> *@
@@ -140,7 +141,7 @@
 <script>
 			function add(){
               var new_chq_no = parseInt($('#total_chq').val())+1;
-              var new_input="<input asp-for=Stopovers type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
+              var new_input="<input asp-for=Stopovers.Stopover type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
               $('#new_chq').append(new_input);
               $('#total_chq').val(new_chq_no);
 			  addAutocompleteStopover();
