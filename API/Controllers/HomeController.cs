@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
@@ -13,11 +14,14 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private IUserRepository _userRepository;
-    public List<UserModel> _userList;
-    private ITravelRepository _travelRepository;
-    public List<TravelModel> _travelList;
-    // public List<CarStruct> _carList;
+    // public List<UserModel> _userList;
+    DbSet<UserModel> _userList;
 
+    private ITravelRepository _travelRepository;
+
+    public DbSet<TravelModel> _travelList;
+    // public List<TravelModel> _travelList;
+    // public List<CarStruct> _carList;
     public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository) //Using dependency injection for UserModel
     {
         _logger = logger;
@@ -56,7 +60,7 @@ public class HomeController : Controller
     public IActionResult Delete(Guid id)
     {
         _userRepository.DeleteUser(id);
-        _userRepository.SerializeUserList(_userList);
+        _userRepository.Save();
         
         return RedirectToAction("Users");
     }
@@ -77,11 +81,6 @@ public class HomeController : Controller
         trip = trip ?? new TravelModel();
         return View(trip);
     }
-    
-    // public IActionResult Car(CarStruct car)
-    // {
-    //     return View(car);
-    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -97,39 +96,33 @@ public class HomeController : Controller
             return RedirectToAction("Privacy", new { message = "Phone number is not valid" });
         }
 
-        var obj = _userList.FirstOrDefault(x => x.Id == user.Id);
+        var obj = _userList.AsNoTracking().FirstOrDefault(x => x.Id == user.Id);
 
         if (obj != null)
         {
-            _userList[_userList.FindIndex(x => x.Id == user.Id)] = user;
+            _userList.Update(user);
+            _userRepository.Save();
         }
         else
         {
             user.Id = Guid.NewGuid();
             _userList.Add(user);
         }
-        _userRepository.SerializeUserList(_userList);
+        _userRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult AddTravel(TravelModel travel)
     {
-        travel.TravelId = Guid.NewGuid();
+        var stopovers = travel.Stopovers;
+        travel.Id = Guid.NewGuid();
         _travelList.Add(travel);
-        _travelRepository.SerializeTravelList(_travelList);
+        _userRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }
     
-    // public IActionResult AddCar(CarStruct car)
-    // {
-    //     car.RegistrationNumber = Guid.NewGuid();
-    //     _carList.Add(car);
-    //     _carList.SerializeCarList(_carList);
-    //
-    //     return RedirectToAction(nameof(Index));
-    // }
 
     public IActionResult Login()
     {

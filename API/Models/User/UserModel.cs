@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace WebApplication2.Models.User;
 
@@ -12,7 +13,7 @@ public class UserModel : IComparable<UserModel>
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
     
-    public CarStruct? Car { get; set; }
+    //public CarStruct? Car { get; set; }
     public Double Rating { get; set; }
 
 

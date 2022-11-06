@@ -1,4 +1,5 @@
-﻿@model List<TravelModel>
+﻿@* @model List<TravelModel> *@
+@model Microsoft.EntityFrameworkCore.DbSet<TravelModel>
 @using WebApplication2.Models.Travel
 
 @{
@@ -96,7 +97,7 @@
                              <div class="p-2 d-flex align-items-center  mb-2">
                                  <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                  <div class="d-flex flex-column  p-2">
-                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.TravelId) </span>
+                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
                                      <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
                                  </div>
                              </div>
