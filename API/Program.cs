@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
 builder.Services.AddScoped<ITravelRepository, TravelRepository>();//Dependancy injection for using TravelModel
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection1")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
