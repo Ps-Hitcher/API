@@ -57,7 +57,7 @@ public class HomeController : Controller
     {
         _userRepository.DeleteUser(id);
         _userRepository.SerializeUserList(_userList);
-        
+
         return RedirectToAction("Users");
     }
 
@@ -65,19 +65,19 @@ public class HomeController : Controller
     {
         return View(_userList);
     }
-    
+
     public IActionResult Datecher()
     {
         return View(_userList);
     }
-    
+
 
     public IActionResult Trip(TravelModel trip)
     {
         trip = trip ?? new TravelModel();
         return View(trip);
     }
-    
+
     // public IActionResult Car(CarStruct car)
     // {
     //     return View(car);
@@ -116,12 +116,16 @@ public class HomeController : Controller
     public IActionResult AddTravel(TravelModel travel)
     {
         travel.TravelId = Guid.NewGuid();
+        if (_travelList == null)
+        {
+            _travelList = new List<TravelModel>();
+        }
         _travelList.Add(travel);
         _travelRepository.SerializeTravelList(_travelList);
 
         return RedirectToAction(nameof(Index));
     }
-    
+
     // public IActionResult AddCar(CarStruct car)
     // {
     //     car.RegistrationNumber = Guid.NewGuid();

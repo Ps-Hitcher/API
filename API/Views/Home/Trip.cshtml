@@ -15,23 +15,27 @@
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
-<script src="site.js"></script>
+
+<body onload="loadGoogleMapCreate()">
+</body>
 
 <div class="grid-container">
 
 	<div class="item5">
-		<div id="googleMap">
+		<div id="googleMapCreate">
 		</div>
 		<br></br>
 		<div class="wrap">
-			<button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-			<button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+			<button onclick="calcRouteMapCreate()" type="button" id="submit" name="submit"
+				class="travel">Submit</button>
+			<button onclick="userLocationMapCreate()" type="button" id="userLocation" name="userLocation"
+				class="travel">Use your location</button>
 		</div>
-	
+
 		<div id="output">
 		</div>
 	</div>
-	
+
 	@* second table *@
 	<div class="item6">
 		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -43,7 +47,7 @@
 							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
-						<form asp-controller="Home" asp-action="AddTravel" method="post">
+						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="calcRouteMapCreate()">
 							<div class="panel-body-trip">
 							</div>
 							<br><br>
@@ -52,7 +56,7 @@
 									<tr>
 										<label for="Origin">Origin</label>
 										<td><input asp-for=Origin type="text" class="form-control" id="Origin"
-										           placeholder="Enter Origin" required/></td>
+												placeholder="Enter Origin" required /></td>
 									</tr>
 								</div>
 							</div>
@@ -62,7 +66,7 @@
 									<tr>
 										<label for="Destination">Destination</label>
 										<td><input asp-for=Destination type="text" class="form-control" id="Destination"
-										           placeholder="Enter Destination" required=""/></td>
+												placeholder="Enter Destination" required="" /></td>
 									</tr>
 								</div>
 							</div>
@@ -70,21 +74,22 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group row">
 									<tr>
-										
+
 										<label for="Stopovers">Stopovers
-											
+
 											<button onclick="remove()" class="addStopovers">remove</button>
 											<button onclick="add()" class="addStopovers">add</button>
 										</label>
 										<div class="col-sm-10-trip">
-										<td>
-											<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
-											       placeholder="Enter Stopover"/></td>
-										
-										@* <button onclick="add()">Add</button> *@
-										@* <button onclick="remove()">remove</button> *@
-										<div id="new_chq"></div>
-										<input type="hidden" value="1" id="total_chq">
+											<td>
+												<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
+													placeholder="Enter Stopover" />
+											</td>
+
+											@* <button onclick="add()">Add</button> *@
+											@* <button onclick="remove()">remove</button> *@
+											<div id="new_chq"></div>
+											<input type="hidden" value="1" id="total_chq">
 										</div>
 									</tr>
 								</div>
@@ -94,8 +99,8 @@
 							<br><br>
 							<div class="col-sm-10-trip">
 								<div class="form-group">
-									<label for="FreeSeats">Leave Time</label>
-									<input asp-for=Time type="Time"  id="LeaveTime" required="">
+									<label for="LeaveTime">Leave Time</label>
+									<input asp-for=Time type="Time" id="LeaveTime" required="">
 								</div>
 							</div>
 							<br><br>
@@ -103,13 +108,13 @@
 								<div class="form-group">
 									<label for="FreeSeats">FreeSeats</label>
 									<select asp-for="FreeSeats" type="int" class="form-control" id="FreeSeats">
-										<option selected="">Select FreeSeats </option>
+										<option selected="">Select FreeSeats</option>
 										<option>1</option>
 										<option>2</option>
 										<option>3</option>
 										<option>4</option>
 									</select>
-									
+
 								</div>
 							</div>
 							<br><br>
@@ -117,9 +122,10 @@
 								<div class="form-group">
 									<label for="Description">Description</label>
 									<input asp-for=Description type="text" class="form-control" id="Description"
-									       placeholder="Enter Description">
+										placeholder="Enter Description">
 								</div>
 							</div>
+							<input type="hidden" asp-for=RequestInfo id="RequestInfo">
 							<br><br>
 							<div class="row gutters">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -138,20 +144,19 @@
 </div>
 
 <script>
-			function add(){
-              var new_chq_no = parseInt($('#total_chq').val())+1;
-              var new_input="<input asp-for=Stopovers type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
-              $('#new_chq').append(new_input);
-              $('#total_chq').val(new_chq_no);
-			  addAutocompleteStopover();
-            }
-            function remove(){
-              var last_chq_no = $('#total_chq').val();
-              if(last_chq_no>1){
-                $('#Stopover'+last_chq_no).remove();
-                $('#total_chq').val(last_chq_no-1);
-				removeAutocompleteStopover();
-              }
-            }
+	function add() {
+		var new_chq_no = parseInt($('#total_chq').val()) + 1;
+		var new_input = "<input asp-for=Stopovers type='text' class='form-control' id='Stopover" + new_chq_no + "'placeholder='Enter Stopover'>";
+		$('#new_chq').append(new_input);
+		$('#total_chq').val(new_chq_no);
+		addAutocompleteStopover();
+	}
+	function remove() {
+		var last_chq_no = $('#total_chq').val();
+		if (last_chq_no > 1) {
+			$('#Stopover' + last_chq_no).remove();
+			$('#total_chq').val(last_chq_no - 1);
+			removeAutocompleteStopover();
+		}
+	}
 </script>
-                            									

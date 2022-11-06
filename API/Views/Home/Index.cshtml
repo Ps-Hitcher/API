@@ -7,17 +7,16 @@
 }
 <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
-<script src="site.js"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link href="site.css" rel="stylesheet" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <div class="text-center">
-    <body>
+
+    <body onload="loadGoogleMapView()">
         <div class="logo">
             <h1 class="display-4">
                 <img src="img/BlueLogo.jpg" alt="logo" width=350px height=350px>
@@ -26,7 +25,7 @@
     </body>
 </div>
 
- @* travel information - entered by the users *@
+@* travel information - entered by the users *@
 <div class="grid-container">
     <div class="item2">
         <div class="text-left">
@@ -34,11 +33,13 @@
                 <label for="origin">Where are you coming from?</label><br>
                 <input type="text" id="Origin" placeholder="City name:" class="form-control1" required><br><br>
                 <label for="destination">Where would you want to go?</label><br>
-                <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br/>
+                <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br />
             </form>
             <div class="wrap">
-                <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-                <button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+                <button onclick="calcRouteMapView()" type="button" id="submit" name="submit"
+                    class="travel">Submit</button>
+                <button onclick="userLocationMapView()" type="button" id="userLocation" name="userLocation"
+                    class="travel">Use your location</button>
             </div>
         </div>
         <div id="output">
@@ -46,75 +47,78 @@
     </div>
 
     <div class="item3">
-        <div id="googleMap">
+        <div id="googleMapView">
         </div>
     </div>
-    
- <div class="item4">
+
+    <div class="item4">
         <div class="container mt-5">
             <table class="table table-borderless table-responsive card-1 p-4">
                 <thead>
-                <tr class="border-bottom">
-                    <th>
-                        <div class="text-left">
-                            <span class="ml-2">TravelId DriverId</span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="text-center">
-                            <span class="ml-2">From</span>
-                        </div>
-                    </th>
-                    <th>
-                        
-                        <div class="text-center">
-                            <span class="ml-2">To</span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="text-center">
-                            <span class="ml-2">Time</span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="text-center">
-                            <span class="ml-2">FreeSeets</span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="text-center">
-                            <span class="ml-2">Action</span>
-                        </div>
-                    </th>
-                </tr>
-                </thead>
-                @foreach (var Travel in Model)
-                {
                     <tr class="border-bottom">
-                        <td>
-                     <div class="text-center">
-                             <div class="p-2 d-flex align-items-center  mb-2">
-                                 <img src="~/img/profile.jpg" width="40" class="rounded-circle">
-                                 <div class="d-flex flex-column  p-2">
-                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.TravelId) </span>
-                                     <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
-                                 </div>
-                             </div>
-                         </div>
-                     <td>
-                            <div class="p-2 d-flex flex-column">
-                                <div class="text-center">
-                                    <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
-                                </div>
+                        <th>
+                            <div class="text-left">
+                                <span class="ml-2">TravelId DriverId</span>
                             </div>
-                        </td>
-                          <td>
-                              <div class="p-2 d-flex flex-column">
-                                  <div class="text-center">
-                                      <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
-                                  </div>
-                              </div>
-                          </td>
+                        </th>
+                        <th>
+                            <div class="text-center">
+                                <span class="ml-2">From</span>
+                            </div>
+                        </th>
+                        <th>
+
+                            <div class="text-center">
+                                <span class="ml-2">To</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text-center">
+                                <span class="ml-2">Time</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text-center">
+                                <span class="ml-2">FreeSeets</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="text-center">
+                                <span class="ml-2">Action</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                @if (Model != null)
+                {
+                    @foreach (var Travel in Model)
+                    {
+                        <tr class="border-bottom">
+                            <td>
+                                <div class="text-center">
+                                    <div class="p-2 d-flex align-items-center  mb-2">
+                                        <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                        <div class="d-flex flex-column  p-2">
+                                            <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem =>
+                                        Travel.TravelId) </span>
+                                            <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            <td>
+                                <div class="p-2 d-flex flex-column">
+                                    <div class="text-center">
+                                        <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="p-2 d-flex flex-column">
+                                    <div class="text-center">
+                                        <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
                                 <div class="p-2">
                                     <div class="text-center">
@@ -130,11 +134,12 @@
                                 </div>
                             </td>
                             <td>
-                            <div class="text-center">
-                            <a>
-                                <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button>
-                            </a>
-                            </div>
+                                <div class="text-center">
+                                    <a>
+                                        <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm"
+                                    class="Confirm">CHOOSE</button>
+                                    </a>
+                                </div>
                                 <div id="myModal" class="modal fade">
                                     <div class="modal-dialog modal-confirm">
                                         <div class="modal-content">
@@ -153,10 +158,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                </td>
-                        </td>
-                    </tr>
+
+                            </td>
+                            </td>
+                        </tr>
+                    }
                 }
             </table>
         </div>
