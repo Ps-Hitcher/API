@@ -44,3 +44,31 @@ function geocodeLatLng(userLocationCoords) {
         })
         .catch((e) => window.alert("Geocoder failed due to: " + e));
 }
+
+function fullTripDist(result) {
+    var distance = 0;
+    for (i = 0; result.routes[0].legs.length > i; i++) {
+        distance += result.routes[0].legs[i].distance.value;
+    }
+    return distance;
+}
+
+function fullTripTime(result) {
+    var duration = 0;
+    for (i = 0; result.routes[0].legs.length > i; i++) {
+        duration += result.routes[0].legs[i].duration.value;
+    }
+    return duration;
+}
+
+function displayOutput(result) {
+    
+    distance = fullTripDist(result);
+    duration = fullTripTime(result);
+
+    const output = document.querySelector('#output');
+    output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("Origin").value + ".<br />To: " +
+        document.getElementById("Destination").value + ".<br /> Driving distance  : " +
+        ((distance >= 1000) ? ((distance / 1000) + " km. " + "<br />Duration  : ") : (distance + " m.<br />Duration  : ")) +
+        ((duration >= 3600) ? ((Math.trunc(duration / 3600)) + " h. " + (Math.trunc(duration % 3600 / 60)) + " min.</div>") : ((Math.trunc(duration / 60)) + " min.</div>"));
+}

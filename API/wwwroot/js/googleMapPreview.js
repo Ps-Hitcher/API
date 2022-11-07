@@ -1,6 +1,15 @@
+var mapPreview;
+var directionsRendererMapPreview = new google.maps.DirectionsRenderer();
 
+function loadGoogleMapPreview(mapName, trip) {
+    //Preview map
+    mapPreview = new google.maps.Map(document.getElementById(mapName), mapOptions);
 
-function userLocationMapPreview() {
-    x = navigator.geolocation;
-    x.getCurrentPosition(geocodeSuccess, geocodeFailure);
+    //bind the DirectionsRenderer to the map
+    directionsRendererMapPreview.setMap(mapPreview);
+
+    directionsRendererMapPreview.setDirections(trip.RequestInfo);
 }
+
+
+

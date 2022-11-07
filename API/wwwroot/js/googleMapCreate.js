@@ -6,23 +6,29 @@ function loadGoogleMapCreate() {
 
     //bind the DirectionsRenderer to the map
     directionsRendererMapCreate.setMap(mapCreate);
+
+    directionsRendererMapCreate.addListener("directions_changed", () => {
+        result = directionsRendererMapCreate.getDirections();
+
+        if (result) {
+            displayOutput(result);
+        }
+    });
 }
 //create a DirectionsService object to use the route method and get a result for our request
 var directionsServiceMapCreate = new google.maps.DirectionsService();
 
 //create a DirectionsRenderer object which we will use to display the route
 var directionsRendererMapCreate = new google.maps.DirectionsRenderer({ draggable: true });
-google.maps.event.addListener(directionsRendererMapCreate, 'directions_changed', );
 
 //Create a Geocoder object, used for reverse geocoding.
 var geocoderMapCreate = new google.maps.Geocoder();
 
 //define calcRoute function
 function calcRouteMapCreate() {
-    if (!(document.getElementById("Origin").value && 
-    document.getElementById("Destination").value && 
-    document.getElementById("LeaveTime").value && 
-    document.getElementById("FreeSeats").value != "Select FreeSeats")) {
+    if (!(document.getElementById("Origin").value &&
+        document.getElementById("Destination").value &&
+        document.getElementById("LeaveTime").value)) {
         return;
     }
     var stopoverNum = 1;
@@ -67,11 +73,7 @@ function calcRouteMapCreate() {
             result = serverResult;
 
             //Get distance and time
-            const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("Origin").value + ".<br />To: " +
-                document.getElementById("Destination").value + ".<br /> Driving distance  : " +
-                result.routes[0].legs[0].distance.text + ".<br />Duration  : " +
-                result.routes[0].legs[0].duration.text + ".</div>";
+            displayOutput(result);
 
             //display route
             try {

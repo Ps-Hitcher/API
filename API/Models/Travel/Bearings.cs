@@ -5,7 +5,7 @@ namespace WebApplication2.Models.Travel
     public struct Bearings
     {
         [JsonProperty]
-        public double average { get; set; }
+        public List<double> bearing { get; set; }
 
         [JsonProperty]
         public double minimum { get; set; }
