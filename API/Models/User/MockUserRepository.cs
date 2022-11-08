@@ -58,5 +58,14 @@ public class MockUserRepository : IUserRepository
     {
         _userList.Remove(GetUser(Id));
     }
+
+    public static int GetUserAge (string YearOfBirth)
+    {
+        DateTime today = DateTime.Today;
+        int age = today.Year - DateTime.Parse(YearOfBirth).Year;
+        if (DateTime.Parse(YearOfBirth) > today.AddYears(-age)) age--;
+
+        return age;
+    }
     
 }

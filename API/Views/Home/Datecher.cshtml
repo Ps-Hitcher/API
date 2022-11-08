@@ -1,6 +1,8 @@
 ﻿@* @model List<UserModel> *@
 @model Microsoft.EntityFrameworkCore.DbSet<UserModel>
 @using WebApplication2.Models.User
+@using static WebApplication2.Models.User.IUserRepository
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
@@ -46,14 +48,15 @@
                         <div class="Phone">
                             <h6>Email: <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small></h6>
                             <h6>Phone: <small class="text-muted">@Html.DisplayFor(modelItem => user.PhoneNumber)</small></h6>
-                            <h6>Age: <small class="text-muted">@Html.DisplayFor(modelItem => user.YearOfBirth)</small></h6>
-                            
+                            @* https://techfunda.com/howto/90/calling-external-method *@
+                            <h6>Age: <small class="text-muted">@IUserRepository.GetUserAge(user.YearOfBirth)</small></h6>
+
                         </div>
                     </h4>
                      
                     <h6>About me:</h6>
                     <div class="about">
-                        Content
+                        <h6>Description: <small class="text-muted">@Html.DisplayFor(modelItem => user.Description)</small></h6>
                     </div>
                      
                     <div class="social">
@@ -62,6 +65,7 @@
                     </div>
                     <a>
                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">POKE</button>
+                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">SHOW TRIP</button>
                     </a>
                     <br></br>
                 </div>
@@ -89,6 +93,19 @@
         </div>
     </div>
 </div>
+
+<div id="myModal1" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!--JQUERY LINK -->
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
