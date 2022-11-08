@@ -299,6 +299,14 @@ body {
 
 .ml-2 {
   color: #F6B3D8;
+  white-space: nowrap;
+  padding: 20px;
+  display: inline;
+}
+
+.p-2{
+  white-space: nowrap;
+  text-align: center;
 }
 
 .container-fluid{

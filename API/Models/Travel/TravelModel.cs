@@ -12,5 +12,5 @@ public class TravelModel
     public String Time { get; set; }
     public Guid DriverID { get; set; }
     public int FreeSeats { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }

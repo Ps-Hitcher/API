@@ -13,7 +13,7 @@
 	<br><br>
 </div>
    
-<table class="table table-borderless table-responsive  p-4">
+<table class="table table-borderless table-responsive p-4">
     <thead>
     <tr class="border-bottom">
         <th>
@@ -21,6 +21,9 @@
         </th>
         <th>
             <span class="ml-2">Driver</span>
+        </th>
+        <th>
+            <span class="ml-2">Date Of Birth</span>
         </th>
         <th>
             <span class="ml-2">User Type</span>
@@ -32,9 +35,7 @@
             <span class="ml-2">Address</span>
         </th>
         <th>
-            <div class="text-center">
             <span class="ml-2">Action</span>
-            </div>
         </th>
     </tr>
     </thead>
@@ -57,6 +58,11 @@
             </td>
             <td>
                 <div class="p-2">
+                    <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.YearOfBirth)</span>
+                </div>
+            </td>
+            <td>
+                <div class="p-2">
                     <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span>
                 </div>
             </td>
@@ -71,11 +77,13 @@
                 </div>
             </td>
             <td>
-                <div class ="neon-button" type="button"> 
-                    @Html.ActionLink("Edit", "Edit", new {id = user.Id}, new {@style="color: #FFFFFF"})
-                </div>
-                <div class ="neon-button"  type="button">
-                @Html.ActionLink("Delete", "Delete", new {id = user.Id}, new {@style="color: #FFFFFF"})
+                <div class="p-2">
+                    <div class="neon-button" type="button">
+                        @Html.ActionLink("Edit", "Edit", new { id = user.Id }, new { @style = "color: #FFFFFF" })
+                    </div>
+                    <div class="neon-button" type="button">
+                        @Html.ActionLink("Delete", "Delete", new { id = user.Id }, new { @style = "color: #FFFFFF" })
+                    </div>
                 </div>
             </td>
         </tr>
