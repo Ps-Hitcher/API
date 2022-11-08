@@ -69,12 +69,12 @@ public class HomeController : Controller
     {
         return View(_userList);
     }
-    
+
     public IActionResult Datecher()
     {
         return View(_userList);
     }
-    
+
 
     public IActionResult Trip(TravelModel trip)
     {
@@ -122,7 +122,6 @@ public class HomeController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-    
 
     public IActionResult Login()
     {

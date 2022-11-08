@@ -13,4 +13,6 @@ public class TravelModel
     public Guid DriverID { get; set; }
     public int FreeSeats { get; set; }
     public string Description { get; set; }
+    public MetaData Meta { get; set; }
+    public string RequestInfo { get; set; }
 }
