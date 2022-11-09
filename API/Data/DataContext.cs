@@ -21,5 +21,9 @@ public class DataContext : DbContext
             v => JsonConvert.SerializeObject(v), // Convert to string for persistence
             v => JsonConvert.DeserializeObject<List<string>>(v))
             );
+        modelBuilder.Entity<TravelModel>().Property(x => x.Bearings).HasConversion(new ValueConverter<List<double>, string>(
+            v => JsonConvert.SerializeObject(v), // Convert to string for persistence
+            v => JsonConvert.DeserializeObject<List<double>>(v))
+            );
     }
 }

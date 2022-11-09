@@ -16,17 +16,16 @@
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
-<script src="site.js"></script>
 
 <div class="grid-container">
 
 	<div class="item5">
-		<div id="googleMap">
+		<div id="googleMapCreate">
 		</div>
 		<br></br>
 		<div class="wrap">
-			<button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-			<button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+			<button onclick="calcRouteMapCreate()" type="button" id="submit" name="submit" class="travel">Submit</button>
+			<button onclick="userLocationMapCreate()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
 		</div>
 	
 		<div id="output">
@@ -44,7 +43,7 @@
 							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
-						<form asp-controller="Home" asp-action="AddTravel" method="post">
+						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="calcRouteMapCreate()">
 							<div class="panel-body-trip">
 							</div>
 							<br><br>
@@ -52,7 +51,7 @@
 								<div class="form-group">
 									<tr>
 										<label for="Origin">Origin</label>
-										<td><input asp-for=Origin type="text" class="form-control" id="Origin"
+										<td><input asp-for="Origin" type="text" class="form-control" id="Origin"
 										           placeholder="Enter Origin" required/></td>
 									</tr>
 								</div>
@@ -62,7 +61,7 @@
 								<div class="form-group">
 									<tr>
 										<label for="Destination">Destination</label>
-										<td><input asp-for=Destination type="text" class="form-control" id="Destination"
+										<td><input asp-for="Destination" type="text" class="form-control" id="Destination"
 										           placeholder="Enter Destination" required=""/></td>
 									</tr>
 								</div>
@@ -79,7 +78,7 @@
 										</label>
 										<div class="col-sm-10-trip">
 										<td>
-											<input asp-for=Stopovers type="text" class="form-control" id="Stopover1"
+											<input asp-for="Stopovers" type="text" class="form-control" id="Stopover1"
 											       placeholder="Enter Stopover"/></td>
 										
 										@* <button onclick="add()">Add</button> *@
@@ -96,7 +95,7 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<label for="FreeSeats">Leave Time</label>
-									<input asp-for=Time type="Time"  id="LeaveTime" required="">
+									<input asp-for="Time" type="Time"  id="LeaveTime" required="">
 								</div>
 							</div>
 							<br><br>
@@ -117,10 +116,11 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<label for="Description">Description</label>
-									<input asp-for=Description type="text" class="form-control" id="Description"
+									<input asp-for="Description" type="text" class="form-control" id="Description"
 									       placeholder="Enter Description">
 								</div>
 							</div>
+							<input asp-for="RequestInfo" type="hidden" class="form-control" id="RequestInfo">
 							<br><br>
 							<div class="row gutters">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -155,4 +155,9 @@
               }
             }
 </script>
-                            									
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        loadGoogleMapCreate();
+    }, false);
+</script>              									

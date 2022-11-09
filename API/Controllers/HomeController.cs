@@ -115,7 +115,6 @@ public class HomeController : Controller
 
     public IActionResult AddTravel(TravelModel travel)
     {
-        var stopovers = travel.Stopovers;
         travel.Id = Guid.NewGuid();
         _travelList.Add(travel);
         _userRepository.Save();

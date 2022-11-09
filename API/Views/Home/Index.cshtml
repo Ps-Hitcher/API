@@ -1,6 +1,7 @@
 ﻿@* @model List<TravelModel> *@
 @model Microsoft.EntityFrameworkCore.DbSet<TravelModel>
 @using WebApplication2.Models.Travel
+@using System.Security.Principal
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,7 +9,6 @@
 }
 <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
-<script src="site.js"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="site.css" rel="stylesheet" />
@@ -38,8 +38,8 @@
                 <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br/>
             </form>
             <div class="wrap">
-                <button onclick="calcRoute()" type="button" id="submit" name="submit" class="travel">Submit</button>
-                <button onclick="userLocationMainPage()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+                <button onclick="calcRouteMapView()" type="button" id="submit" name="submit" class="travel">Submit</button>
+                <button onclick="userLocationMapView()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
             </div>
         </div>
         <div id="output">
@@ -47,11 +47,13 @@
     </div>
 
     <div class="item3">
-        <div id="googleMap">
+        <div id="googleMapView">
         </div>
     </div>
     
- <div class="item4">
+    
+    
+    <div class="item4">
         <div class="container mt-5">
             <table class="table table-borderless table-responsive card-1 p-4">
                 <thead>
@@ -93,29 +95,29 @@
                 {
                     <tr class="border-bottom">
                         <td>
-                     <div class="text-center">
-                             <div class="p-2 d-flex align-items-center  mb-2">
-                                 <img src="~/img/profile.jpg" width="40" class="rounded-circle">
-                                 <div class="d-flex flex-column  p-2">
-                                     <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
-                                     <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
-                                 </div>
-                             </div>
-                         </div>
-                     <td>
-                            <div class="p-2 d-flex flex-column">
-                                <div class="text-center">
-                                    <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
+                            <div class="text-center">
+                                <div class="p-2 d-flex align-items-center  mb-2">
+                                    <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column  p-2">
+                                        <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
+                                        <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
+                                    </div>
                                 </div>
                             </div>
-                        </td>
-                          <td>
-                              <div class="p-2 d-flex flex-column">
-                                  <div class="text-center">
-                                      <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
-                                  </div>
-                              </div>
-                          </td>
+                            <td>
+                                <div class="p-2 d-flex flex-column">
+                                    <div class="text-center">
+                                        <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="p-2 d-flex flex-column">
+                                    <div class="text-center">
+                                        <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
                                 <div class="p-2">
                                     <div class="text-center">
@@ -131,11 +133,11 @@
                                 </div>
                             </td>
                             <td>
-                            <div class="text-center">
-                            <a>
-                                <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button>
-                            </a>
-                            </div>
+                                <div class="text-center">
+                                    <a>
+                                        <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button>
+                                    </a>
+                                </div>
                                 <div id="myModal" class="modal fade">
                                     <div class="modal-dialog modal-confirm">
                                         <div class="modal-content">
@@ -155,7 +157,7 @@
                                     </div>
                                 </div>
                                 
-                                </td>
+                            </td>
                         </td>
                     </tr>
                 }
@@ -163,3 +165,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        loadGoogleMapView();
+    }, false);
+</script>
