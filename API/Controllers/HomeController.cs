@@ -72,7 +72,9 @@ public class HomeController : Controller
     
     public IActionResult Datecher()
     {
+        
         return View(_userList);
+        
     }
     
 

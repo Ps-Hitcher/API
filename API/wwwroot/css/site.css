@@ -264,11 +264,12 @@ body {
 }
 
 .item3 {
-  grid-column: 6/8;
+  grid-column: 7/8;
+  grid-row: 1 / 2;
 }
 
 .item4 {
-  grid-column: 1/8;
+  grid-column: 1/4;
   grid-row: 2 / 4;
 }
 
@@ -368,11 +369,8 @@ body {
 
 /*button*/
 .Confirm{
-  /*background-color: #F6B3D8;*/
-  /*  border-color: #bcd0f7;*/
-  /*  border-width: 2px;*/
   --glow-color: rgb(159, 206, 109);
-  --glow-spread-color: rgba(136, 123, 255, 0.78);
+  --glow-spread-color: rgb(61, 71, 136);
   --enhanced-glow-color: rgb(219, 219, 220);
   --btn-color: rgb(61, 71, 136);
   border: .10em solid var(--glow-color);
@@ -386,7 +384,6 @@ body {
   box-shadow: 0 0 1em .100em var( --enhanced-glow-color),
   0 0 5em 1em var(--glow-spread-color),
   inset 0 0 .100em .100em var( --enhanced-glow-color);
-  position: relative;
   top:15px;
 }
 
@@ -750,3 +747,6 @@ a.Edit{
   border-radius: 5px;
 }
 
+.action{
+
+}

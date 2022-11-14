@@ -45,17 +45,15 @@
         <div id="output">
         </div>
     </div>
-
     <div class="item3">
         <div id="googleMapView">
         </div>
     </div>
-    
-    
-    
+      
     <div class="item4">
-        <div class="container mt-5">
-            <table class="table table-borderless table-responsive card-1 p-4">
+        <br></br>
+        <div>
+            <table class=" table-borderless table-responsive p-4">
                 <thead>
                 <tr class="border-bottom">
                     <th>
@@ -69,7 +67,6 @@
                         </div>
                     </th>
                     <th>
-                        
                         <div class="text-center">
                             <span class="ml-2">To</span>
                         </div>
@@ -91,12 +88,13 @@
                     </th>
                 </tr>
                 </thead>
+
                 @foreach (var Travel in Model)
                 {
                     <tr class="border-bottom">
                         <td>
                             <div class="text-center">
-                                <div class="p-2 d-flex align-items-center  mb-2">
+                                <div class="p-2 d-flex align-items-center mb-2">
                                     <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                     <div class="d-flex flex-column  p-2">
                                         <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
@@ -105,14 +103,14 @@
                                 </div>
                             </div>
                             <td>
-                                <div class="p-2 d-flex flex-column">
+                                <div class="p-2">
                                     <div class="text-center">
                                         <span>@Html.DisplayFor(modelItem => Travel.Origin)</span>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="p-2 d-flex flex-column">
+                                <div class="p-2 ">
                                     <div class="text-center">
                                         <span>@Html.DisplayFor(modelItem => Travel.Destination)</span>
                                     </div>
@@ -133,7 +131,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="text-center">
+                                <div class="action">
                                     <a>
                                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button>
                                     </a>
@@ -156,15 +154,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </td>
                         </td>
                     </tr>
                 }
+
             </table>
         </div>
     </div>
-</div>
+        
+    </div>
+
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {

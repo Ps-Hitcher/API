@@ -16,6 +16,10 @@ body{
     box-shadow: 0 0 10px rgb(191, 196, 230);
 }
 
+.text-card{
+    color: rgba(231, 231, 107, 0.9);
+    text-shadow: #00000b 0 0 5px;
+}
 .slick-slide img{
     margin: 0 auto;
     max-width: 120px;
@@ -227,4 +231,91 @@ body{
 .trigger-btn {
     display: inline-block;
     margin: 100px auto;
+}
+
+
+/*Confirm-button1*/
+.modal1-confirm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    color: #D8F0EF;
+}
+.modal1-confirm .modal1-content {
+    background: linear-gradient(-45deg, #1A233A, #1A233A ,#001324, #0056ff);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 200%;
+    
+    
+}
+
+.modal1-confirm h1{
+    font-size: 14px;
+    color: black;
+    line-height: 1.5;
+    
+}
+.modal1-confirm p{
+    font-size: 14px;
+    color: black;
+    line-height: 1.5;
+    content: "\a";
+    white-space: pre;
+}
+.modal1-header{
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    font-family: "Trebuchet MS", sans-serif;
+    text-shadow: #fff 0 0 10px;
+    letter-spacing: -2px;
+    
+    text-transform: uppercase;
+    
+}
+
+.modal1-confirm .modal1-footer {
+    border: none;
+    text-align: left;
+    border-radius: 5px;
+    font-size: 13px;
+    width: 20px;
+}
+
+
+.trigger-btn1 {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+
+/*button*/
+.ConfirmOkey{
+    --enhanced-glow-color: rgb(219, 219, 220);
+    border: none;
+    padding: 1em 3em;
+    color: var(--enhanced-glow-color);
+    font-size: 11px;
+    font-weight: bold;
+    background: none;
+    outline: none;
+    box-shadow: 0 0 1em  var( --enhanced-glow-color),
+    0 0  2em var(--enhanced-glow-color),
+    inset 0 0 .10em .10em var( --enhanced-glow-color);
+    
+}
+#button1 , #button2 {
+    display:block;
+    margin-bottom: 1em;
+    border-radius: 5px;
+ 
+}
+.choose{
+    text-align: right;
 }
