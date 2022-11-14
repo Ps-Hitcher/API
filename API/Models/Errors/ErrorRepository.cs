@@ -22,7 +22,7 @@ namespace WebApplication2.Models.Errors
             return _errorModels.OrderByDescending(error => error.DateAndTime).First();
         }
 
-        public DbSet<ErrorModel> GetUserList()
+        public DbSet<ErrorModel> GetErrorList()
         {
             return _errorModels;
         }

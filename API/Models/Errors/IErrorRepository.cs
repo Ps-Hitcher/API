@@ -7,7 +7,7 @@ namespace WebApplication2.Models.Errors
     {
         ErrorModel Get();
         void Add(ErrorModel error);
-        DbSet<ErrorModel> GetUserList();
+        DbSet<ErrorModel> GetErrorList();
         void Delete();
         void Save();
     }

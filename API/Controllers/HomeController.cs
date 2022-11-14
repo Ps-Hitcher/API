@@ -44,12 +44,11 @@ public class HomeController : Controller
     public string PrintMessage()
     {
         _logger.LogInformation("CorrelationId: {id}", _correlationIdGenerator.Get());
-        return JsonConvert.SerializeObject(_userRepository.GetUserList());
+        return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
     }
     
     public IActionResult Index()
     {
-        throw new Exception("asdf");
         return View(_travelList);
     }
 
@@ -102,7 +101,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        if(_errorRepository.GetUserList().Count() > 0)
+        if(_errorRepository.GetErrorList().Count() > 0)
         {
             return View(_errorRepository.Get());
         }
