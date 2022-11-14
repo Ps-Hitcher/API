@@ -17,4 +17,9 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20221108165125_DBUpdate#1.cs" />
+      <Compile Remove="Migrations\20221108165125_DBUpdate#1.Designer.cs" />
+    </ItemGroup>
+
 </Project>

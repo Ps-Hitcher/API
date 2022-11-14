@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -13,22 +14,27 @@ namespace WebApplication2.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    
     private IUserRepository _userRepository;
-    // public List<UserModel> _userList;
-    DbSet<UserModel> _userList;
+    public DbSet<UserModel> _userList;
 
     private ITravelRepository _travelRepository;
-
     public DbSet<TravelModel> _travelList;
+    
+    private IMetaRepository _metaRepository;
+    public DbSet<MetaModel> _metaList;
+    
     // public List<TravelModel> _travelList;
     // public List<CarStruct> _carList;
-    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository) //Using dependency injection for UserModel
+    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository, IMetaRepository metaRepository) //Using dependency injection for UserModel
     {
         _logger = logger;
         _userRepository = userRepository;
         _travelRepository = travelRepository;
+        _metaRepository = metaRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
+        _metaList = _metaRepository.GetMetaList();//debug
     }
 
     public IActionResult Index()
@@ -75,11 +81,11 @@ public class HomeController : Controller
         return View(_userList);
     }
     
-
-    public IActionResult Trip(TravelModel trip)
+    public IActionResult Trip(TravelModel trip, MetaModel meta)
     {
-        trip = trip ?? new TravelModel();
-        return View(trip);
+        ViewData["Trip"] = trip ?? new TravelModel();
+        ViewData["Meta"] = meta ?? new MetaModel();
+        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

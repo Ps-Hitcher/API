@@ -43,7 +43,7 @@
 							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
-						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="calcRouteMapCreate()">
+						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="setTimeout(() => { calcRouteMapCreate(); }, 500)">
 							<div class="panel-body-trip">
 							</div>
 							<br><br>
