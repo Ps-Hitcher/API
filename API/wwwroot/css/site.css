@@ -239,6 +239,11 @@ body {
   width: 520px;
 }
 
+#googleMapPreview {
+  height: 300px;
+  width: 520px;
+}
+
 #googleMapCreate {
   height: 300px;
   width: 520px;

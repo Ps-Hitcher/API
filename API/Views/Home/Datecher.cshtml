@@ -110,7 +110,7 @@
                         Route information:
                 </div>
                 <br></br>
-                <div id="googleMapView">
+                <div id="googleMapPreview">
                 
                 </div>
                 
@@ -133,7 +133,7 @@
                     </div>
                 <br></br>
                 <div class="modal1-footer">
-                        <button class="ConfirmOkey" id="button1" data-dismiss="modal1">CLOSE</button>
+                    <button class="ConfirmOkay" id="button1" data-dismiss="modal1">CLOSE</button>
                     </div>
             </div>
         </div>
@@ -152,8 +152,9 @@
     });
 </script>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        loadGoogleMapView();
+    document.addEventListener("DOMContentLoaded", function() {
+        //Nors dabar visvien nerodys kelio, tik sukurs map.
+        loadGoogleMapPreview("googleMapPreview", "Route Info goes here");
     }, false);
 </script>
 
