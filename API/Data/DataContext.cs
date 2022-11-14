@@ -15,7 +15,7 @@ public class DataContext : DbContext
 
     public DbSet<UserModel> Users { get; set; }
     public DbSet<TravelModel> Trips { get; set; }
-    public DbSet<ErrorViewModel> Errors { get; set; }
+    public DbSet<ErrorModel> Errors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

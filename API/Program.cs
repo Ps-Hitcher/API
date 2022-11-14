@@ -3,6 +3,7 @@ using WebApplication2.Data;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Models.Travel;
+using WebApplication2.Models.Errors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
 builder.Services.AddScoped<ITravelRepository, TravelRepository>();//Dependancy injection for using TravelModel
 builder.Services.AddScoped<ICorrelationIDGenerator, CorrelationIdGenerator>();  //Dependancy injection for CorrelationIdGenerator
+builder.Services.AddScoped<IErrorRepository, ErrorRepository>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
