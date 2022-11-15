@@ -48,11 +48,8 @@ public class ExceptionMiddleware
         if(stackTrace.GetFrame(0) != null)
         {
             var fileDir = stackTrace.GetFrame(0).GetFileName();
-            if(fileDir != null)
-            {
-                fileName = fileDir[(fileDir.LastIndexOf('\\') + 1)..];
-                fileLine = stackTrace.GetFrame(0).GetFileLineNumber();
-            }
+            fileName = fileDir[(fileDir.LastIndexOf('\\') + 1)..];
+            fileLine = stackTrace.GetFrame(0).GetFileLineNumber();
         }
 
         ErrorModel errorDetails = new ErrorModel()
