@@ -135,3 +135,12 @@ function addRequestInfo() {
     document.getElementById("RequestInfo").value = JSON.stringify(result);
     console.log("RequestInfo value ", document.getElementById("RequestInfo").value);
 }
+
+function prepareForSave() {
+    calcRouteMapCreate();
+
+    console.log(autocompleteOrigin.getPlace(), autocompleteDestination.getPlace());
+
+    document.getElementById("OriginSave").value = autocompleteOrigin.getPlace().name;
+    document.getElementById("DestinationSave").value = autocompleteDestination.getPlace().name;
+}
