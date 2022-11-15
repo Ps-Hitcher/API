@@ -1,36 +1,52 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using WebApplication2.Data;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Models.Travel;
-using WebApplication2.Utilities;
 using FileIO = System.IO.File;
+using WebApplication2.Models.Errors;
 
 namespace WebApplication2.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ICorrelationIDGenerator _correlationIdGenerator;
+    private IErrorRepository _errorRepository;
     private IUserRepository _userRepository;
     // public List<UserModel> _userList;
     DbSet<UserModel> _userList;
 
     private ITravelRepository _travelRepository;
-
     public DbSet<TravelModel> _travelList;
     // public List<TravelModel> _travelList;
     // public List<CarStruct> _carList;
-    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository) //Using dependency injection for UserModel
+    public HomeController(ILogger<HomeController> logger,
+        IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
+        ICorrelationIDGenerator correlationIdGenerator, DataContext context) //Using dependency injection for UserModel
     {
-        _logger = logger;
+        _logger = logger; 
+        _correlationIdGenerator = correlationIdGenerator;
         _userRepository = userRepository;
         _travelRepository = travelRepository;
+        _errorRepository = errorRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
     }
 
+
+    [HttpGet]
+    [Route("test/PrintMessage")]
+    public string PrintMessage()
+    {
+        _logger.LogInformation("CorrelationId: {id}", _correlationIdGenerator.Get());
+        return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
+    }
+    
     public IActionResult Index()
     {
         return View(_travelList);
@@ -85,7 +101,11 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if(_errorRepository.GetErrorList().Count() > 0)
+        {
+            return View(_errorRepository.Get());
+        }
+        return RedirectToAction("Index");
     }
 
     public IActionResult AddUser(UserModel user)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
+using WebApplication2.Models;
 using WebApplication2.Models.Travel;
 using WebApplication2.Models.User;
 
@@ -14,6 +15,7 @@ public class DataContext : DbContext
 
     public DbSet<UserModel> Users { get; set; }
     public DbSet<TravelModel> Trips { get; set; }
+    public DbSet<ErrorModel> Errors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -13,7 +13,7 @@ namespace WebApplication2.Utilities
         /// <typeparam name="T">A desirable type</typeparam>
         /// <param name="jsonPath">Path were the JSON file is located</param>
         /// <returns>A specified type's object with desirialized JSON data</returns>
-        public static T DesirializeJSON<T>(string jsonPath)
+        public static T? DesirializeJSON<T>(string jsonPath)
         {
             try
             {
@@ -23,22 +23,9 @@ namespace WebApplication2.Utilities
             catch(Exception)
             {
                 return default(T);
-                throw;
             }
             
         }
 
-        public static string SerializeJSON(this string s, object objectToSerialize)
-        {
-            try
-            {
-                return JsonConvert.SerializeObject(objectToSerialize);
-            }
-            catch(Exception)
-            {
-                return null;
-                throw;
-            }
-        }
     }
 }
