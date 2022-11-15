@@ -20,6 +20,7 @@ body{
     color: rgba(231, 231, 107, 0.9);
     text-shadow: #00000b 0 0 5px;
 }
+
 .slick-slide img{
     margin: 0 auto;
     max-width: 120px;
@@ -308,8 +309,10 @@ body{
     box-shadow: 0 0 1em  var( --enhanced-glow-color),
     0 0  2em var(--enhanced-glow-color),
     inset 0 0 .10em .10em var( --enhanced-glow-color);
-    
+    cursor: pointer;
 }
+
+
 #button1 , #button2 {
     display:block;
     margin-bottom: 1em;

@@ -1,0 +1,63 @@
+﻿
+.btn{
+    --enhanced-glow-color: rgb(219, 219, 220);
+    padding: 1em 3em;
+    color: var(--enhanced-glow-color);
+    font-size: 11px;
+    font-weight: bold;
+    background: none;
+    outline: none;
+    box-shadow: 0 0 1em  var( --enhanced-glow-color),
+    0 0  2em var(--enhanced-glow-color),
+    inset 0 0 .10em .10em var( --enhanced-glow-color);
+    cursor: pointer;
+    border-color: #1A233A;
+}
+.popup{
+    width: 400px;
+    background: rgba(26, 35, 58, 0.75);
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgb(191, 196, 230);
+    position: absolute;
+    top:0;
+    left:50%;
+    transform: translate(-50%,-50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: rgb(243, 243, 245);
+    visibility: hidden;
+    transition: transform 1s, top 0.4s;
+    
+}
+
+.open-popup{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.2);
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+.popup button{
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #1A233A;
+    color: white;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}		

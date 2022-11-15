@@ -264,7 +264,7 @@ body {
 }
 
 .item3 {
-  grid-column: 7/8;
+  grid-column: 6/7;
   grid-row: 1 / 2;
 }
 
@@ -282,7 +282,11 @@ body {
   grid-row: 1 / 8;
 }
 
-
+.awesome{
+  text-align: center;
+  position: relative;
+  color: #0b5ed7;
+}
 .border-bottom {
   color: #bcd0f7;
 }
@@ -327,7 +331,7 @@ body {
 .travel{
   --glow-color: rgb(219, 219, 220);
   --glow-spread-color: rgba(136, 123, 255, 0.78);
-  --enhanced-glow-color: rgb(231, 206, 255);
+  --enhanced-glow-color: rgb(246, 241, 248);
   --btn-color: rgb(61, 71, 136);
   border: .25em solid var(--glow-color);
   padding: 1em 3em;
@@ -371,7 +375,7 @@ body {
 .Confirm{
   --glow-color: rgb(159, 206, 109);
   --glow-spread-color: rgb(61, 71, 136);
-  --enhanced-glow-color: rgb(219, 219, 220);
+  --enhanced-glow-color: rgb(255, 255, 255);
   --btn-color: rgb(61, 71, 136);
   border: .10em solid var(--glow-color);
   padding: 1em 8em;
@@ -747,6 +751,7 @@ a.Edit{
   border-radius: 5px;
 }
 
-.action{
-
+.table-borderless.table-responsive.p-4{
+  position: relative;
 }
+

@@ -85,7 +85,6 @@
                 <div class="icon-box">
                     <i class="material-icons">&#xE876;</i>
                 </div>
-                @* <h4 class="modal-title w-100">Awesome!</h4> *@
             </div>
             <div class="modal-body">
                 <p class="text-center"><img src="~/img/poke.jpg" alt="user" width=250px height=250px></p>
@@ -104,16 +103,14 @@
                 <div class="modal1-header">
                     <div class="choose">
                         <a>
-                            <button href="#myModal" data-toggle="modal" type="button" id="ConfirmOkey" name="Confirm" class="ConfirmOkey">CHOOSE</button>
+                          <button href="#myModal3" data-toggle="modal" type="button" id="ConfirmChoose" name="Confirm" class="ConfirmOkey">CHOOSE</button>
                         </a>
-                         </div>
-                        Route information:
+                    </div>
+                    Route information:
                 </div>
                 <br></br>
                 <div id="googleMapView">
-                
                 </div>
-                
                 <br></br>
                 <div class="text-center">
                     <table style="width:100%">
@@ -130,11 +127,33 @@
                             <td>10:00</td>
                         </tr>
                     </table>
-                    </div>
+                </div>
                 <br></br>
                 <div class="modal1-footer">
-                        <button class="ConfirmOkey" id="button1" data-dismiss="modal1">CLOSE</button>
-                    </div>
+                    <a>
+                        <button href="#myModal3" data-toggle="modal" type="button" id="Close" name="Confirm" class="ConfirmOkey">CLOSE</button>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal3" role="alert" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xebf0;</i>
+                </div>
+                <h4 class="awesome modal-title w-100">AWESOME!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="awesome text-center">SUCCESSFULLY CHOSEN TRIP!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
