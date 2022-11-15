@@ -43,7 +43,7 @@
 							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
-						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="setTimeout(() => { calcRouteMapCreate(); }, 500)">
+						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="setTimeout(() => { prepareForSave(); }, 500)">
 							<div class="panel-body-trip">
 							</div>
 							<br><br>
@@ -51,8 +51,9 @@
 								<div class="form-group">
 									<tr>
 										<label for="Origin">Origin</label>
-										<td><input asp-for="Origin" type="text" class="form-control" id="Origin"
+										<td><input type="text" class="form-control" id="Origin"
 										           placeholder="Enter Origin" required/></td>
+										<input asp-for="Origin" type="hidden" class="form-control" id="OriginSave">
 									</tr>
 								</div>
 							</div>
@@ -61,8 +62,9 @@
 								<div class="form-group">
 									<tr>
 										<label for="Destination">Destination</label>
-										<td><input asp-for="Destination" type="text" class="form-control" id="Destination"
+										<td><input type="text" class="form-control" id="Destination"
 										           placeholder="Enter Destination" required=""/></td>
+										<input asp-for="Destination" type="hidden" class="form-control" id="DestinationSave">
 									</tr>
 								</div>
 							</div>

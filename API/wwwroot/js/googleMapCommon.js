@@ -12,7 +12,8 @@ geocoder = new google.maps.Geocoder();
 let userLocationMarker;
 
 const autocompleteOptions = {
-    componentRestrictions: {country: "lt"}
+    componentRestrictions: {country: "lt"},
+    fields: ["geometry", "name"]
 };
 
 const autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("Origin"), autocompleteOptions);
