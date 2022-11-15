@@ -1,8 +1,9 @@
 ﻿@* @model List<UserModel> *@
 @model Microsoft.EntityFrameworkCore.DbSet<UserModel>
 @using WebApplication2.Models.User
-@using static WebApplication2.Models.User.IUserRepository
 
+@using static WebApplication2.Models.User.IUserRepository
+@using System.Security.Principal
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
@@ -10,12 +11,12 @@
     <title>Profile Card Slider UI Design</title>
     
     <div class="text-center">
-        <img src="~/img/HitchWith.jpg" alt="user" width=650px height=150px>
+        <img src="~/img/Users.jpg" alt="user" width=650px height=150px>
         <br><br>
     </div>
 
     <!--SLICK SLIDER CSS --> 
-   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     
     <!--FONT AWESOME 4.7.0 --> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -31,6 +32,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     
+    <script
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places">
+    </script>
+    
 </head>
 <body>
 
@@ -44,35 +49,33 @@
                     <h4>
                         @Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname)
                         <h6> @Html.DisplayFor(modelItem => user.Type)</h6>
-                        @* <br></br> *@
+                        @* <div class="social"> *@
+                        @*     <a href="#"><i class="fa fa-facebook"></i></a> *@
+                        @*     <a href="#"><i class="fa fa-instagram"></i></a> *@
+                        @* </div> *@
+                        @* *@
+                        @*                      *@
                         <div class="Phone">
-                            <h6>Email: <small class="text-muted">@Html.DisplayFor(modelItem => user.Email)</small></h6>
-                            <h6>Phone: <small class="text-muted">@Html.DisplayFor(modelItem => user.PhoneNumber)</small></h6>
+                            <h6>Email: <small class="text-card">@Html.DisplayFor(modelItem => user.Email)</small></h6>
+                            <h6>Phone: <small class="text-card">@Html.DisplayFor(modelItem => user.PhoneNumber)</small></h6>
                             @* https://techfunda.com/howto/90/calling-external-method *@
-                            <h6>Age: <small class="text-muted">@IUserRepository.GetUserAge(user.YearOfBirth)</small></h6>
-
+                            <h6>Age: <small class="text-card">@IUserRepository.GetUserAge(user.YearOfBirth)</small></h6>
                         </div>
                     </h4>
-                     
                     <h6>About me:</h6>
                     <div class="about">
-                        <h6>Description: <small class="text-muted">@Html.DisplayFor(modelItem => user.Description)</small></h6>
+                        <h6>Description: <small class="text-card">@Html.DisplayFor(modelItem => user.Description)</small></h6>
                     </div>
-                     
-                    <div class="social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                    </div>
+                    <br></br>
                     <a>
-                        <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">POKE</button>
-                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">SHOW TRIP</button>
+                        <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkey">POKE</button>
+                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkey">SHOW TRIP</button>
                     </a>
                     <br></br>
                 </div>
             </div>
         }
     </div>
-    
 </div>
 
 <div id="myModal" class="modal fade">
@@ -82,22 +85,72 @@
                 <div class="icon-box">
                     <i class="material-icons">&#xE876;</i>
                 </div>
-                @* <h4 class="modal-title w-100">Awesome!</h4> *@
             </div>
             <div class="modal-body">
                 <p class="text-center"><img src="~/img/poke.jpg" alt="user" width=250px height=250px></p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <button  class="btn btn-success btn-block" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="myModal1" class="modal fade">
+<div class="modal1-confirm">
+    <div id="myModal1" class="modal fade">
+        <div class="modal-dialog modal1-confirm">
+            <div class="modal1-content">
+                <div class="modal1-header">
+                    <div class="choose">
+                        <a>
+                          <button href="#myModal3" data-toggle="modal" type="button" id="ConfirmChoose" name="Confirm" class="ConfirmOkey">CHOOSE</button>
+                        </a>
+                    </div>
+                    Route information:
+                </div>
+                <br></br>
+                <div id="googleMapView">
+                </div>
+                <br></br>
+                <div class="text-center">
+                    <table style="width:100%">
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Stopovers</th>
+                            <th>Time</th>
+                        </tr>
+                        <tr>
+                            <td>Šiauliai</td>
+                            <td>Ukmergė</td>
+                            <td>Vilnius</td>
+                            <td>10:00</td>
+                        </tr>
+                    </table>
+                </div>
+                <br></br>
+                <div class="modal1-footer">
+                    <a>
+                        <button href="#myModal3" data-toggle="modal" type="button" id="Close" name="Confirm" class="ConfirmOkey">CLOSE</button>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal3" role="alert" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
             <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xebf0;</i>
+                </div>
+                <h4 class="awesome modal-title w-100">AWESOME!</h4>
+            </div>
+            <div class="modal-body">
+                <p class="awesome text-center">SUCCESSFULLY CHOSEN TRIP!</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
@@ -105,7 +158,6 @@
         </div>
     </div>
 </div>
-
 
 <!--JQUERY LINK -->
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -118,5 +170,24 @@
         slidesToShow: 3
     });
 </script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        loadGoogleMapView();
+    }, false);
+</script>
+
 </body>
 </html>
+
+<style>
+table, th, td {
+  border:1px solid #c9c1c1;
+  color: white;
+  	margin: 0;
+  	font-family: sans-serif;
+  	font-weight: 100;
+  	border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgb(255,255,255);
+}
+</style>
