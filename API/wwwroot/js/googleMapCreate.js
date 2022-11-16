@@ -139,8 +139,23 @@ function addRequestInfo() {
 function prepareForSave() {
     calcRouteMapCreate();
 
-    console.log(autocompleteOrigin.getPlace(), autocompleteDestination.getPlace());
+    document.getElementById("OriginSave").value = parseADRAddress(autocompleteOrigin.getPlace().adr_address);
+    document.getElementById("DestinationSave").value = parseADRAddress(autocompleteDestination.getPlace().adr_address);
+}
 
-    document.getElementById("OriginSave").value = autocompleteOrigin.getPlace().name;
-    document.getElementById("DestinationSave").value = autocompleteDestination.getPlace().name;
+function parseADRAddress (address) {
+    let addressArray, street, city;
+    
+    addressArray = address.split("<");
+    
+    for (let i = 0; i < addressArray.length; i++) {
+        if(addressArray[i].includes("street-address")) {
+            street = ((addressArray[i].split(">"))[1].split("<"))[0];
+        }
+        
+        if (addressArray[i].includes("locality")) {
+            city = ((addressArray[i].split(">"))[1].split("<"))[0];
+        }
+    }
+    return street.concat(", ", city);
 }

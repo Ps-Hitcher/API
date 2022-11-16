@@ -13,7 +13,7 @@ let userLocationMarker;
 
 const autocompleteOptions = {
     componentRestrictions: {country: "lt"},
-    fields: ["geometry", "name"]
+    fields: ["adr_address"]
 };
 
 const autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("Origin"), autocompleteOptions);
