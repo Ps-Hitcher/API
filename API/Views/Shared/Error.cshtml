@@ -10,7 +10,8 @@
 @if (Model.ShowRequestId)
 {
     <p>
-        <strong>Date and Time:</strong> <code>@Model.DateAndTime</code>
+        <span>Contact custommer support: hitcher@international.net</span>
+        @*<strong>Date and Time:</strong> <code>@Model.DateAndTime</code>
         <br/>
         <strong>Status Code:</strong> <code>@Model.StatusCode.ToString()</code>
         <br/>
@@ -24,11 +25,11 @@
         <br/>
         <strong>Method:</strong> <code>@Model.Method</code>
         <br/>
-        <strong>Message:</strong> <code>@Model.Message</code>
+        <strong>Message:</strong> <code>@Model.Message</code>*@
         <br/>
         <strong>Correlation ID:</strong> <code>@Model.Id.ToString()</code>
         <br/>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        @*<strong>Request ID:</strong> <code>@Model.RequestId</code>*@
         <br/>
     </p>
 }
