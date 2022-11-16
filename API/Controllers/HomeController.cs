@@ -47,7 +47,7 @@ public class HomeController : Controller
         return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
     }
     
-    public IActionResult Index()
+    public IActionResult Index(Guid id)
     {
         return View(_travelList);
     }
