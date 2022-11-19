@@ -4,6 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 public interface ITravelRepository
 {
-    TravelModel GetTravel(Guid TravelId);
+    TravelModel GetTravel(Guid travelId);
     DbSet<TravelModel> GetTravelList();
 }

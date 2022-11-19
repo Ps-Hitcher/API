@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
+using WebApplication2.Models;
 using WebApplication2.Models.Travel;
 using WebApplication2.Models.User;
 
@@ -15,6 +16,7 @@ public class DataContext : DbContext
     public DbSet<UserModel> Users { get; set; }
     public DbSet<TravelModel> Trips { get; set; }
     public DbSet<MetaModel> Meta { get; set; }
+    public DbSet<CoordsModel> Coords { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +24,10 @@ public class DataContext : DbContext
             v => JsonConvert.SerializeObject(v), // Convert to string for persistence
             v => JsonConvert.DeserializeObject<List<string>>(v))
             );
+        modelBuilder.Entity<MetaModel>()
+            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
+        modelBuilder.Entity<CoordsModel>()
+            .HasKey(nameof(CoordsModel.MetaId), nameof(CoordsModel.position));
         modelBuilder.Entity<MetaModel>()
             .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
     }
