@@ -49,12 +49,6 @@
                     <h4>
                         @Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname)
                         <h6> @Html.DisplayFor(modelItem => user.Type)</h6>
-                        @* <div class="social"> *@
-                        @*     <a href="#"><i class="fa fa-facebook"></i></a> *@
-                        @*     <a href="#"><i class="fa fa-instagram"></i></a> *@
-                        @* </div> *@
-                        @* *@
-                        @*                      *@
                         <div class="Phone">
                             <h6>Email: <small class="text-card">@Html.DisplayFor(modelItem => user.Email)</small></h6>
                             <h6>Phone: <small class="text-card">@Html.DisplayFor(modelItem => user.PhoneNumber)</small></h6>
@@ -80,32 +74,31 @@
 
 <div id="myModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="icon-box">
-                    <i class="material-icons">&#xE876;</i>
-                </div>
-            </div>
+        <div class="modal1-content">
             <div class="modal-body">
-                <p class="text-center"><img src="~/img/poke.jpg" alt="user" width=250px height=250px></p>
-            </div>
-            <div class="modal-footer">
-                <button  class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <p class="text-center"><img src="~/img/poked.jpg" alt="user" width=400px height=400px></p>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="modal1-confirm">
     <div id="myModal1" class="modal fade">
         <div class="modal-dialog modal1-confirm">
             <div class="modal1-content">
                 <div class="modal1-header">
-                    <div class="choose">
-                        <a>
-                          <button href="#myModal3" data-toggle="modal" type="button" id="ConfirmChoose" name="Confirm" class="ConfirmOkey">CHOOSE</button>
-                        </a>
-                    </div>
+                    <form action="#">
+                        <div class="choose">
+
+                            <a>
+                                <button href="#myModal3" data-toggle="modal" type="button" id="ConfirmChoose" name="Confirm" class="ConfirmOkey">CHOOSE</button>
+                            </a>
+                        
+                        </div>
+                    </form>
+                    
                     Route information:
                 </div>
                 <br></br>
@@ -131,9 +124,8 @@
                 <br></br>
                 <div class="modal1-footer">
                     <a>
-                        <button href="#myModal3" data-toggle="modal" type="button" id="Close" name="Confirm" class="ConfirmOkey">CLOSE</button>
+                        <button href="#" data-toggle="modal" type="button" id="Close" name="Confirm" class="ConfirmOkey">CLOSE</button>
                     </a>
-                    
                 </div>
             </div>
         </div>
@@ -175,6 +167,8 @@
         loadGoogleMapView();
     }, false);
 </script>
+
+
 
 </body>
 </html>

@@ -135,3 +135,4 @@ function addRequestInfo() {
     document.getElementById("RequestInfo").value = JSON.stringify(result);
     console.log("RequestInfo value ", document.getElementById("RequestInfo").value);
 }
+
