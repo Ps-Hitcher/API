@@ -23,6 +23,10 @@ public class TravelRepository : ITravelRepository
     {
         return TravelList.FirstOrDefault(e => e.Id == Id);
     }
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
     public DbSet<TravelModel> GetTravelList()
     {
         return TravelList;

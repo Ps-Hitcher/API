@@ -25,10 +25,8 @@ public class DataContext : DbContext
             v => JsonConvert.DeserializeObject<List<string>>(v))
             );
         modelBuilder.Entity<MetaModel>()
-            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
+            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.MetaDestination));
         modelBuilder.Entity<CoordsModel>()
             .HasKey(nameof(CoordsModel.MetaId), nameof(CoordsModel.position));
-        modelBuilder.Entity<MetaModel>()
-            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
     }
 }

@@ -25,7 +25,10 @@ public class CoordsRepository : ICoordsRepository
     {
         return CoordsList.FirstOrDefault(e => ((e.MetaId == Id) && (e.position == position)));
     }
-
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
     public DbSet<CoordsModel> GetCoordsList()
     {
         return CoordsList;

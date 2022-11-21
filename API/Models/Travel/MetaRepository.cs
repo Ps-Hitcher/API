@@ -23,6 +23,10 @@ public class MetaRepository : IMetaRepository
     {
         return MetaList.FirstOrDefault(e => e.TravelId == Id);
     }
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
     public DbSet<MetaModel> GetMetaList()
     {
         return MetaList;

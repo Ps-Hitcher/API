@@ -9,7 +9,7 @@ public class MetaModel
     public Guid TravelId { get; set; }
     [Required]
     [StringLength(100)]
-    public String Destination { get; set; }
+    public String MetaDestination { get; set; }
     public double Bearing { get; set; }
     public double Distance { get; set; }
 }

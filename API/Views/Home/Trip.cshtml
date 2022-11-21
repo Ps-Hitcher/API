@@ -1,7 +1,5 @@
 ﻿@* @page *@
-@using WebApplication2.Models.Travel
-@model WebApplication2.Models.Travel.TravelModel
-@* @model WebApplication2.Models.Travel.StopoverModel *@
+@model WebApplication2.Models.Travel.FormInput
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -12,7 +10,6 @@
 	<img src="~/img/Trip.jpg" alt="user" width=650px height=150px>
 	<br><br>
 </div>
-
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
@@ -80,13 +77,11 @@
 										</label>
 										<div class="col-sm-10-trip">
 										<td>
-											<input asp-for="Stopovers" type="text" class="form-control" id="Stopover1"
+											<input type="text" class="form-control" id="Stopover1"
 											       placeholder="Enter Stopover"/></td>
-										
-										@* <button onclick="add()">Add</button> *@
-										@* <button onclick="remove()">remove</button> *@
-										<div id="new_chq"></div>
-										<input type="hidden" value="1" id="total_chq">
+											<div id="new_chq"></div>
+											<input type="hidden" value="1" id="total_chq">
+											<input asp-for="Stopovers" type="hidden" id="Stopovers">
 										</div>
 									</tr>
 								</div>
@@ -122,7 +117,6 @@
 									       placeholder="Enter Description">
 								</div>
 							</div>
-							@* <input asp-for="RequestInfo" type="hidden" class="form-control" id="RequestInfo"> *@
 							<br><br>
 							<div class="row gutters">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -143,7 +137,7 @@
 <script>
 			function add(){
               var new_chq_no = parseInt($('#total_chq').val())+1;
-              var new_input="<input asp-for=Stopovers.Stopover type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
+              var new_input="<input type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
               $('#new_chq').append(new_input);
               $('#total_chq').val(new_chq_no);
 			  addAutocompleteStopover();

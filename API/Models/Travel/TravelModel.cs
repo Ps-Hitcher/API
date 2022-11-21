@@ -34,8 +34,4 @@ public class TravelModel
     
     [StringLength(1000)]
     public string? Description { get; set; }
-    
-    [Required]
-    public string RequestInfo { get; set; }
-    
 }

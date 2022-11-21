@@ -1,12 +1,10 @@
 ﻿using System.Diagnostics;
-using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Models.Travel;
-using WebApplication2.Utilities;
 using FileIO = System.IO.File;
 
 namespace WebApplication2.Controllers;
@@ -15,26 +13,35 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     
-    private IUserRepository _userRepository;
-    public DbSet<UserModel> _userList;
+    private readonly IUserRepository _userRepository;
+    private readonly DbSet<UserModel> _userList;
 
-    private ITravelRepository _travelRepository;
-    public DbSet<TravelModel> _travelList;
+    private readonly ITravelRepository _travelRepository;
+    private readonly DbSet<TravelModel> _travelList;
     
-    private IMetaRepository _metaRepository;
-    public DbSet<MetaModel> _metaList;
+    private readonly IMetaRepository _metaRepository;
+    private readonly DbSet<MetaModel> _metaList;
+    
+    private readonly ICoordsRepository _coordsRepository;
+    private readonly DbSet<CoordsModel> _coordsList;
     
     // public List<TravelModel> _travelList;
     // public List<CarStruct> _carList;
-    public HomeController(ILogger<HomeController> logger, IUserRepository userRepository, ITravelRepository travelRepository, IMetaRepository metaRepository) //Using dependency injection for UserModel
+    public HomeController
+        (ILogger<HomeController> logger, IUserRepository userRepository, 
+            ITravelRepository travelRepository, IMetaRepository metaRepository, 
+            ICoordsRepository coordsRepository) 
+        //Using dependency injection for UserModel
     {
         _logger = logger;
         _userRepository = userRepository;
         _travelRepository = travelRepository;
         _metaRepository = metaRepository;
+        _coordsRepository = coordsRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
         _metaList = _metaRepository.GetMetaList();//debug
+        _coordsList = _coordsRepository.GetCoordsList();//debug
     }
 
     public IActionResult Index()
@@ -81,10 +88,9 @@ public class HomeController : Controller
         return View(_userList);
     }
     
-    public IActionResult Trip(TravelModel trip, MetaModel meta)
+    public IActionResult Trip(FormInput? input)
     {
-        ViewData["Trip"] = trip ?? new TravelModel();
-        ViewData["Meta"] = meta ?? new MetaModel();
+        ViewData["Input"] = input ?? new FormInput();
         return View();
     }
 
@@ -119,11 +125,41 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult AddTravel(TravelModel travel)
+    public IActionResult AddTravel(FormInput input)
     {
-        travel.Id = Guid.NewGuid();
+        var travelId = Guid.NewGuid();
+        
+        TravelModel travel = new TravelModel
+        {
+            Id = travelId,
+            Origin = input.Origin,
+            Destination = input.Destination,
+            Stopovers = input.Stopovers,
+            Time = input.Time,
+            DriverID = input.DriverID,
+            FreeSeats = input.FreeSeats,
+            Description = input.Description
+        };
         _travelList.Add(travel);
-        _userRepository.Save();
+        
+        if (travel.Stopovers is not null)
+        {
+            for (var i = 0; i < input.Stopovers?.Count; i++)
+            {
+                MetaModel meta = new MetaModel
+                {
+                    TravelId = travelId,
+                    MetaDestination = input.Stopovers[i],
+                    Bearing = input.Bearing[i],
+                    Distance = input.Distance[i]
+                };
+                _metaList.Add(meta);
+            }
+        }
+
+        _travelRepository.Save();
+        _metaRepository.Save();
+        _coordsRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }

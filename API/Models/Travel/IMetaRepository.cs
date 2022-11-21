@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 public interface IMetaRepository
 {
-    MetaModel GetMeta(Guid TravelId);
+    MetaModel GetMeta(Guid travelId);
+    public void Save();
     DbSet<MetaModel> GetMetaList();
 }

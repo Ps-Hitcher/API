@@ -136,6 +136,14 @@ function addRequestInfo() {
     console.log("RequestInfo value ", document.getElementById("RequestInfo").value);
 }
 
+function addStopoverInfo() {
+    var stopovers = [];
+    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        stopovers[i] = document.getElementById("Stopover" + i).value;
+    }
+    document.getElementById("Stopovers").value = stopovers;
+}
+
 function prepareForSave() {
     calcRouteMapCreate();
 
