@@ -1,5 +1,5 @@
 ﻿let mapCreate, result;
-
+let usedStopoverCount;
 
 //create a DirectionsRenderer object which we will use to display the route
 const directionsRendererMapCreate = new google.maps.DirectionsRenderer({ draggable: true });
@@ -139,51 +139,105 @@ function addRequestInfo() {
 
 function addStopoverInfo() {
     const stopovers = [];
-    for(var i = 1; i <= document.getElementById("total_chq").value; i++) {
+    let stopoversString;
+    for(let i = 1; i <= document.getElementById("total_chq").value; i++) {
         if(document.getElementById("Stopover" + i).value !== "") {
-            document.getElementById("HiddenStopover" + i).value = autocompleteStopovers[i - 1].getPlace().name;
-            stopovers[i] = document.getElementById("HiddenStopover" + i).value;
-            console.log("Stopover " + i + ": " + stopovers);
+            stopovers[i] = formatAddress(autocompleteStopovers[i - 1].getPlace().adr_address);
         }
-        
     }
-    document.getElementById("Stopovers").value = stopovers;
+
+    stopoversString = stopovers.toString();
+    for(let i = 0; i < stopoversString.length; i++) {
+        if((i === 0) && (stopoversString[0] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ';')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ';')) {
+            stopoversString = removeChar(stopoversString, i - 1);
+            continue;
+        }
+        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if(stopoversString[i] === ';') {
+            stopoversString = replaceChar(stopoversString, i, ',');
+            continue;
+        }
+        if(stopoversString[i] === ',') {
+            stopoversString = replaceChar(stopoversString, i, ';');
+        }
+    }
+    console.log(stopoversString);
+    document.getElementById("Stopovers").value = stopoversString;
+    
 }
 
 function addBearingsInfo(serverResult) {
-    const bearings = [];
-    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
-        if(document.getElementById("HiddenStopover" + i).value !== "") {
-            bearings[i - 1] = getBearings(
-                serverResult.routes[0].legs[i - 1].start_location.lat(),
-                serverResult.routes[0].legs[i - 1].start_location.lng(),
-                serverResult.routes[0].legs[i - 1].end_location.lat(),
-                serverResult.routes[0].legs[i - 1].end_location.lng());
+    let bearings = [], bearingString;
+    for (let i = 1; i <= usedStopoverCount; i++) {
+        bearings[i - 1] = getBearings(
+            serverResult.routes[0].legs[i - 1].start_location.lat(),
+            serverResult.routes[0].legs[i - 1].start_location.lng(),
+            serverResult.routes[0].legs[i - 1].end_location.lat(),
+            serverResult.routes[0].legs[i - 1].end_location.lng());
+    }
+    
+    bearingString = bearings.join(",");
+    for(let i = 0; i < bearingString.length; i++) {
+        if((bearingString[i - 1] === ',') && (bearingString[i] === ',')) {
+            bearingString = removeChar(bearingString, i);
         }
     }
-    document.getElementById("Bearings").value = bearings;
-    console.log("Distance value: ", document.getElementById("Bearings"));
+    
+    document.getElementById("Bearings").value = bearingString;
+    console.log("Bearing value: ", document.getElementById("Bearings"));
 }
 
 function addDistanceInfo(serverResult) {
-    const distance = [];
-    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
-        if(document.getElementById("HiddenStopover" + i).value !== "") {
-            distance[i - 1] = distanceBetweenCoordinates(
-                serverResult.routes[0].legs[i - 1].start_location.lat(),
-                serverResult.routes[0].legs[i - 1].start_location.lng(),
-                serverResult.routes[0].legs[i - 1].end_location.lat(),
-                serverResult.routes[0].legs[i - 1].end_location.lng());
+    let distance = [], distanceString;
+    for (let i = 1; i <= usedStopoverCount; i++) {
+        distance[i - 1] = distanceBetweenCoordinates(
+            serverResult.routes[0].legs[i - 1].start_location.lat(),
+            serverResult.routes[0].legs[i - 1].start_location.lng(),
+            serverResult.routes[0].legs[i - 1].end_location.lat(),
+            serverResult.routes[0].legs[i - 1].end_location.lng());
+    }
+
+    distanceString = distance.join(",");
+    for(let i = 0; i < distanceString.length; i++) {
+        if((distanceString[i - 1] === ',') && (distanceString[i] === ',')) {
+            distanceString = removeChar(distanceString, i);
         }
     }
-    document.getElementById("Distance").value = distance;
+    
+    document.getElementById("Distance").value = distanceString;
     console.log("Distance value: ", document.getElementById("Distance"));
 }
 
+function updateUsedStopoverCount() {
+    let count = 0;
+    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if (document.getElementById("Stopover" + i).value !== "") {
+            count++;
+        }
+    }
+    usedStopoverCount = count;
+}
+
 function prepareForSave() {
-    calcRouteMapCreate();
+    updateUsedStopoverCount();
     addStopoverInfo();
+    calcRouteMapCreate();
     
-    document.getElementById("OriginSave").value = autocompleteOrigin.getPlace().name;
-    document.getElementById("DestinationSave").value = autocompleteDestination.getPlace().name;
+    document.getElementById("OriginSave").value = formatAddress(autocompleteOrigin.getPlace().adr_address);
+    document.getElementById("DestinationSave").value = formatAddress(autocompleteDestination.getPlace().adr_address);
 }

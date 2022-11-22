@@ -141,9 +141,7 @@
 			function add(){
               var new_chq_no = parseInt($('#total_chq').val())+1;
               var new_input="<input type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
-              var new_hidden_input="<input type='hidden' class='form-control' id='HiddenStopover"+new_chq_no+"'value=''>";
               $('#new_chq').append(new_input);
-              $('#new_chq').append(new_hidden_input);
               $('#total_chq').val(new_chq_no);
 			  addAutocompleteStopover();
             }
@@ -151,7 +149,6 @@
               var last_chq_no = $('#total_chq').val();
               if(last_chq_no>1){
                 $('#Stopover'+last_chq_no).remove();
-                $('#HiddenStopover'+last_chq_no).remove();
                 $('#total_chq').val(last_chq_no-1);
 				removeAutocompleteStopover();
               }

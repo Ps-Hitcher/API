@@ -134,32 +134,28 @@ public class HomeController : Controller
             Id = travelId,
             Origin = input.Origin,
             Destination = input.Destination,
-            Stopovers = input.Stopovers,
+            Stopovers = new List<string>(input.Stopovers.Split(";")),
             Time = input.Time,
             DriverID = input.DriverID,
             FreeSeats = input.FreeSeats,
             Description = input.Description
         };
         _travelList.Add(travel);
+
         
-        if (input.Stopovers is not null)
+        List<string> stopoverList = new List<string>(input.Stopovers.Split(";"));
+        List<double> bearingList = new List<double>(Array.ConvertAll(input.Bearings.Split(","), Double.Parse));
+        List<double> distanceList = new List<double>(Array.ConvertAll(input.Distance.Split(","), Double.Parse));
+        for (var i = 0; i < stopoverList.Count; i++)
         {
-            for (int i = 0; i < input.Stopovers.Count; i++)
-            {
-                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
-                                  ". Stopovers: " + string.Join("-", input.Stopovers) + "\"");
-                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
-                                  ". Bearings: " + string.Join("-", input.Bearings) + "\"");
-                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
-                                  ". Distance: " + string.Join("-", input.Distance) + "\"");
-                MetaModel meta = new MetaModel();
-                meta.TravelId = travelId;
-                meta.MetaDestination = input.Stopovers[i];
-                meta.Bearing = Convert.ToDouble(input.Bearings[i]);
-                meta.Distance = Convert.ToDouble(input.Distance[i]);
-                _metaList.Add(meta);
-            }
+            MetaModel meta = new MetaModel();
+            meta.TravelId = travelId;
+            meta.MetaDestination = stopoverList[i];
+            meta.Bearing = Convert.ToDouble(bearingList[i]);
+            meta.Distance = Convert.ToDouble(distanceList[i]);
+            _metaList.Add(meta);
         }
+        
 
         _travelRepository.Save();
         _metaRepository.Save();

@@ -6,7 +6,7 @@ public class FormInput
 
     public string Destination { get; set; }
     
-    public List<string>? Stopovers { get; set; }
+    public string Stopovers { get; set; }
     
     public DateTime Time { get; set; }
 
@@ -16,9 +16,9 @@ public class FormInput
 
     public string? Description { get; set; }
     
-    public List<string> Bearings { get; set; }
+    public string Bearings { get; set; }
 
-    public List<string> Distance { get; set; }
+    public string Distance { get; set; }
     
     public List<double> lat { get; set; }
 
