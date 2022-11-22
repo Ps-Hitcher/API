@@ -72,16 +72,19 @@
 										
 										<label for="Stopovers">Stopovers
 											
-											<button onclick="remove()" class="addStopovers">remove</button>
-											<button onclick="add()" class="addStopovers">add</button>
+											<button type="button" onclick="remove()" class="addStopovers">remove</button>
+											<button type="button" onclick="add()" class="addStopovers">add</button>
 										</label>
 										<div class="col-sm-10-trip">
-										<td>
-											<input type="text" class="form-control" id="Stopover1"
-											       placeholder="Enter Stopover"/></td>
+											<td>
+												<input type="text" class="form-control" id="Stopover1"
+												       placeholder="Enter Stopover"/></td>
+											<input type="hidden" class="form-control" id="HiddenStopover1" value="">
 											<div id="new_chq"></div>
 											<input type="hidden" value="1" id="total_chq">
 											<input asp-for="Stopovers" type="hidden" id="Stopovers">
+											<input asp-for="Bearings" type="hidden" id="Bearings">
+											<input asp-for="Distance" type="hidden" id="Distance">
 										</div>
 									</tr>
 								</div>
@@ -138,7 +141,9 @@
 			function add(){
               var new_chq_no = parseInt($('#total_chq').val())+1;
               var new_input="<input type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
+              var new_hidden_input="<input type='hidden' class='form-control' id='HiddenStopover"+new_chq_no+"'value=''>";
               $('#new_chq').append(new_input);
+              $('#new_chq').append(new_hidden_input);
               $('#total_chq').val(new_chq_no);
 			  addAutocompleteStopover();
             }
@@ -146,6 +151,7 @@
               var last_chq_no = $('#total_chq').val();
               if(last_chq_no>1){
                 $('#Stopover'+last_chq_no).remove();
+                $('#HiddenStopover'+last_chq_no).remove();
                 $('#total_chq').val(last_chq_no-1);
 				removeAutocompleteStopover();
               }

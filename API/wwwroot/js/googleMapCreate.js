@@ -76,10 +76,11 @@ function calcRouteMapCreate() {
         if (status === google.maps.DirectionsStatus.OK) {
             result = serverResult;
 
-            addRequestInfo();
             //Get distance and time
             displayOutput(result);
 
+            addBearingsInfo(serverResult);
+            addDistanceInfo(serverResult);
             //display route
             try {
                 directionsRendererMapCreate.setDirections(result);
@@ -137,17 +138,51 @@ function addRequestInfo() {
 }
 
 function addStopoverInfo() {
-    var stopovers = [];
-    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
-        stopovers[i] = document.getElementById("Stopover" + i).value;
+    const stopovers = [];
+    for(var i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if(document.getElementById("Stopover" + i).value !== "") {
+            document.getElementById("HiddenStopover" + i).value = autocompleteStopovers[i - 1].getPlace().name;
+            stopovers[i] = document.getElementById("HiddenStopover" + i).value;
+            console.log("Stopover " + i + ": " + stopovers);
+        }
+        
     }
     document.getElementById("Stopovers").value = stopovers;
 }
 
+function addBearingsInfo(serverResult) {
+    const bearings = [];
+    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if(document.getElementById("HiddenStopover" + i).value !== "") {
+            bearings[i - 1] = getBearings(
+                serverResult.routes[0].legs[i - 1].start_location.lat(),
+                serverResult.routes[0].legs[i - 1].start_location.lng(),
+                serverResult.routes[0].legs[i - 1].end_location.lat(),
+                serverResult.routes[0].legs[i - 1].end_location.lng());
+        }
+    }
+    document.getElementById("Bearings").value = bearings;
+    console.log("Distance value: ", document.getElementById("Bearings"));
+}
+
+function addDistanceInfo(serverResult) {
+    const distance = [];
+    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if(document.getElementById("HiddenStopover" + i).value !== "") {
+            distance[i - 1] = distanceBetweenCoordinates(
+                serverResult.routes[0].legs[i - 1].start_location.lat(),
+                serverResult.routes[0].legs[i - 1].start_location.lng(),
+                serverResult.routes[0].legs[i - 1].end_location.lat(),
+                serverResult.routes[0].legs[i - 1].end_location.lng());
+        }
+    }
+    document.getElementById("Distance").value = distance;
+    console.log("Distance value: ", document.getElementById("Distance"));
+}
+
 function prepareForSave() {
     calcRouteMapCreate();
-
-    console.log(autocompleteOrigin.getPlace(), autocompleteDestination.getPlace());
+    addStopoverInfo();
     
     document.getElementById("OriginSave").value = autocompleteOrigin.getPlace().name;
     document.getElementById("DestinationSave").value = autocompleteDestination.getPlace().name;

@@ -7,23 +7,21 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using FileIO = System.IO.File;
-namespace WebApplication2.Models.Travel;
 
+namespace WebApplication2.Models.Travel;
 public class CoordsRepository : ICoordsRepository
 {
     private DbSet<CoordsModel> CoordsList;
     public DataContext _context;
-    public const string _jsonPath = "TravelDB.json";
-
     public CoordsRepository(DataContext context)
     {
         _context = context;
         CoordsList = context.Coords;
     }
 
-    public CoordsModel GetCoords(Guid Id, int position)
+    public CoordsModel GetCoords(Guid id, int position)
     {
-        return CoordsList.FirstOrDefault(e => ((e.MetaId == Id) && (e.position == position)));
+        return CoordsList.FirstOrDefault(e => ((e.MetaId == id) && (e.position == position))) ?? throw new InvalidOperationException();
     }
     public void Save()
     {

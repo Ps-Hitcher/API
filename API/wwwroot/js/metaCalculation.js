@@ -1,28 +1,27 @@
 const R = 6371e3;
-const degreeX = 100, degreeY = 60;
+const degreeY = 100, degreeX = 60;
 
 function distanceBetweenCoordinates(lat1, lon1, lat2, lon2) {
 
-    let dx = lat2 - lat1;
-    let dy = lon2 - lon1;
+    let dy = lat2 - lat1;
+    let dx = lon2 - lon1;
     let d;
-
-    if (((dx * degreeX) + (dy * degreeY)) < 30) {
-        let x, y;
-        x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
-        y = lat2 - lat1;
-        d = Math.sqrt(x * x + y * y) * R;
-    } else {
-        let x1, x2, a, c;
-        x1 = lat1 * Math.PI / 180;
-        x2 = lat2 * Math.PI / 180;
-        dx = (lat2 - lat1) * Math.PI / 180;
-        dy = (lon2 - lon1) * Math.PI / 180;
-        a = Math.sin(dx / 2) * Math.sin(dx / 2) +
-            Math.cos(x1) * Math.cos(x2) * Math.sin(dy / 2) * Math.sin(dy / 2);
-        c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        d = R * c;
-    }
+    
+    // Pythagorean theorem
+    // let x, y;
+    // x = dx * Math.cos((lat1 + lat2) / 2);
+    // y = dy;
+    // d = Math.sqrt(x * x + y * y) * R;
+    
+    let x1, x2, a, c;
+    x1 = lat1 * Math.PI / 180;
+    x2 = lat2 * Math.PI / 180;
+    dx = (lat2 - lat1) * Math.PI / 180;
+    dy = (lon2 - lon1) * Math.PI / 180;
+    a = Math.sin(dx / 2) * Math.sin(dx / 2) +
+        Math.cos(x1) * Math.cos(x2) * Math.sin(dy / 2) * Math.sin(dy / 2);
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    d = R * c;
 
     return d;
 }

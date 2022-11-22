@@ -13,15 +13,14 @@ public class MetaRepository : IMetaRepository
 {
     private DbSet<MetaModel> MetaList;
     public DataContext _context;
-    public const string _jsonPath = "TravelDB.json";
     public MetaRepository(DataContext context)
     {
         _context = context;
         MetaList = context.Meta;
     }
-    public MetaModel GetMeta(Guid Id)
+    public MetaModel GetMeta(Guid id)
     {
-        return MetaList.FirstOrDefault(e => e.TravelId == Id);
+        return MetaList.FirstOrDefault(e => e.TravelId == id) ?? throw new InvalidOperationException();
     }
     public void Save()
     {

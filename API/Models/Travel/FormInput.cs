@@ -16,9 +16,9 @@ public class FormInput
 
     public string? Description { get; set; }
     
-    public List<double> Bearing { get; set; }
+    public List<string> Bearings { get; set; }
 
-    public List<double> Distance { get; set; }
+    public List<string> Distance { get; set; }
     
     public List<double> lat { get; set; }
 

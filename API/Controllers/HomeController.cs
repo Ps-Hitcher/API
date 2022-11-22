@@ -142,17 +142,21 @@ public class HomeController : Controller
         };
         _travelList.Add(travel);
         
-        if (travel.Stopovers is not null)
+        if (input.Stopovers is not null)
         {
-            for (var i = 0; i < input.Stopovers?.Count; i++)
+            for (int i = 0; i < input.Stopovers.Count; i++)
             {
-                MetaModel meta = new MetaModel
-                {
-                    TravelId = travelId,
-                    MetaDestination = input.Stopovers[i],
-                    Bearing = input.Bearing[i],
-                    Distance = input.Distance[i]
-                };
+                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
+                                  ". Stopovers: " + string.Join("-", input.Stopovers) + "\"");
+                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
+                                  ". Bearings: " + string.Join("-", input.Bearings) + "\"");
+                Console.WriteLine("Number: " + i + ". Lenght: " + input.Stopovers.Count + 
+                                  ". Distance: " + string.Join("-", input.Distance) + "\"");
+                MetaModel meta = new MetaModel();
+                meta.TravelId = travelId;
+                meta.MetaDestination = input.Stopovers[i];
+                meta.Bearing = Convert.ToDouble(input.Bearings[i]);
+                meta.Distance = Convert.ToDouble(input.Distance[i]);
                 _metaList.Add(meta);
             }
         }
