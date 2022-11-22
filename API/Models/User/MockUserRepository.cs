@@ -32,6 +32,11 @@ public class MockUserRepository : IUserRepository
         _context.SaveChanges();
     }
 
+    public void OnUserLogged(object source, EventArgs e)
+    {
+        Console.WriteLine("Logged");
+    }
+
     public DbSet<UserModel> GetUserList()
     {
         return _userList;

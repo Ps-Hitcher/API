@@ -26,7 +26,7 @@ public class HomeController : Controller
     // public List<TravelModel> _travelList;
     // public List<CarStruct> _carList;
 
-    private const String LoggedUser = "_User";
+    private const String  LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
         IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
         ICorrelationIDGenerator correlationIdGenerator, DataContext context) //Using dependency injection for UserModel
@@ -41,6 +41,8 @@ public class HomeController : Controller
     }
 
 
+    public MockUserRepository rep = new MockUserRepository();
+    
     [HttpGet]
     [Route("test/PrintMessage")]
     public string PrintMessage()

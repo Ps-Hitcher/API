@@ -14,11 +14,22 @@ namespace WebApplication2.Controllers
     public class LoginController : Controller
     {
         private readonly DataContext _context;
+        private IUserRepository _userRepository;
+
         private const String LoggedUser = "_User";
 
-        public LoginController(DataContext context)
+        //public delegate void UserLoggedEventHandler(object source, EventArgs args); 
+        // public event UserLoggedEventHandler UserLogged;
+        public event EventHandler<EventArgs> UserLogged;
+
+
+        public LoginController(DataContext context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
+
+            UserLogged += _userRepository.OnUserLogged;
+
         }
 
         public IActionResult Login()
@@ -35,12 +46,19 @@ namespace WebApplication2.Controllers
                 if (user != null)
                 {
                     HttpContext.Session.SetString(LoggedUser, user.Id.ToString());
+                    OnUserLogged();
                     return RedirectToAction("Index", "Home", new { user.Id });
                 }
 
             }
 
             return RedirectToAction("Login");
+        }
+
+        protected virtual void OnUserLogged()
+        {
+            if (UserLogged != null)
+                UserLogged(this, EventArgs.Empty);
         }
     }
 }
