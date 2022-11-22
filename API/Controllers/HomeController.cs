@@ -40,8 +40,6 @@ public class HomeController : Controller
         _travelList = _travelRepository.GetTravelList();//debug
     }
 
-
-    public MockUserRepository rep = new MockUserRepository();
     
     [HttpGet]
     [Route("test/PrintMessage")]
