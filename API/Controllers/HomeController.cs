@@ -25,6 +25,8 @@ public class HomeController : Controller
     public DbSet<TravelModel> _travelList;
     // public List<TravelModel> _travelList;
     // public List<CarStruct> _carList;
+
+    private const String LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
         IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
         ICorrelationIDGenerator correlationIdGenerator, DataContext context) //Using dependency injection for UserModel
@@ -43,12 +45,14 @@ public class HomeController : Controller
     [Route("test/PrintMessage")]
     public string PrintMessage()
     {
+        var g = "hello";
         _logger.LogInformation("CorrelationId: {id}", _correlationIdGenerator.Get());
         return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
     }
     
     public IActionResult Index(Guid id)
     {
+        //HttpContext.Session.SetString(LoggedUser, id.ToString());
         return View(_travelList);
     }
 
@@ -62,7 +66,11 @@ public class HomeController : Controller
         }
         else
         {
-            return View(new UserModel());
+            // return View(new UserModel());
+            // return View(_userList.FirstOrDefault(user => user.Id == Guid.Parse(HttpContext.Session.GetString(LoggedUser))));
+            var StringId = HttpContext.Session.GetString(LoggedUser);
+            Guid id = Guid.Parse(StringId);
+            return View(_userRepository.GetUser(id));
         }
     }
 
