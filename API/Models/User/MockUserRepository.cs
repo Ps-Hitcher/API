@@ -42,7 +42,7 @@ public class MockUserRepository : IUserRepository
         return _userList;
     }
     
-    public bool IsValidPhone(string PhoneNumber)
+    public  bool IsValidPhone(string PhoneNumber)
     {
         if (string.IsNullOrEmpty(PhoneNumber))
             return false;
@@ -60,7 +60,7 @@ public class MockUserRepository : IUserRepository
         DateTime today = DateTime.Today;
         int age = today.Year - DateTime.Parse(YearOfBirth).Year;
         if (DateTime.Parse(YearOfBirth) > today.AddYears(-age)) age--;
-
+        
         return age;
     }
     

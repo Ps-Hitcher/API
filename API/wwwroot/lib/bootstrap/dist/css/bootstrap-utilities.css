@@ -1354,7 +1354,8 @@
 
 .text-black-50 {
   --bs-text-opacity: 1;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: white;
+  /*color: rgba(0, 0, 0, 0.5) !important;*/
 }
 
 .text-white-50 {
@@ -1419,13 +1420,13 @@
 }
 
 .bg-dark {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  /*--bs-bg-opacity: 1;*/
+  /*background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;*/
 }
 
 .bg-black {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
+  /*--bs-bg-opacity: 1;*/
+  /*background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;*/
 }
 
 .bg-white {
@@ -1434,8 +1435,8 @@
 }
 
 .bg-body {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-body-rgb), var(--bs-bg-opacity)) !important;
+  /*--bs-bg-opacity: 1;*/
+  /*background-color: rgba(var(--bs-body-rgb), var(--bs-bg-opacity)) !important;*/
 }
 
 .bg-transparent {
