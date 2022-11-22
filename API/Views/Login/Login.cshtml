@@ -1,0 +1,50 @@
+@model WebApplication2.Models.User.UserModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<header>
+     <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</header>
+
+
+<body>
+<div class="login">
+    <h2>LOGIN</h2>
+    <form asp-action="Login" asp-controller="Login">
+        <div class="mydiv">
+            @* $1$ <input type="text" name="" required=""> #1# *@
+            @* $1$ <label>USERNAME</label> #1# *@
+            @* $1$ <label asp-for="Name" >Name</label> #1# *@
+            @* <input asp-for="Name" type="text" name="" required=""/> *@
+            @* <label>Name</label> *@
+            @* <span asp-validation-for="Name" ></span> *@
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mydiv">
+            @* $1$ <input type="password" name="" required=""> #1# *@
+            @* $1$ <label>PASSWORD</label> #1# *@
+            @* $1$ <label asp-for="Surname" ></label> #1# *@
+            @* $1$ <input asp-for="Surname"  placeholder="Password" /> #1# *@
+            @* $1$ <span asp-validation-for="Surname" ></span> #1# *@
+            @* <input asp-for="Surname" type="text" name="" required=""/> *@
+            @* <label>Surname</label> *@
+            @* <span asp-validation-for="Surname" ></span> *@
+            <label asp-for="Surname" class="control-label"></label>
+            <input asp-for="Surname" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            @* Submit *@
+            <input type="submit" value="Login" />
+        </a>
+    </form>
+</div>
+</body>
+
