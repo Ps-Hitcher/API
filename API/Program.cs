@@ -15,7 +15,7 @@ builder.Services.AddScoped<ITravelRepository, TravelRepository>();//Dependancy i
 builder.Services.AddScoped<ICorrelationIDGenerator, CorrelationIdGenerator>();  //Dependancy injection for CorrelationIdGenerator
 builder.Services.AddScoped<IErrorRepository, ErrorRepository>();
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection1")));
 
 builder.Services.AddDistributedMemoryCache();
 
