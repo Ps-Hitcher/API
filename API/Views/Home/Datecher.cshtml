@@ -102,7 +102,8 @@
                     Route information:
                 </div>
                 <br></br>
-                <div id="googleMapView">
+                <div id="googleMapPreview">
+                
                 </div>
                 <br></br>
                 <div class="text-center">
@@ -123,29 +124,8 @@
                 </div>
                 <br></br>
                 <div class="modal1-footer">
-                    <a>
-                        <button href="#" data-toggle="modal" type="button" id="Close" name="Confirm" class="ConfirmOkey">CLOSE</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="myModal3" role="alert" class="modal fade">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="icon-box">
-                    <i class="material-icons">&#xebf0;</i>
-                </div>
-                <h4 class="awesome modal-title w-100">AWESOME!</h4>
-            </div>
-            <div class="modal-body">
-                <p class="awesome text-center">SUCCESSFULLY CHOSEN TRIP!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                    <button class="ConfirmOkay" id="button1" data-dismiss="modal1">CLOSE</button>
+                    </div>
             </div>
         </div>
     </div>
@@ -163,8 +143,9 @@
     });
 </script>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        loadGoogleMapView();
+    document.addEventListener("DOMContentLoaded", function() {
+        //Nors dabar visvien nerodys kelio, tik sukurs map.
+        loadGoogleMapPreview("googleMapPreview", "Route Info goes here");
     }, false);
 </script>
 
