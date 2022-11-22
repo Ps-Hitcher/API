@@ -176,7 +176,6 @@ function addStopoverInfo() {
             stopoversString = replaceChar(stopoversString, i, ';');
         }
     }
-    console.log(stopoversString);
     document.getElementById("Stopovers").value = stopoversString;
     
 }
@@ -199,7 +198,6 @@ function addBearingsInfo(serverResult) {
     }
     
     document.getElementById("Bearings").value = bearingString;
-    console.log("Bearing value: ", document.getElementById("Bearings"));
 }
 
 function addDistanceInfo(serverResult) {
@@ -220,7 +218,6 @@ function addDistanceInfo(serverResult) {
     }
     
     document.getElementById("Distance").value = distanceString;
-    console.log("Distance value: ", document.getElementById("Distance"));
 }
 
 function updateUsedStopoverCount() {
