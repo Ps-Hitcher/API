@@ -12,6 +12,8 @@ builder.Services.AddControllersWithViews();
 // https://stackoverflow.com/questions/60322252/asp-net-core-web-app-di-error-some-services-are-not-able-to-be-constructed-er
 builder.Services.AddScoped<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
 builder.Services.AddScoped<ITravelRepository, TravelRepository>();//Dependancy injection for using TravelModel
+builder.Services.AddScoped<IMetaRepository, MetaRepository>();//Dependancy injection for using MetaModel
+builder.Services.AddScoped<ICoordsRepository, CoordsRepository>();//Dependancy injection for using CoordsModel
 builder.Services.AddScoped<ICorrelationIDGenerator, CorrelationIdGenerator>();  //Dependancy injection for CorrelationIdGenerator
 builder.Services.AddScoped<IErrorRepository, ErrorRepository>();
 builder.Services.AddDbContext<DataContext>(options =>

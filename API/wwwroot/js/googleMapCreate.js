@@ -1,5 +1,5 @@
 ﻿let mapCreate, result;
-
+let usedStopoverCount;
 
 //create a DirectionsRenderer object which we will use to display the route
 const directionsRendererMapCreate = new google.maps.DirectionsRenderer({ draggable: true });
@@ -76,10 +76,11 @@ function calcRouteMapCreate() {
         if (status === google.maps.DirectionsStatus.OK) {
             result = serverResult;
 
-            addRequestInfo();
             //Get distance and time
             displayOutput(result);
 
+            addBearingsInfo(serverResult);
+            addDistanceInfo(serverResult);
             //display route
             try {
                 directionsRendererMapCreate.setDirections(result);
@@ -136,26 +137,105 @@ function addRequestInfo() {
     console.log("RequestInfo value ", document.getElementById("RequestInfo").value);
 }
 
-function prepareForSave() {
-    calcRouteMapCreate();
-
-    document.getElementById("OriginSave").value = parseADRAddress(autocompleteOrigin.getPlace().adr_address);
-    document.getElementById("DestinationSave").value = parseADRAddress(autocompleteDestination.getPlace().adr_address);
-}
-
-function parseADRAddress (address) {
-    let addressArray, street, city;
-    
-    addressArray = address.split("<");
-    
-    for (let i = 0; i < addressArray.length; i++) {
-        if(addressArray[i].includes("street-address")) {
-            street = ((addressArray[i].split(">"))[1].split("<"))[0];
-        }
-        
-        if (addressArray[i].includes("locality")) {
-            city = ((addressArray[i].split(">"))[1].split("<"))[0];
+function addStopoverInfo() {
+    const stopovers = [];
+    let stopoversString;
+    for(let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if(document.getElementById("Stopover" + i).value !== "") {
+            stopovers[i] = formatAddress(autocompleteStopovers[i - 1].getPlace().adr_address);
         }
     }
-    return street.concat(", ", city);
+
+    stopoversString = stopovers.toString();
+    for(let i = 0; i < stopoversString.length; i++) {
+        if((i === 0) && (stopoversString[0] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ';')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ';')) {
+            stopoversString = removeChar(stopoversString, i - 1);
+            continue;
+        }
+        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ',')) {
+            stopoversString = removeChar(stopoversString, i);
+            continue;
+        }
+        if(stopoversString[i] === ';') {
+            stopoversString = replaceChar(stopoversString, i, ',');
+            continue;
+        }
+        if(stopoversString[i] === ',') {
+            stopoversString = replaceChar(stopoversString, i, ';');
+        }
+    }
+    document.getElementById("Stopovers").value = stopoversString;
+    
+}
+
+function addBearingsInfo(serverResult) {
+    let bearings = [], bearingString;
+    for (let i = 1; i <= usedStopoverCount; i++) {
+        bearings[i - 1] = getBearings(
+            serverResult.routes[0].legs[i - 1].start_location.lat(),
+            serverResult.routes[0].legs[i - 1].start_location.lng(),
+            serverResult.routes[0].legs[i - 1].end_location.lat(),
+            serverResult.routes[0].legs[i - 1].end_location.lng());
+    }
+    
+    bearingString = bearings.join(",");
+    for(let i = 0; i < bearingString.length; i++) {
+        if((bearingString[i - 1] === ',') && (bearingString[i] === ',')) {
+            bearingString = removeChar(bearingString, i);
+        }
+    }
+    
+    document.getElementById("Bearings").value = bearingString;
+}
+
+function addDistanceInfo(serverResult) {
+    let distance = [], distanceString;
+    for (let i = 1; i <= usedStopoverCount; i++) {
+        distance[i - 1] = distanceBetweenCoordinates(
+            serverResult.routes[0].legs[i - 1].start_location.lat(),
+            serverResult.routes[0].legs[i - 1].start_location.lng(),
+            serverResult.routes[0].legs[i - 1].end_location.lat(),
+            serverResult.routes[0].legs[i - 1].end_location.lng());
+    }
+
+    distanceString = distance.join(",");
+    for(let i = 0; i < distanceString.length; i++) {
+        if((distanceString[i - 1] === ',') && (distanceString[i] === ',')) {
+            distanceString = removeChar(distanceString, i);
+        }
+    }
+    
+    document.getElementById("Distance").value = distanceString;
+}
+
+function updateUsedStopoverCount() {
+    let count = 0;
+    for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
+        if (document.getElementById("Stopover" + i).value !== "") {
+            count++;
+        }
+    }
+    usedStopoverCount = count;
+}
+
+function prepareForSave() {
+    updateUsedStopoverCount();
+    addStopoverInfo();
+    calcRouteMapCreate();
+    
+    document.getElementById("OriginSave").value = formatAddress(autocompleteOrigin.getPlace().adr_address);
+    document.getElementById("DestinationSave").value = formatAddress(autocompleteDestination.getPlace().adr_address);
+
 }

@@ -8,9 +8,8 @@ function loadGoogleMapPreview(mapId, trip) {
     //bind the DirectionsRenderer to the map
     // directionsRendererMapPreview.setMap(mapPreview);
 
-    // console.log(trip);
-    // directionsRendererMapPreview.setDirections(JSON.parse(trip));
+    try {
+        directionsRendererMapPreview.setDirections(JSON.parse(trip));
+    }
+    catch (err) { console.log("Failed to display results.\n", trip) }
 }
-
-
-

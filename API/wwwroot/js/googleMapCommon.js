@@ -112,6 +112,20 @@ function removeAutocompleteStopover() {
     autocompleteStopovers.pop();
 }
 
+function formatAddress(adr_address) {
+    const addressArray = adr_address.split("<span");
+    let street = "", city = "";
+    for (let i = 0; i < addressArray.length; i++) {
+        if(addressArray[i].includes("street-address")) {
+            street = ((addressArray[i].split(">"))[1].split("<"))[0];
+        }
+        if(addressArray[i].includes("locality")) {
+            city = ((addressArray[i].split(">"))[1].split("<"))[0];
+        }
+    }
+    return (street + "; " + city);
+}
+
 function geocodeFailure() {
     window.alert("Cannot get location data.");
 }
@@ -157,3 +171,12 @@ function displayOutput(result) {
         ((duration >= 3600) ? ((Math.trunc(duration / 3600)) + " h. " + (Math.trunc(duration % 3600 / 60)) + " min.</div>") : ((Math.trunc(duration / 60)) + " min.</div>"));
 }
 
+function removeChar(string, index) {
+    let tmp = string.split('');
+    tmp.splice(index, 1);
+    return tmp.join('');
+}
+
+function replaceChar(string, index, replacement) {
+    return string.substring(0, index) + replacement + string.substring(index + replacement.length, string.length);
+}

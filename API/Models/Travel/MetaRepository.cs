@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -9,25 +9,25 @@ using WebApplication2.Data;
 using FileIO = System.IO.File;
 
 namespace WebApplication2.Models.Travel;
-public class TravelRepository : ITravelRepository
+public class MetaRepository : IMetaRepository
 {
-    private DbSet<TravelModel> TravelList;
+    private DbSet<MetaModel> MetaList;
     public DataContext _context;
-    public TravelRepository(DataContext context)
+    public MetaRepository(DataContext context)
     {
         _context = context;
-        TravelList = context.Trips;
+        MetaList = context.Meta;
     }
-    public TravelModel GetTravel(Guid id)
+    public MetaModel GetMeta(Guid id)
     {
-        return TravelList.FirstOrDefault(e => e.Id == id) ?? throw new InvalidOperationException();
+        return MetaList.FirstOrDefault(e => e.TravelId == id) ?? throw new InvalidOperationException();
     }
     public void Save()
     {
         _context.SaveChanges();
     }
-    public DbSet<TravelModel> GetTravelList()
+    public DbSet<MetaModel> GetMetaList()
     {
-        return TravelList;
+        return MetaList;
     }
 }

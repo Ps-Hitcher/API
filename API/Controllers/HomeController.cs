@@ -15,29 +15,40 @@ namespace WebApplication2.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    
+    private readonly IUserRepository _userRepository;
+    private readonly DbSet<UserModel> _userList;
+
+    private readonly ITravelRepository _travelRepository;
+    private readonly DbSet<TravelModel> _travelList;
+    
+    private readonly IMetaRepository _metaRepository;
+    private readonly DbSet<MetaModel> _metaList;
+    
+    private readonly ICoordsRepository _coordsRepository;
+    private readonly DbSet<CoordsModel> _coordsList;
+    
     private readonly ICorrelationIDGenerator _correlationIdGenerator;
     private IErrorRepository _errorRepository;
-    private IUserRepository _userRepository;
-    // public List<UserModel> _userList;
-    DbSet<UserModel> _userList;
-
-    private ITravelRepository _travelRepository;
-    public DbSet<TravelModel> _travelList;
-    // public List<TravelModel> _travelList;
-    // public List<CarStruct> _carList;
-
+    
     private const String  LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
-        IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
-        ICorrelationIDGenerator correlationIdGenerator, DataContext context) //Using dependency injection for UserModel
+        IUserRepository userRepository, ITravelRepository travelRepository, 
+        IMetaRepository metaRepository, ICoordsRepository coordsRepository, 
+        IErrorRepository errorRepository, ICorrelationIDGenerator correlationIdGenerator, DataContext context)
+        //Using dependency injection for UserModel
     {
         _logger = logger; 
         _correlationIdGenerator = correlationIdGenerator;
         _userRepository = userRepository;
         _travelRepository = travelRepository;
+        _metaRepository = metaRepository;
+        _coordsRepository = coordsRepository;
         _errorRepository = errorRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
+        _metaList = _metaRepository.GetMetaList();//debug
+        _coordsList = _coordsRepository.GetCoordsList();//debug
     }
 
     
@@ -101,11 +112,10 @@ public class HomeController : Controller
         
     }
     
-
-    public IActionResult Trip(TravelModel trip)
+    public IActionResult Trip(FormInput? input)
     {
-        trip = trip ?? new TravelModel();
-        return View(trip);
+        ViewData["Input"] = input ?? new FormInput();
+        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -143,11 +153,41 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult AddTravel(TravelModel travel)
+    public IActionResult AddTravel(FormInput input)
     {
-        travel.Id = Guid.NewGuid();
+        var travelId = Guid.NewGuid();
+        
+        TravelModel travel = new TravelModel
+        {
+            Id = travelId,
+            Origin = input.Origin,
+            Destination = input.Destination,
+            Stopovers = new List<string>(input.Stopovers.Split(";")),
+            Time = input.Time,
+            DriverID = input.DriverID,
+            FreeSeats = input.FreeSeats,
+            Description = input.Description
+        };
         _travelList.Add(travel);
-        _userRepository.Save();
+
+        
+        List<string> stopoverList = new List<string>(input.Stopovers.Split(";"));
+        List<double> bearingList = new List<double>(Array.ConvertAll(input.Bearings.Split(","), Double.Parse));
+        List<double> distanceList = new List<double>(Array.ConvertAll(input.Distance.Split(","), Double.Parse));
+        for (var i = 0; i < stopoverList.Count; i++)
+        {
+            MetaModel meta = new MetaModel();
+            meta.TravelId = travelId;
+            meta.MetaDestination = stopoverList[i];
+            meta.Bearing = Convert.ToDouble(bearingList[i]);
+            meta.Distance = Convert.ToDouble(distanceList[i]);
+            _metaList.Add(meta);
+        }
+        
+
+        _travelRepository.Save();
+        _metaRepository.Save();
+        _coordsRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }
