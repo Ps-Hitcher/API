@@ -33,8 +33,9 @@ public class HomeController : Controller
     
     private const String  LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
-        IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
-        ICorrelationIDGenerator correlationIdGenerator, DataContext context)
+        IUserRepository userRepository, ITravelRepository travelRepository, 
+        IMetaRepository metaRepository, ICoordsRepository coordsRepository, 
+        IErrorRepository errorRepository, ICorrelationIDGenerator correlationIdGenerator, DataContext context)
         //Using dependency injection for UserModel
     {
         _logger = logger; 
