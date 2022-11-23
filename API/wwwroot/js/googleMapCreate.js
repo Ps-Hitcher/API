@@ -237,4 +237,5 @@ function prepareForSave() {
     
     document.getElementById("OriginSave").value = formatAddress(autocompleteOrigin.getPlace().adr_address);
     document.getElementById("DestinationSave").value = formatAddress(autocompleteDestination.getPlace().adr_address);
+
 }

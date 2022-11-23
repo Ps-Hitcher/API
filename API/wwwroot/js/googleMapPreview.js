@@ -1,12 +1,12 @@
 let mapPreview;
-const directionsRendererMapPreview = new google.maps.DirectionsRenderer();
+// const directionsRendererMapPreview = new google.maps.DirectionsRenderer();
 
-function loadGoogleMapPreview(mapName, trip) {
+function loadGoogleMapPreview(mapId, trip) {
     //Preview map
-    mapPreview = new google.maps.Map(document.getElementById(mapName), mapOptions);
+    mapPreview = new google.maps.Map(document.getElementById('googleMapPreview'), mapOptions);
 
     //bind the DirectionsRenderer to the map
-    directionsRendererMapPreview.setMap(mapPreview);
+    // directionsRendererMapPreview.setMap(mapPreview);
 
     try {
         directionsRendererMapPreview.setDirections(JSON.parse(trip));

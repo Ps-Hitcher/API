@@ -149,4 +149,4 @@ project.lock.json
 *.feature.xlsx.*
 *.Specs_*.html
 
-/API/Migrations/
+**/Migrations/*

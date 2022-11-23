@@ -17,6 +17,7 @@ public class DataContext : DbContext
     public DbSet<TravelModel> Trips { get; set; }
     public DbSet<MetaModel> Meta { get; set; }
     public DbSet<CoordsModel> Coords { get; set; }
+    public DbSet<ErrorModel> Errors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

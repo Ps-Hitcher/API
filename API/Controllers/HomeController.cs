@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using WebApplication2.Data;
 using WebApplication2.Models;
 using WebApplication2.Models.User;
 using WebApplication2.Models.Travel;
 using FileIO = System.IO.File;
+using WebApplication2.Models.Errors;
 
 namespace WebApplication2.Controllers;
 
@@ -25,27 +28,41 @@ public class HomeController : Controller
     private readonly ICoordsRepository _coordsRepository;
     private readonly DbSet<CoordsModel> _coordsList;
     
-    // public List<TravelModel> _travelList;
-    // public List<CarStruct> _carList;
-    public HomeController
-        (ILogger<HomeController> logger, IUserRepository userRepository, 
-            ITravelRepository travelRepository, IMetaRepository metaRepository, 
-            ICoordsRepository coordsRepository) 
+    private readonly ICorrelationIDGenerator _correlationIdGenerator;
+    private IErrorRepository _errorRepository;
+    
+    private const String  LoggedUser = "_User";
+    public HomeController(ILogger<HomeController> logger,
+        IUserRepository userRepository, ITravelRepository travelRepository, IErrorRepository errorRepository,
+        ICorrelationIDGenerator correlationIdGenerator, DataContext context)
         //Using dependency injection for UserModel
     {
-        _logger = logger;
+        _logger = logger; 
+        _correlationIdGenerator = correlationIdGenerator;
         _userRepository = userRepository;
         _travelRepository = travelRepository;
         _metaRepository = metaRepository;
         _coordsRepository = coordsRepository;
+        _errorRepository = errorRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
         _metaList = _metaRepository.GetMetaList();//debug
         _coordsList = _coordsRepository.GetCoordsList();//debug
     }
 
-    public IActionResult Index()
+    
+    [HttpGet]
+    [Route("test/PrintMessage")]
+    public string PrintMessage()
     {
+        var g = "hello";
+        _logger.LogInformation("CorrelationId: {id}", _correlationIdGenerator.Get());
+        return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
+    }
+    
+    public IActionResult Index(Guid id)
+    {
+        //HttpContext.Session.SetString(LoggedUser, id.ToString());
         return View(_travelList);
     }
 
@@ -59,7 +76,11 @@ public class HomeController : Controller
         }
         else
         {
-            return View(new UserModel());
+            // return View(new UserModel());
+            // return View(_userList.FirstOrDefault(user => user.Id == Guid.Parse(HttpContext.Session.GetString(LoggedUser))));
+            var StringId = HttpContext.Session.GetString(LoggedUser);
+            Guid id = Guid.Parse(StringId);
+            return View(_userRepository.GetUser(id));
         }
     }
 
@@ -85,7 +106,9 @@ public class HomeController : Controller
     
     public IActionResult Datecher()
     {
+        
         return View(_userList);
+        
     }
     
     public IActionResult Trip(FormInput? input)
@@ -97,7 +120,11 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if(_errorRepository.GetErrorList().Count() > 0)
+        {
+            return View(_errorRepository.Get());
+        }
+        return RedirectToAction("Index");
     }
 
     public IActionResult AddUser(UserModel user)

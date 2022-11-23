@@ -239,6 +239,11 @@ body {
   width: 520px;
 }
 
+#googleMapPreview {
+  height: 300px;
+  width: 520px;
+}
+
 #googleMapCreate {
   height: 300px;
   width: 520px;
@@ -264,11 +269,12 @@ body {
 }
 
 .item3 {
-  grid-column: 6/8;
+  grid-column: 6/7;
+  grid-row: 1 / 2;
 }
 
 .item4 {
-  grid-column: 1/8;
+  grid-column: 1/4;
   grid-row: 2 / 4;
 }
 
@@ -281,7 +287,11 @@ body {
   grid-row: 1 / 8;
 }
 
-
+.awesome{
+  text-align: center;
+  position: relative;
+  color: #0b5ed7;
+}
 .border-bottom {
   color: #bcd0f7;
 }
@@ -315,18 +325,39 @@ body {
 }
 
 .container-fluid{
-  background-color: white;
-  font-style: italic;
-  padding-right: 0;
-  padding-left: 0;
+  background: linear-gradient(153deg, rgba(18,60,143,1) 1%, rgba(26,35,58,1) 61%);
+  font-size: medium;
+  font-style: oblique;
+  /*padding-right: 0;*/
+  /*padding-left: 0;*/
+  margin: 0!important;
+  padding: 0!important;
   width: 100%;
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  
+}
+
+.logo-image{
+  width: 50px;
+  height: 50px;
+  border-radius: 0%;
+  overflow: hidden;
+  margin-top: -2px;
+}
+.navbar-nav.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
 }
 
 /*button*/
 .travel{
   --glow-color: rgb(219, 219, 220);
   --glow-spread-color: rgba(136, 123, 255, 0.78);
-  --enhanced-glow-color: rgb(231, 206, 255);
+  --enhanced-glow-color: rgb(246, 241, 248);
   --btn-color: rgb(61, 71, 136);
   border: .25em solid var(--glow-color);
   padding: 1em 3em;
@@ -368,12 +399,9 @@ body {
 
 /*button*/
 .Confirm{
-  /*background-color: #F6B3D8;*/
-  /*  border-color: #bcd0f7;*/
-  /*  border-width: 2px;*/
   --glow-color: rgb(159, 206, 109);
-  --glow-spread-color: rgba(136, 123, 255, 0.78);
-  --enhanced-glow-color: rgb(219, 219, 220);
+  --glow-spread-color: rgb(61, 71, 136);
+  --enhanced-glow-color: rgb(255, 255, 255);
   --btn-color: rgb(61, 71, 136);
   border: .10em solid var(--glow-color);
   padding: 1em 8em;
@@ -386,7 +414,6 @@ body {
   box-shadow: 0 0 1em .100em var( --enhanced-glow-color),
   0 0 5em 1em var(--glow-spread-color),
   inset 0 0 .100em .100em var( --enhanced-glow-color);
-  position: relative;
   top:15px;
 }
 
@@ -748,5 +775,9 @@ a.Edit{
   margin-right: 1em;
   margin-bottom: 1em;
   border-radius: 5px;
+}
+
+.table-borderless.table-responsive.p-4{
+  position: relative;
 }
 

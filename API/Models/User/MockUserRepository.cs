@@ -32,27 +32,23 @@ public class MockUserRepository : IUserRepository
         _context.SaveChanges();
     }
 
+    public void OnUserLogged(object source, EventArgs e)
+    {
+        Console.WriteLine("Logged");
+    }
+
     public DbSet<UserModel> GetUserList()
     {
         return _userList;
     }
     
-    public bool IsValidPhone(string PhoneNumber)
+    public  bool IsValidPhone(string PhoneNumber)
     {
-        try
-        {
-            if (string.IsNullOrEmpty(PhoneNumber))
-                return false;
-            var r = new Regex(@"^\(?(86|\+3706)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$");
-            return r.IsMatch(PhoneNumber);
-           
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            ErrorLogUtil.LogError(ex);
+        if (string.IsNullOrEmpty(PhoneNumber))
             return false;
-        }
+        var r = new Regex(@"^\(?(86|\+3706)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$");
+        return r.IsMatch(PhoneNumber);
+           
     }
     public void DeleteUser(Guid Id)
     {
@@ -64,7 +60,7 @@ public class MockUserRepository : IUserRepository
         DateTime today = DateTime.Today;
         int age = today.Year - DateTime.Parse(YearOfBirth).Year;
         if (DateTime.Parse(YearOfBirth) > today.AddYears(-age)) age--;
-
+        
         return age;
     }
     
