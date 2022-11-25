@@ -193,9 +193,9 @@ public class HomeController : Controller
     }
     
 
-    public IActionResult Login()
-    {
-        return View(Login);
-    }
+    // public IActionResult Login()
+    // {
+    //     return View(Login);
+    // }
 
 }

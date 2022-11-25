@@ -322,3 +322,12 @@ body{
 .choose{
     text-align: right;
 }
+
+.Submit{
+    border: none;
+    color: white;
+    font-size: 12px;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
