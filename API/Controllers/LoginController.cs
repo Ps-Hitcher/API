@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using WebApplication2.Data;
 using WebApplication2.Models.User;
-
+                             
 namespace WebApplication2.Controllers
 {
     public class LoginController : Controller
