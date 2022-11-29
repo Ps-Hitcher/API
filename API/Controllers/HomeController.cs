@@ -112,6 +112,11 @@ public class HomeController : Controller
         
     }
     
+    public IActionResult Calculator()
+    {
+        return View();
+    }
+    
     public IActionResult Trip(FormInput? input)
     {
         ViewData["Input"] = input ?? new FormInput();
