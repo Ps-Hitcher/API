@@ -156,13 +156,15 @@ public class HomeController : Controller
     public IActionResult AddTravel(FormInput input)
     {
         var travelId = Guid.NewGuid();
+        var stopStr = new List<string>(input.Stopovers.Split(";"));
+        stopStr.Remove(input.Destination);
         
         TravelModel travel = new TravelModel
         {
             Id = travelId,
             Origin = input.Origin,
             Destination = input.Destination,
-            Stopovers = new List<string>(input.Stopovers.Split(";")),
+            Stopovers = stopStr,
             Time = input.Time,
             DriverID = input.DriverID,
             FreeSeats = input.FreeSeats,
@@ -183,7 +185,6 @@ public class HomeController : Controller
             meta.Distance = Convert.ToDouble(distanceList[i]);
             _metaList.Add(meta);
         }
-        
 
         _travelRepository.Save();
         _metaRepository.Save();
@@ -191,7 +192,6 @@ public class HomeController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-    
 
     public IActionResult Login()
     {

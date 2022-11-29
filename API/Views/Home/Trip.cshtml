@@ -168,6 +168,7 @@ function closePopup(){
                 $('#Stopover'+last_chq_no).remove();
                 $('#total_chq').val(last_chq_no-1);
 				removeAutocompleteStopover();
+				setTimeout(() => { prepareForSave(); }, 500);
               }
             }
 </script>
