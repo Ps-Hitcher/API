@@ -50,15 +50,24 @@ public class HomeControllerTests
         var MockDbSetUser = new Mock<DbSet<UserModel>>();
         var MockITravelRepository = new Mock<ITravelRepository>();
         var MockDbSetTravel = new Mock<DbSet<TravelModel>>();
+        var MockMetaRepository = new Mock<IMetaRepository>();
+        var MockIMetaRepository = new Mock<DbSet<MetaModel>>();
+        var MockCoordsRepository = new Mock<ICoordsRepository>();
+        var MockICoordsRepository = new Mock<DbSet<CoordsModel>>();
+
+        var MockCoreelationIDGenerator = new Mock<ICorrelationIDGenerator>();
+        var MockErrorRepository = new Mock<IErrorRepository>();
 
         DbSet<UserModel> set = context.Set<UserModel>();
         DbSet<TravelModel> set1 = context.Set<TravelModel>();
+        // DbSet<MetaModel> set2 = context.Set<MetaModel>();
+        // DbSet<CoordsModel> set2 = context.Set<CoordsModel>();
       
         MockIUserRepository.Setup(user1 => user1.GetUserList()).Returns(set); 
         MockITravelRepository.Setup(user1 => user1.GetTravelList()).Returns(set1);
         MockIUserRepository.Setup(user1 => user1.IsValidPhone(record1.PhoneNumber)).Returns(true);
         
-        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object, MockITravelRepository.Object, MockIErrrorRepository.Object, MockIDGenerator.Object, context);
+        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object, MockITravelRepository.Object, MockMetaRepository.Object, MockCoordsRepository.Object, MockIErrrorRepository.Object, MockIDGenerator.Object, context);
 
         homeController.AddUser(record1);
 
