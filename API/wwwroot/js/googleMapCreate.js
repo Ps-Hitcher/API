@@ -146,43 +146,15 @@ function addStopoverInfo() {
         }
     }
 
-    stopoversString = stopovers.toString();
-    for(let i = 0; i < stopoversString.length; i++) {
-        if((i === 0) && (stopoversString[0] === ',')) {
-            stopoversString = removeChar(stopoversString, i);
-            continue;
-        }
-        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ',')) {
-            stopoversString = removeChar(stopoversString, i);
-            continue;
-        }
-        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ';')) {
-            stopoversString = removeChar(stopoversString, i);
-            continue;
-        }
-        if((stopoversString[i - 1] === ',') && (stopoversString[i] === ';')) {
-            stopoversString = removeChar(stopoversString, i - 1);
-            continue;
-        }
-        if((stopoversString[i - 1] === ';') && (stopoversString[i] === ',')) {
-            stopoversString = removeChar(stopoversString, i);
-            continue;
-        }
-        if(stopoversString[i] === ';') {
-            stopoversString = replaceChar(stopoversString, i, ',');
-            continue;
-        }
-        if(stopoversString[i] === ',') {
-            stopoversString = replaceChar(stopoversString, i, ';');
-        }
-    }
+    stopoversString = stopovers.toString() + "," + formatAddress(autocompleteDestination.getPlace().adr_address);
+    stopoversString = formatAddressSymbols(stopoversString);
     document.getElementById("Stopovers").value = stopoversString;
-    
+    console.log("Stopover string: \"" + document.getElementById("Stopovers").value +"\"");
 }
 
 function addBearingsInfo(serverResult) {
     let bearings = [], bearingString;
-    for (let i = 1; i <= usedStopoverCount; i++) {
+    for (let i = 1; i <= usedStopoverCount + 1; i++) {
         bearings[i - 1] = getBearings(
             serverResult.routes[0].legs[i - 1].start_location.lat(),
             serverResult.routes[0].legs[i - 1].start_location.lng(),
@@ -202,7 +174,7 @@ function addBearingsInfo(serverResult) {
 
 function addDistanceInfo(serverResult) {
     let distance = [], distanceString;
-    for (let i = 1; i <= usedStopoverCount; i++) {
+    for (let i = 1; i <= usedStopoverCount + 1; i++) {
         distance[i - 1] = distanceBetweenCoordinates(
             serverResult.routes[0].legs[i - 1].start_location.lat(),
             serverResult.routes[0].legs[i - 1].start_location.lng(),
@@ -235,7 +207,7 @@ function prepareForSave() {
     addStopoverInfo();
     calcRouteMapCreate();
     
-    document.getElementById("OriginSave").value = formatAddress(autocompleteOrigin.getPlace().adr_address);
-    document.getElementById("DestinationSave").value = formatAddress(autocompleteDestination.getPlace().adr_address);
+    document.getElementById("OriginSave").value = formatAddressSymbols(formatAddress(autocompleteOrigin.getPlace().adr_address));
+    document.getElementById("DestinationSave").value = formatAddressSymbols(formatAddress(autocompleteDestination.getPlace().adr_address));
 
 }

@@ -114,7 +114,7 @@ function removeAutocompleteStopover() {
 
 function formatAddress(adr_address) {
     const addressArray = adr_address.split("<span");
-    let street = "", city = "";
+    let street = "", city = "", address;
     for (let i = 0; i < addressArray.length; i++) {
         if(addressArray[i].includes("street-address")) {
             street = ((addressArray[i].split(">"))[1].split("<"))[0];
@@ -123,7 +123,42 @@ function formatAddress(adr_address) {
             city = ((addressArray[i].split(">"))[1].split("<"))[0];
         }
     }
+    
     return (street + "; " + city);
+}
+
+function formatAddressSymbols (address) {
+    for(let i = 0; i < address.length; i++) {
+        if((i === 0) && ((address[0] === ',') || (address[0] ===';') || (address[0] ===' '))) {
+            address = removeChar(address, i);
+            i--;
+            continue;
+        }
+        if((address[i - 1] === ',') && (address[i] === ',')) {
+            address = removeChar(address, i);
+            continue;
+        }
+        if((address[i - 1] === ';') && (address[i] === ';')) {
+            address = removeChar(address, i);
+            continue;
+        }
+        if((address[i - 1] === ',') && (address[i] === ';')) {
+            address = removeChar(address, i - 1);
+            continue;
+        }
+        if((address[i - 1] === ';') && (address[i] === ',')) {
+            address = removeChar(address, i);
+            continue;
+        }
+        if(address[i] === ';') {
+            address = replaceChar(address, i, ',');
+            continue;
+        }
+        if(address[i] === ',') {
+            address = replaceChar(address, i, ';');
+        }
+    }
+    return address;
 }
 
 function geocodeFailure() {
