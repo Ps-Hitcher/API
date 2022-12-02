@@ -20,7 +20,7 @@ public class FormInput
 
     public string Distance { get; set; }
     
-    public List<double> lat { get; set; }
+    public string Lat { get; set; }
 
-    public List<double> lon { get; set; }
+    public string Lng { get; set; }
 }

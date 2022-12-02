@@ -25,16 +25,13 @@ public class HomeController : Controller
     private readonly IMetaRepository _metaRepository;
     private readonly DbSet<MetaModel> _metaList;
     
-    private readonly ICoordsRepository _coordsRepository;
-    private readonly DbSet<CoordsModel> _coordsList;
-    
     private readonly ICorrelationIDGenerator _correlationIdGenerator;
     private IErrorRepository _errorRepository;
     
     private const String  LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
         IUserRepository userRepository, ITravelRepository travelRepository, 
-        IMetaRepository metaRepository, ICoordsRepository coordsRepository, 
+        IMetaRepository metaRepository,
         IErrorRepository errorRepository, ICorrelationIDGenerator correlationIdGenerator, DataContext context)
         //Using dependency injection for UserModel
     {
@@ -43,12 +40,10 @@ public class HomeController : Controller
         _userRepository = userRepository;
         _travelRepository = travelRepository;
         _metaRepository = metaRepository;
-        _coordsRepository = coordsRepository;
         _errorRepository = errorRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
         _metaList = _metaRepository.GetMetaList();//debug
-        _coordsList = _coordsRepository.GetCoordsList();//debug
     }
 
     
@@ -176,19 +171,32 @@ public class HomeController : Controller
         List<string> stopoverList = new List<string>(input.Stopovers.Split(";"));
         List<double> bearingList = new List<double>(Array.ConvertAll(input.Bearings.Split(","), Double.Parse));
         List<double> distanceList = new List<double>(Array.ConvertAll(input.Distance.Split(","), Double.Parse));
+        List<double> latList = new List<double>(Array.ConvertAll(input.Lat.Split(","), Double.Parse));
+        List<double> lngList = new List<double>(Array.ConvertAll(input.Lng.Split(","), Double.Parse));
         for (var i = 0; i < stopoverList.Count; i++)
         {
             MetaModel meta = new MetaModel();
             meta.TravelId = travelId;
-            meta.MetaDestination = stopoverList[i];
+            if (i == 0)
+            {
+                meta.Origin = input.Origin;
+            }
+            else
+            {
+                meta.Origin = stopoverList[i - 1];
+            }
+            meta.Destination = stopoverList[i];
             meta.Bearing = Convert.ToDouble(bearingList[i]);
             meta.Distance = Convert.ToDouble(distanceList[i]);
+            meta.OriginLat = Convert.ToDouble(latList[i]);
+            meta.OriginLng = Convert.ToDouble(lngList[i]);
+            meta.DestinationLat = Convert.ToDouble(latList[i + 1]);
+            meta.DestinationLng = Convert.ToDouble(lngList[i + 1]);
             _metaList.Add(meta);
         }
 
         _travelRepository.Save();
         _metaRepository.Save();
-        _coordsRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }

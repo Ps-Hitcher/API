@@ -28,8 +28,6 @@ const geocoderMapCreate = new google.maps.Geocoder();
 //define calcRoute function
 function calcRouteMapCreate() {
     
-    let request;
-    
     if (!(document.getElementById("Origin").value &&
         document.getElementById("Destination").value &&
         document.getElementById("LeaveTime").value)) {
@@ -50,7 +48,7 @@ function calcRouteMapCreate() {
             stopoverNum++;
         }
     }
-
+    let request;
     //create request
     if (stopoverList >= 1) {
         request = {
@@ -79,8 +77,6 @@ function calcRouteMapCreate() {
             //Get distance and time
             displayOutput(result);
 
-            addBearingsInfo(serverResult);
-            addDistanceInfo(serverResult);
             //display route
             try {
                 directionsRendererMapCreate.setDirections(result);
@@ -154,12 +150,12 @@ function addStopoverInfo() {
 
 function addBearingsInfo(serverResult) {
     let bearings = [], bearingString;
-    for (let i = 1; i <= usedStopoverCount + 1; i++) {
-        bearings[i - 1] = getBearings(
-            serverResult.routes[0].legs[i - 1].start_location.lat(),
-            serverResult.routes[0].legs[i - 1].start_location.lng(),
-            serverResult.routes[0].legs[i - 1].end_location.lat(),
-            serverResult.routes[0].legs[i - 1].end_location.lng());
+    for (let i = 0; i <= usedStopoverCount; i++) {
+        bearings[i] = getBearings(
+            serverResult.routes[0].legs[i].start_location.lat(),
+            serverResult.routes[0].legs[i].start_location.lng(),
+            serverResult.routes[0].legs[i].end_location.lat(),
+            serverResult.routes[0].legs[i].end_location.lng());
     }
     
     bearingString = bearings.join(",");
@@ -174,12 +170,12 @@ function addBearingsInfo(serverResult) {
 
 function addDistanceInfo(serverResult) {
     let distance = [], distanceString;
-    for (let i = 1; i <= usedStopoverCount + 1; i++) {
-        distance[i - 1] = distanceBetweenCoordinates(
-            serverResult.routes[0].legs[i - 1].start_location.lat(),
-            serverResult.routes[0].legs[i - 1].start_location.lng(),
-            serverResult.routes[0].legs[i - 1].end_location.lat(),
-            serverResult.routes[0].legs[i - 1].end_location.lng());
+    for (let i = 0; i <= usedStopoverCount; i++) {
+        distance[i] = distanceBetweenCoordinates(
+            serverResult.routes[0].legs[i].start_location.lat(),
+            serverResult.routes[0].legs[i].start_location.lng(),
+            serverResult.routes[0].legs[i].end_location.lat(),
+            serverResult.routes[0].legs[i].end_location.lng());
     }
 
     distanceString = distance.join(",");
@@ -192,6 +188,33 @@ function addDistanceInfo(serverResult) {
     document.getElementById("Distance").value = distanceString;
 }
 
+function addCoordsInfo(serverResult) {
+    let lat = [], lng = [];
+    let latString, lngString;
+    lat[0] = serverResult.routes[0].legs[0].start_location.lat(); 
+    lng[0] = serverResult.routes[0].legs[0].start_location.lng();
+    for(let i = 0; i <= usedStopoverCount; i++)
+    {
+        lat[i + 1] = serverResult.routes[0].legs[i].end_location.lat();
+        lng[i + 1] = serverResult.routes[0].legs[i].end_location.lng();
+    }
+    
+    latString = lat.join(",");
+    for(let i = 0; i < latString.length; i++) {
+        if((latString[i - 1] === ',') && (latString[i] === ',')) {
+            latString = removeChar(latString, i);
+        }
+    }
+    lngString = lng.join(",");
+    for(let i = 0; i < lngString.length; i++) {
+        if((lngString[i - 1] === ',') && (lngString[i] === ',')) {
+            lngString = removeChar(lngString, i);
+        }
+    }
+    document.getElementById("Lat").value = latString;
+    document.getElementById("Lng").value = lngString;
+}
+
 function updateUsedStopoverCount() {
     let count = 0;
     for (let i = 1; i <= document.getElementById("total_chq").value; i++) {
@@ -202,12 +225,29 @@ function updateUsedStopoverCount() {
     usedStopoverCount = count;
 }
 
+function updateChange() {
+    calcRouteMapCreate();
+}
+
 function prepareForSave() {
     updateUsedStopoverCount();
     addStopoverInfo();
-    calcRouteMapCreate();
+    addBearingsInfo(result);
+    addDistanceInfo(result);
+    addCoordsInfo(result);
     
     document.getElementById("OriginSave").value = formatAddressSymbols(formatAddress(autocompleteOrigin.getPlace().adr_address));
     document.getElementById("DestinationSave").value = formatAddressSymbols(formatAddress(autocompleteDestination.getPlace().adr_address));
+    openPopup();
+    
+}
 
+let popup = document.getElementById("popup");
+
+function openPopup() {
+    popup.classList.add("open-popup");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
 }
