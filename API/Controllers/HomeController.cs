@@ -61,10 +61,9 @@ public class HomeController : Controller
         return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
     }
     
-    public IActionResult Index(Guid id)
+    public IActionResult Index()
     {
-        //HttpContext.Session.SetString(LoggedUser, id.ToString());
-        return View(_travelList);
+        return View("Index",_travelList);
     }
 
     public IActionResult Privacy(string message)
@@ -73,7 +72,7 @@ public class HomeController : Controller
         if (TempData["UserModel"] is not null)
         {
             UserModel user = JsonConvert.DeserializeObject<UserModel>((string)TempData["UserModel"]);
-            return View(user);
+            return View("Privacy", user);
         }
         else
         {
@@ -102,13 +101,13 @@ public class HomeController : Controller
 
     public IActionResult Users()
     {
-        return View(_userList);
+        return View("Users", _userList);
     }
     
     public IActionResult Datecher()
     {
         
-        return View(_userList);
+        return View("Datecher", _userList);
         
     }
     
@@ -120,7 +119,7 @@ public class HomeController : Controller
     public IActionResult Trip(FormInput? input)
     {
         ViewData["Input"] = input ?? new FormInput();
-        return View();
+        return View("Trip");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
