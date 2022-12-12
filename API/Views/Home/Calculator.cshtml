@@ -1,10 +1,10 @@
-﻿@using WebApplication2.Models.User
-@model WebApplication2.Models.User.UserModel
-
+﻿@model Microsoft.EntityFrameworkCore.DbSet<UserModel>
+@using WebApplication2.Models.User
+@using WebApplication2.Models.User
 @using static WebApplication2.Models.User.IUserRepository
 @using System.Security.Principal
 
- <!--CUSTOM CSS STYLE -->
+<!--CUSTOM CSS STYLE -->
 <link rel="stylesheet" type="text/css" href="~/css/calculator.css">
 
 <div class="text-center">
@@ -24,18 +24,41 @@
 </div>
 
 <div class="container calculator">
-    <div class="content text-center align-content-center">
+    <div class="content text-center align-content-center">  
+        
         <img src="icon.png" alt="">
         <div class="inputarea">
-            <input type="text" placeholder="Enter your Name" id="NameOne" onfocus="this.value = ''">
-            <input type="text" placeholder="Enter His/Her Name" id="NameTwo" onfocus="this.value = ''">
+            @* <input type="text" placeholder="Enter your Name" id="NameOne" onfocus="this.value = ''"> *@
+            <select type="text"  id="NameOne" class="form-control"  onfocus="this.value = ''">
+                 <option selected="">Select Name </option>
+                @foreach (var user in Model)
+                {
+                    <option value="">@Html.DisplayFor(modelItem => user.Name)
+                        ★ <small class="horoname" id="HonorOne" onfocus="this.value = ''">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option>
+                }
+            </select>
+            @* <input type="text" placeholder="Enter His/Her Name" id="NameTwo" onfocus="this.value = ''"> *@
+            <select type="text"  id="NameTwo" class="form-control"  onfocus="this.value = ''">
+                <option selected="">Select Name </option>
+                @foreach (var user in Model)
+                {
+                    <option value="">@Html.DisplayFor(modelItem => user.Name)
+                        ★ <small class="horoname" id="HonorTwo">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option>
+                }
+            </select>
         </div>
         <br></br>
         <a href="#" onclick="love()" type="submit" class="ConfirmCalculate" >Calculate</a>
         <br></br>
         <p id="print">Your relationship result here</p>
-        <p id="statement"></p>
+        <p id="statement"></p> 
+        <a href="#" onclick="horo()" type="submit" class="Check">Check</a>
+        <br></br>
+        
+        <p id="print1">result here</p>
+        <p id="statement1"></p> 
     </div>
+    
 </div>
 
 <div class="hearts1">
@@ -47,29 +70,65 @@
 </div>
 </body>
 </html>
+<style>
+.form-control{
+    width: 200px;
+    height: 45px;
+    margin: 5px;
+    color: white;
+    border: 2px solid #d7385c;
+    font-size: 13px;
+    text-align: center;
+}
 
+
+</style>
 <script>
         function love(){
-        var name1 = document.getElementById("NameOne").value;
-        var name2 = document.getElementById("NameTwo").value;
-        if(name1.length<=2){
-            alert("Enter at least 3 character");
-        }
-        if(name2.length<=2){
-            alert("Enter at least 3 character");
-        }
-        else{
-            var random = Math.floor(Math.random()*100);
-            document.getElementById("print").innerHTML = random + "%" + " of love";
-        }
+        var random = Math.floor(Math.random()*100);
+        console.log("Hello World!");
+        document.getElementById("print").innerHTML = random + "%" + " of love";
         if(random<=0 || random<=10){
-             document.getElementById("statement").innerHTML = "Bad Relationship";
+             // document.getElementById("statement").innerHTML = "Bad Relationship";
         }
         else if(random<=10 || random<=50){
-            document.getElementById("statement").innerHTML = "Good Relationship";
+         // document.getElementById("statement").innerHTML = "Good Relationship";
         }
         else if(random<=51 || random<=100){
-            document.getElementById("statement").innerHTML = "Lovely Relationship";
+            // document.getElementById("statement").innerHTML = "Lovely Relationship";
         }
+
     }
+    
+    function horo()
+    {
+          const zodiac1 = document.getElementById("HonorOne");
+          const zodiac2 = document.getElementById("HonorTwo");
+          
+          // document.getElementById("print1").innerHTML = "suderinamumas";
+          document.getElementById("print1").innerHTML = zodiac1 + "+" + zodiac2 + "suderinamumas";
+          var dict = { key1 : "Aries", 
+                            key2 : "Taurus", 
+                            key3 : "Gemini",
+                            key4 : "Cancer", 
+                            key5 : "Leo", 
+                            key6 : "Virgo", 
+                            key7 : "Libra", 
+                            key8 : "Scorpio", 
+                            key9 : "Sagittarius",
+                            key10 : "Capricornus", 
+                            key11 : "Aquarius", 
+                            key12 : "Pisces"
+                          };
+                var value1 = dict[key6];
+                var value2 = dict[key6];
+
+        // document.getElementById("statement1").innerHTML ="virgo+virgo";    
+        document.getElementById("statement1").innerHTML = value1  + "+" + value2;  
+        
+         if(value1 === zodiac1 && value2 === zodiac2){
+                     document.getElementById("statement1").innerHTML = "virgo and virgo...";
+         }
+    }
+    
 </script>

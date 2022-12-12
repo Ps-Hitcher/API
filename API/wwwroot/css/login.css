@@ -1,35 +1,49 @@
-﻿html, body {
-    width:100%;
-    height:100%;
-}
-body {
-    background: linear-gradient(-45deg, #1A233A, #1A233A ,#001324, #0056ff);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
-}
-.login{
-    border-radius: 15px;
-    border: 0;
-    margin-bottom: 1rem;
-    padding: 60px;
-    box-shadow: 0 0 50px rgb(219,219,220);
-}
+﻿/*html, body {*/
+/*    width:100%;*/
+/*    height:100%;*/
+/*}*/
+/*body {*/
+/*    background: linear-gradient(-45deg, #1A233A, #1A233A ,#001324, #0056ff);*/
+/*    background-size: 400% 400%;*/
+/*    animation: gradient 10s ease infinite;*/
+/*}*/
+/*.login{*/
+/*    border-radius: 15px;*/
+/*    border: 0;*/
+/*    margin-bottom: 1rem;*/
+/*    padding: 60px;*/
+/*    box-shadow: 0 0 50px rgb(219,219,220);*/
+/*}*/
 
 .navbar{
     display: none;
 }
 
-.login form a{
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #1a233a;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px;
-}
+/*.login form a{*/
+/*    position: relative;*/
+/*    display: inline-block;*/
+/*    padding: 10px 20px;*/
+/*    color: #1a233a;*/
+/*    font-size: 16px;*/
+/*    text-decoration: none;*/
+/*    text-transform: uppercase;*/
+/*    overflow: hidden;*/
+/*    transition: .5s;*/
+/*    margin-top: 40px;*/
+/*    letter-spacing: 4px;*/
+/*}*/
+/*custom font*/
+
+/*.cont_principal {*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  margin: 0px;*/
+/* padding: 200px;*/
+/* left: 28%;*/
+/* */
+/*}*/
+
+
+
 

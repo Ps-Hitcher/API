@@ -114,7 +114,7 @@ public class HomeController : Controller
     
     public IActionResult Calculator()
     {
-        return View();
+        return View(_userList);
     }
     
     public IActionResult Trip(FormInput? input)
