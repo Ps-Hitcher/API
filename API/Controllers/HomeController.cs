@@ -113,7 +113,12 @@ public class HomeController : Controller
     }
     
     public IActionResult Calculator()
-    {
+    { 
+        var StringId = HttpContext.Session.GetString(LoggedUser);
+        Guid id = Guid.Parse(StringId);
+        var name = _userRepository.GetUser(id).Name;
+        var zodiac = _userRepository.GetHoroName_(_userRepository.GetUser(id).YearOfBirth);
+        ViewBag.Message = name + " ★ " + zodiac;
         return View(_userList);
     }
     

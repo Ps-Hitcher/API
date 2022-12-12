@@ -30,12 +30,13 @@
         <div class="inputarea">
             @* <input type="text" placeholder="Enter your Name" id="NameOne" onfocus="this.value = ''"> *@
             <select type="text"  id="NameOne" class="form-control"  onfocus="this.value = ''">
-                 <option selected="">Select Name </option>
-                @foreach (var user in Model)
-                {
-                    <option value="">@Html.DisplayFor(modelItem => user.Name)
-                        ★ <small class="horoname" id="HonorOne" onfocus="this.value = ''">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option>
-                }
+                <option selected="">@ViewBag.Message </option>
+                @* @foreach (var user in Model) *@
+                @* { *@
+                @*     <option value="">@Html.DisplayFor(modelItem => user.Name) *@
+                @*         ★ <small class="horoname" id="HonorOne" onfocus="this.value = ''">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option> *@
+                @* } *@
+                
             </select>
             @* <input type="text" placeholder="Enter His/Her Name" id="NameTwo" onfocus="this.value = ''"> *@
             <select type="text"  id="NameTwo" class="form-control"  onfocus="this.value = ''">
