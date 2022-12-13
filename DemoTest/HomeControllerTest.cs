@@ -60,9 +60,7 @@ public class HomeControllerTests
 
         DbSet<UserModel> set = context.Set<UserModel>();
         DbSet<TravelModel> set1 = context.Set<TravelModel>();
-        // DbSet<MetaModel> set2 = context.Set<MetaModel>();
-        // DbSet<CoordsModel> set2 = context.Set<CoordsModel>();
-      
+
         MockIUserRepository.Setup(user1 => user1.GetUserList()).Returns(set); 
         MockITravelRepository.Setup(user1 => user1.GetTravelList()).Returns(set1);
         MockIUserRepository.Setup(user1 => user1.IsValidPhone(record1.PhoneNumber)).Returns(true);
@@ -73,5 +71,104 @@ public class HomeControllerTests
 
         var result = context.Users.Find(record1.Id);
         Assert.AreEqual(result, record1);
+    }
+    
+    [Test]
+    public void Index_ShouldReturnIndexView()
+    {
+        
+        var _contextOptions = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(_contextOptions);
+        var MockILogger = new Mock<ILogger<HomeController>>();
+        var MockIDGenerator = new Mock<CorrelationIdGenerator>();
+        var MockIErrrorRepository = new Mock<IErrorRepository>();
+        var MockIUserRepository = new Mock<IUserRepository>();
+        var MockITravelRepository = new Mock<ITravelRepository>();
+        var MockMetaRepository = new Mock<IMetaRepository>();
+        var MockCoordsRepository = new Mock<ICoordsRepository>();
+        
+        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object,
+            MockITravelRepository.Object, MockMetaRepository.Object, MockCoordsRepository.Object,
+            MockIErrrorRepository.Object, MockIDGenerator.Object, context);
+
+        var actResult = homeController.Index() as ViewResult;
+        Assert.That(actResult.ViewName, Is.EqualTo("Index"));
+    }
+    
+    [Test]
+    public void Users_ShouldReturnUsersView()
+    {
+        
+        var _contextOptions = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(_contextOptions);
+        var MockILogger = new Mock<ILogger<HomeController>>();
+        var MockIDGenerator = new Mock<CorrelationIdGenerator>();
+        var MockIErrrorRepository = new Mock<IErrorRepository>();
+        var MockIUserRepository = new Mock<IUserRepository>();
+        var MockITravelRepository = new Mock<ITravelRepository>();
+        var MockMetaRepository = new Mock<IMetaRepository>();
+        var MockCoordsRepository = new Mock<ICoordsRepository>();
+        
+        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object,
+            MockITravelRepository.Object, MockMetaRepository.Object, MockCoordsRepository.Object,
+            MockIErrrorRepository.Object, MockIDGenerator.Object, context);
+
+        var actResult = homeController.Users() as ViewResult;
+        Assert.That(actResult.ViewName, Is.EqualTo("Users"));
+    }
+    
+    [Test]
+    public void Datecher_ShouldReturnDatecherView()
+    {
+        
+        var _contextOptions = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(_contextOptions);
+        var MockILogger = new Mock<ILogger<HomeController>>();
+        var MockIDGenerator = new Mock<CorrelationIdGenerator>();
+        var MockIErrrorRepository = new Mock<IErrorRepository>();
+        var MockIUserRepository = new Mock<IUserRepository>();
+        var MockITravelRepository = new Mock<ITravelRepository>();
+        var MockMetaRepository = new Mock<IMetaRepository>();
+        var MockCoordsRepository = new Mock<ICoordsRepository>();
+        
+        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object,
+            MockITravelRepository.Object, MockMetaRepository.Object, MockCoordsRepository.Object,
+            MockIErrrorRepository.Object, MockIDGenerator.Object, context);
+
+        var actResult = homeController.Datecher() as ViewResult;
+        Assert.That(actResult.ViewName, Is.EqualTo("Datecher"));
+    }
+    
+    [Test]
+    public void Calculator_ShouldReturnCalculatorView()
+    {
+        var _contextOptions = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(_contextOptions);
+        var MockILogger = new Mock<ILogger<HomeController>>();
+        var MockIDGenerator = new Mock<CorrelationIdGenerator>();
+        var MockIErrrorRepository = new Mock<IErrorRepository>();
+        var MockIUserRepository = new Mock<IUserRepository>();
+        var MockITravelRepository = new Mock<ITravelRepository>();
+        var MockMetaRepository = new Mock<IMetaRepository>();
+        var MockCoordsRepository = new Mock<ICoordsRepository>();
+        
+        var homeController = new HomeController(MockILogger.Object, MockIUserRepository.Object,
+            MockITravelRepository.Object, MockMetaRepository.Object, MockCoordsRepository.Object,
+            MockIErrrorRepository.Object, MockIDGenerator.Object, context);
+
+        var actResult = homeController.Calculator() as ViewResult;
+        Assert.That(actResult.ViewName, Is.EqualTo("Calculator"));
     }
 }
