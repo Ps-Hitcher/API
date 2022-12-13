@@ -269,7 +269,7 @@ body {
 }
 
 .item3 {
-  grid-column: 7/9;
+  grid-column: 6/7;
   grid-row: 1 / 2;
 }
 
