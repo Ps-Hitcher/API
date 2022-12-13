@@ -203,7 +203,7 @@
 .inputarea{
     display: flex;
 }
-.inputarea input{
+select{
     width: 200px;
     height: 30px;
     text-align: center;
@@ -232,6 +232,31 @@
     text-align: center;
 }
 #statement{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+#print1{
+    --enhanced-glow-color3: rgb(215, 56, 92);
+    display: flex;
+    justify-content: center;
+    /*background-color: #d7385c;*/
+    box-shadow: 0 0 1em  var( --enhanced-glow-color3);
+    /*0 0  2em var(--enhanced-glow-color),*/
+    /*inset 0 0 .20em .20em var( --enhanced-glow-color);*/
+    margin: 20px;
+    white-space: pre-line;
+    padding: 20px 70px;
+    color: #fff;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
+}
+#statement1{
     display: flex;
     justify-content: center;
     margin-top: 50px;
