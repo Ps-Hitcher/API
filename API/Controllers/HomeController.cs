@@ -9,6 +9,10 @@ using WebApplication2.Models.User;
 using WebApplication2.Models.Travel;
 using FileIO = System.IO.File;
 using WebApplication2.Models.Errors;
+using WebApplication2.Utilities;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WebApplication2.Controllers;
 
@@ -17,22 +21,22 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     
     private readonly IUserRepository _userRepository;
-    private readonly DbSet<UserModel> _userList;
+    private DbSet<UserModel> _userList;
 
     private readonly ITravelRepository _travelRepository;
-    private readonly DbSet<TravelModel> _travelList;
+    private DbSet<TravelModel> _travelList;
     
     private readonly IMetaRepository _metaRepository;
-    private readonly DbSet<MetaModel> _metaList;
+    private DbSet<MetaModel> _metaList;
     
     private readonly ICorrelationIDGenerator _correlationIdGenerator;
     private IErrorRepository _errorRepository;
     
-    private const String  LoggedUser = "_User";
+    private const String LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
         IUserRepository userRepository, ITravelRepository travelRepository, 
-        IMetaRepository metaRepository,
-        IErrorRepository errorRepository, ICorrelationIDGenerator correlationIdGenerator, DataContext context)
+        IMetaRepository metaRepository, IErrorRepository errorRepository, 
+        ICorrelationIDGenerator correlationIdGenerator, DataContext context)
         //Using dependency injection for UserModel
     {
         _logger = logger; 
@@ -56,11 +60,123 @@ public class HomeController : Controller
         return JsonConvert.SerializeObject(_errorRepository.GetErrorList());
     }
     
-    public IActionResult Index(Guid id)
+    [HttpGet]
+    public IActionResult Index()
     {
-        //HttpContext.Session.SetString(LoggedUser, id.ToString());
-        return View(_travelList);
+        var data = new SearchTravel();
+        data.TravelModel!.TravelResults = _travelList.ToList();
+        return View(data);
     }
+    // [HttpGet]
+    // public IActionResult Index()
+    // {
+    //     return View(null);
+    // }
+    
+    [HttpPost]
+    public IActionResult Index(SearchTravel t)
+    {
+        if (ModelState.IsValid)
+        {
+            var data = new SearchTravel();
+            data.TravelModel!.TravelResults = _travelList.ToList();
+            return View(null);
+        }
+        Console.WriteLine("Origin Lat - " + t.OriginLat);
+        Console.WriteLine("Origin Lng - " + t.OriginLng);
+        Console.WriteLine("Destination Lat - " + t.DestinationLat);
+        Console.WriteLine("Destination Lng - " + t.DestinationLng);
+        // t = new TravelModel();
+        IEnumerable<MetaModel> queriedMetaContext = _metaList.ToList();
+        IEnumerable<TravelModel> queriedTripList = Enumerable.Empty<TravelModel>();
+        IEnumerable<UserModel> queriedUserList = Enumerable.Empty<UserModel>();
+        IEnumerable<MetaModel> queriedMetaList = queriedMetaContext;
+        foreach (var travel in _travelList)
+        {
+            // var queriedTripMetaContext = _metaList.Where(e => e.TravelId == travel.Id).ToList();
+            var queriedTripMetaList =
+                from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
+            if ((t.OriginLat != null) && (t.DestinationLat != null))
+            {
+                queriedMetaList = queriedTripMetaList.Where(e =>
+                    (Math.Abs(e.OriginLat - (double)t.OriginLat) <= 0.12 &&
+                        Math.Abs(e.OriginLng - (double)t.OriginLng) <= 0.2) &&
+                    (Math.Abs(e.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
+                        Math.Abs(e.DestinationLng - (double)t.DestinationLng) <= 0.2));
+                // queriedMetaList =
+                //     from meta in queriedTripMetaList
+                //     where (
+                //         (Math.Abs(meta.OriginLat - (double)t.OriginLat) <= 0.12 &&
+                //          Math.Abs(meta.OriginLng - (double)t.OriginLng) <= 0.2) &&
+                //         (Math.Abs(meta.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
+                //          Math.Abs(meta.DestinationLng - (double)t.DestinationLng) <= 0.2))
+                //     select meta;
+            }
+            else if (t.OriginLat != null)
+            {
+                // queriedMetaContext = queriedTripMetaList.Where(e =>
+                //     (Math.Abs(e.OriginLat - (double)t.OriginLat) <= 0.12 &&
+                //          Math.Abs(e.OriginLng - (double)t.OriginLng) <= 0.2));
+                queriedMetaList = 
+                    from meta in queriedTripMetaList
+                    where 
+                        (Math.Abs(meta.OriginLat - (double)t.OriginLat) <= 0.12 && 
+                         Math.Abs(meta.OriginLng - (double)t.OriginLng) <= 0.2)
+                        select meta;
+            }
+            else if (t.DestinationLat != null)
+            {
+                queriedMetaList = queriedTripMetaList.Where(e =>
+                    (Math.Abs(e.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
+                        Math.Abs(e.DestinationLng - (double)t.DestinationLng) <= 0.2));
+            }
+            // var diffLat = lat2 - lat1; 
+            // var diffLng = lon2 - lon1;
+            //
+            // return (diffLat <= 0.12) && (diffLng <= 0.2);
+            else
+            {
+                var data = new SearchTravel();
+                data.TravelModel!.TravelResults = _travelList.ToList();
+                return View(null);
+            }
+            if (queriedMetaList.Any())
+            {
+                queriedTripList = queriedTripList.Append(travel);
+            }
+        }
+        t.TravelModel.TravelResults = queriedTripList.ToList();
+        foreach (var trip in queriedTripList)
+        {
+            foreach (var user in _userList)
+            {
+                if (user.Id == trip.DriverId)
+                {
+                    queriedUserList = queriedUserList.Append(user);
+                }
+            }
+        }
+        var results = new SearchResults
+        {
+            SearchTravel = t,
+            UserModel = queriedUserList.ToList()
+        };
+
+        return RedirectToAction("Datecher", "Home", results);
+    }
+    // public IActionResult Index(double lat1, double lng1, double lat2, double lng2)
+    // {
+    //     if (_travelList.Count() > 0)
+    //     {
+    //         _travelList = _travelRepository.GetTravelList().Where(e => (TravelFilter.CloseCoords(lat1, lng1, 54.6989925, 25.2576996) && TravelFilter.CloseCoords(lat2, lng2, 25.2627452, 54.6719751)));
+    //     }
+    //     
+    //     
+    //     
+    //     return View(_travelList);
+    // }
+    //
+    // public void GetTripInfo()
 
     public IActionResult Privacy(string message)
     {
@@ -94,16 +210,20 @@ public class HomeController : Controller
         
         return RedirectToAction("Users");
     }
-
+    
     public IActionResult Users()
     {
         return View(_userList);
     }
-    
-    public IActionResult Datecher()
+
+    [HttpGet]
+    public IActionResult Datecher(SearchResults info)
     {
         
-        return View(_userList);
+        
+        
+        
+        return View(info);
         
     }
     
@@ -161,7 +281,7 @@ public class HomeController : Controller
             Destination = input.Destination,
             Stopovers = stopStr,
             Time = input.Time,
-            DriverID = input.DriverID,
+            DriverId = input.DriverID,
             FreeSeats = input.FreeSeats,
             Description = input.Description
         };

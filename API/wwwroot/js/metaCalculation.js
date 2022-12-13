@@ -73,7 +73,6 @@ function isNearDestination(result, userDestinationLat, userDestinationLon) {
     let divertion = possibleDivertionDistance(fullTripDist(result));
 
     return distance <= divertion;
-    
 }
 
 function isSimilarTrip(result, userTrip) {
@@ -84,7 +83,6 @@ function isSimilarTrip(result, userTrip) {
     let userDestinationLon = userTrip.routes[0].legs[0].end_location.lon();
 
     return isNearOrigin(result, userOriginLat, userOriginLon) && isNearDestination(result, userDestinationLat, userDestinationLon);
-    
 }
 
 function tripDistanceDifference(result, userTrip) {

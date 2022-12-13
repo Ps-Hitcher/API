@@ -98,9 +98,9 @@ const autocompleteOptions = {
     fields: ["adr_address"]
 };
 
-const autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("Origin"), autocompleteOptions);
+const autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById("OriginText"), autocompleteOptions);
 
-const autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById("Destination"), autocompleteOptions);
+const autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById("DestinationText"), autocompleteOptions);
 
 const autocompleteStopovers = [new google.maps.places.Autocomplete(document.getElementById("Stopover1"), autocompleteOptions)];
 
@@ -112,6 +112,22 @@ function removeAutocompleteStopover() {
     autocompleteStopovers.pop();
 }
 
+function geocodeAddress(buttonName, address) {
+    const addressOptions = {
+        componentRestrictions: {country: "lt"},
+        address: address
+    };
+    geocoder.geocode( addressOptions, function (results, status) {
+        if(status === 'OK') {
+            console.log(results[0].geometry.location.toString());
+            document.getElementById(buttonName + "Lat").value = results[0].geometry.location.lat();
+            document.getElementById(buttonName + "Lng").value = results[0].geometry.location.lng();
+        }
+        else {
+            window.alert("Invalid address");
+        }
+    })
+}
 function formatAddress(adr_address) {
     const addressArray = adr_address.split("<span");
     let street = "", city = "", address;
@@ -170,7 +186,7 @@ function geocodeLatLng(userLocationCoords) {
     geocoder.geocode({ location: userLocationCoords })
         .then((response) => {
             if (response.results[0]) {
-                document.getElementById("Origin").value = response.results[0].formatted_address;
+                document.getElementById("OriginText").value = response.results[0].formatted_address;
             } else {
                 window.alert("No results found");
             }
@@ -200,8 +216,8 @@ function displayOutput(result) {
     let duration = fullTripTime(result);
 
     const output = document.querySelector('#output');
-    output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("Origin").value + ".<br />To: " +
-        document.getElementById("Destination").value + ".<br /> Driving distance  : " +
+    output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("OriginText").value + ".<br />To: " +
+        document.getElementById("DestinationText").value + ".<br /> Driving distance  : " +
         ((distance >= 1000) ? ((distance / 1000) + " km. " + "<br />Duration  : ") : (distance + " m.<br />Duration  : ")) +
         ((duration >= 3600) ? ((Math.trunc(duration / 3600)) + " h. " + (Math.trunc(duration % 3600 / 60)) + " min.</div>") : ((Math.trunc(duration / 60)) + " min.</div>"));
 }
@@ -214,4 +230,12 @@ function removeChar(string, index) {
 
 function replaceChar(string, index, replacement) {
     return string.substring(0, index) + replacement + string.substring(index + replacement.length, string.length);
+}
+
+function openPopup() {
+    popup.classList.add("open-popup");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
 }

@@ -18,9 +18,9 @@ public class MetaRepository : IMetaRepository
         _context = context;
         MetaList = context.Meta;
     }
-    public MetaModel GetMeta(Guid id)
+    public MetaModel GetMeta(Guid id, string destination)
     {
-        return MetaList.FirstOrDefault(e => e.TravelId == id) ?? throw new InvalidOperationException();
+        return MetaList.FirstOrDefault(e => e.TravelId == id && e.Destination == destination) ?? throw new InvalidOperationException();
     }
     public void Save()
     {

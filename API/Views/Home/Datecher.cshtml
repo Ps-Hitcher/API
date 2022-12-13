@@ -1,5 +1,5 @@
 ﻿@* @model List<UserModel> *@
-@model Microsoft.EntityFrameworkCore.DbSet<UserModel>
+@model WebApplication2.Models.SearchResults
 @using WebApplication2.Models.User
 
 @using static WebApplication2.Models.User.IUserRepository
@@ -41,7 +41,7 @@
 
 <div class="card">
     <div class="slider">
-        @foreach (var user in Model)
+        @foreach (var user in Model.UserModel)
         {
             <div class="item item2">
                 <div class="item-inner">

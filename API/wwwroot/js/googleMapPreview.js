@@ -6,7 +6,7 @@ function loadGoogleMapPreview(mapId, trip) {
     mapPreview = new google.maps.Map(document.getElementById('googleMapPreview'), mapOptions);
 
     //bind the DirectionsRenderer to the map
-    // directionsRendererMapPreview.setMap(mapPreview);
+    directionsRendererMapPreview.setMap(mapPreview);
 
     try {
         directionsRendererMapPreview.setDirections(JSON.parse(trip));

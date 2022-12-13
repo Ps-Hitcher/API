@@ -28,8 +28,8 @@ const geocoderMapCreate = new google.maps.Geocoder();
 //define calcRoute function
 function calcRouteMapCreate() {
     
-    if (!(document.getElementById("Origin").value &&
-        document.getElementById("Destination").value &&
+    if (!(document.getElementById("OriginText").value &&
+        document.getElementById("DestinationText").value &&
         document.getElementById("LeaveTime").value)) {
         return;
     }
@@ -52,16 +52,16 @@ function calcRouteMapCreate() {
     //create request
     if (stopoverList >= 1) {
         request = {
-            origin: document.getElementById("Origin").value,
-            destination: document.getElementById("Destination").value,
+            origin: document.getElementById("OriginText").value,
+            destination: document.getElementById("DestinationText").value,
             travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
             unitSystem: google.maps.UnitSystem.METRIC
         };
     }
     else {
         request = {
-            origin: document.getElementById("Origin").value,
-            destination: document.getElementById("Destination").value,
+            origin: document.getElementById("OriginText").value,
+            destination: document.getElementById("DestinationText").value,
             waypoints: stopoverList,
             optimizeWaypoints: true,
             travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
@@ -239,15 +239,6 @@ function prepareForSave() {
     document.getElementById("OriginSave").value = formatAddressSymbols(formatAddress(autocompleteOrigin.getPlace().adr_address));
     document.getElementById("DestinationSave").value = formatAddressSymbols(formatAddress(autocompleteDestination.getPlace().adr_address));
     openPopup();
-    
 }
 
 let popup = document.getElementById("popup");
-
-function openPopup() {
-    popup.classList.add("open-popup");
-}
-
-function closePopup(){
-    popup.classList.remove("open-popup");
-}
