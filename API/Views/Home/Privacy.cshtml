@@ -9,23 +9,28 @@
 </div>
 
 <body>
+<form asp-controller="Home" asp-action="AddUser" method="post">
 <div class="row">
-	@* third table *@
-	<div class="col-xl-0 col-lg-0 col-md-6 col-sm-6 col-6">
-		<div class ="card3 h-100">
-			<div class="row gutters">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-					<h4 class="text-trip-1">CAR DETAILS</h4>
-				</div>
-				<br><br>
-				<form asp-controller="Home" asp-action="AddUser" method="post">
+@* third table *@
+		<div class="col-xl-0 col-lg-0 col-md-6 col-sm-6 col-6">
+			<div class ="card3 h-100">
+				<div class="row gutters">
+					
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+
+						<br><br>
+						<h4 class="text-trip-1">CAR DETAILS</h4>
+					</div>
+					<br><br>
+
 					<br><br>
 					<div class="col-sm-10">
 						<div class="form-group-profile">
 							<tr>
+								<br><br>
 								<label for="Name">Car Model</label>
-								<td><input asp-for=Name type="text" class="form-control" id="Model" placeholder="Enter car model"/></td>
-								<input asp-for="Id" type="text" class="unseen" id="id" />
+								<td><input asp-for=CarModel type="text" class="form-control" id="Model" placeholder="Enter car model"/></td>
+								<input asp-for="Id" type="text" class="unseen" id="id"/>
 							</tr>
 						</div>
 					</div>
@@ -33,46 +38,44 @@
 					<div class="col-sm-10">
 						<div class="form-group-profile">
 							<tr>
+								<br><br>
 								<label for="Surname">Registration Number</label>
-								<td><input asp-for=Surname type="text" class="form-control" id="RegistrationNumber" placeholder="Enter car registration number"/></td>
+								<td><input asp-for=CarNumber type="text" class="form-control" id="RegistrationNumber" placeholder="Enter car registration number"/></td>
 							</tr>
 						</div>
 					</div>
 					<br><br>
 					<div class="col-sm-10">
 						<div class="form-group-profile">
+							<br><br>
 							<label for="eMail">Fuel Consumption</label>
-							<input asp-for=Email type="email" class="form-control" id="Consumption" placeholder="Enter Fuel Consumption">
+							<input asp-for=Fuel class="form-control" id="Consumption" placeholder="Enter Fuel Consumption">
 						</div>
 					</div>
 					<br><br>
 					<div class="row gutters">
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<div class="user-confirm">
+								<br><br>
 								<button type="submit" id="submit" name="submit" class="btn btn-user">Update</button>
 							</div>
 						</div>
-						<br></br>
-						<br></br>
-						<br></br>
-						<br></br>
 						<img src="~/img/greencar.jpg" alt="user" width=100px height=350px>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	@* second table  *@
-	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-		<div class ="card2 h-100">
-			<div class ="card1-body">
-				<div class="row gutters">
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-22">
-						<h4 class="text-trip-1">PERSONAL DETAILS</h4>
-					</div>
-					<br><br>
-					<form asp-controller="Home" asp-action="AddUser" method="post">
+		@* second table  *@
+		<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+			<div class ="card2 h-100">
+				<div class ="card1-body">
+					<div class="row gutters">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-22">
+							<br><br>
+							<h4 class="text-trip-1">PERSONAL DETAILS</h4>
+						</div>
+						<br><br>
 						<div class="panel-body">
 							<div class="form-group-profile">
 								<label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"></label>
@@ -87,9 +90,10 @@
 						<div class="col-sm-10">
 							<div class="form-group-profile">
 								<tr>
+									<br><br>
 									<label for="Name">Name</label>
 									<td><input asp-for=Name type="text" class="form-control" id="Name" placeholder="Enter name"/></td>
-									<input asp-for="Id" type="text" class="unseen" id="id" />
+									<input asp-for="Id" type="text" class="unseen" id="id"/>
 								</tr>
 							</div>
 						</div>
@@ -97,6 +101,7 @@
 						<div class="col-sm-10">
 							<div class="form-group-profile">
 								<tr>
+									<br><br>
 									<label for="Surname">Surname</label>
 									<td><input asp-for=Surname type="text" class="form-control" id="Surname" placeholder="Enter surname"/></td>
 								</tr>
@@ -106,6 +111,7 @@
 						<div class="col-sm-10">
 							<div class="form-group-profile">
 								<tr>
+									<br><br>
 									<label for="YearOfBirth">Year of Birth</label>
 									<td><input asp-for=YearOfBirth type="date" class="form-control" id="YearOfBirth" placeholder="Enter Year of Birth:"/></td>
 								</tr>
@@ -114,6 +120,7 @@
 						<br><br>
 						<div class="col-sm-10">
 							<div class="form-group-profile">
+								<br><br>
 								<label for="eMail">Email</label>
 								<input asp-for=Email type="email" class="form-control" id="eMail" placeholder="Enter email ID">
 							</div>
@@ -121,6 +128,7 @@
 						<br><br>
 						<div class="col-sm-10">
 							<div class="form-group-profile">
+								<br><br>
 								<label for="phone">Phone</label>
 								<input asp-for=PhoneNumber type="text" class="form-control" id="phone" placeholder="Enter phone number">
 								@ViewBag.Message
@@ -129,6 +137,7 @@
 						<br><br>
 						<div class="col-sm-10">
 							<div class="form-group-profile">
+								<br><br>
 								<label for="address">Address</label>
 								<input asp-for=Address type="text" class="form-control" id="address" placeholder="Enter address">
 							</div>
@@ -136,6 +145,7 @@
 						<br><br>
 						<div class="col-sm-10">
 							<div class="form-group-profile">
+								<br><br>
 								<label for="address">Description</label>
 								<input asp-for=Description type="text" class="form-control" id="Description" placeholder="Enter description">
 							</div>
@@ -143,30 +153,28 @@
 						<br><br>
 						<div class="col-sm-10">
 							<div class="form-group-profile">
+								<br><br>
 								<label for="address">Password</label>
 								<input asp-for=Password TextMode="password" class="form-control" id="Password" placeholder="Enter Password">
 							</div>
 						</div>
 						<br><br>
-						@* <div class="col-sm-10"> *@
-						@* 	<div class="form-group-profile"> *@
-						@* 		<label for="UserName">User Name</label> *@
-						@* 		<input asp-for=UserName type="text" class="form-control" id="UserName" placeholder="Enter User Name"> *@
-						@* 	</div> *@
-						@* </div> *@
-						@* <br><br> *@
-						<div class="row gutters">
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<div class="user-confirm">
-									<button type="submit" id="submit" name="submit" class="btn btn-user">Update</button>
-								</div>
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="user-confirm">
+								<br><br>
+								<button type="submit" id="submit" name="submit" class="btn btn-user">Update</button>
 							</div>
 						</div>
-					</form>
+					</div>
+					
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+
 </div>
+</form>
+
 </body>
 

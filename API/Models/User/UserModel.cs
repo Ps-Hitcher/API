@@ -20,6 +20,13 @@ public class UserModel : IComparable<UserModel>
     //public CarStruct? Car { get; set; }
     public Double? Rating { get; set; }
 
+    public String? CarModel { get; set; }
+    
+    public String? CarNumber { get; set; }
+    
+    public Double? Fuel { get; set; }
+
+
 
     public int CompareTo(UserModel? other)
     {
