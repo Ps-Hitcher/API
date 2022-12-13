@@ -68,7 +68,7 @@
                 <tr class="border-bottom">
                     <th>
                         <div class="text-left">
-                            <span class="ml-2">TravelId DriverId</span>
+                            <span class="ml-2">Driver</span>
                         </div>
                     </th>
                     <th>
@@ -107,8 +107,8 @@
                                 <div class="p-2 d-flex align-items-center mb-2">
                                     <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                     <div class="d-flex flex-column  p-2">
-                                        <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
-                                        <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverId)</small>
+                                        <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.DriverName) @Html.DisplayFor(modelItem => Travel.DriverSurname) </span>
+                                        @* <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverSurname)</small> *@
                                     </div>
                                 </div>
                             </div>

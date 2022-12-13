@@ -200,7 +200,7 @@ public class HomeController : Controller
     public IActionResult Datecher()
     {
         SearchResults info = TempData.Get<SearchResults>("results");
-        
+
         return View(info);
     }
     
@@ -260,6 +260,9 @@ public class HomeController : Controller
         var travelId = Guid.NewGuid();
         var stopStr = new List<string>(input.Stopovers.Split(";"));
         stopStr.Remove(input.Destination);
+        var StringId = HttpContext.Session.GetString(LoggedUser);
+        Guid id = Guid.Parse(StringId);
+        var user = _userRepository.GetUser(id);
         
         TravelModel travel = new TravelModel
         {
@@ -268,7 +271,9 @@ public class HomeController : Controller
             Destination = input.Destination,
             Stopovers = stopStr,
             Time = input.Time,
-            DriverId = input.DriverID,
+            DriverId = user.Id,
+            DriverName = user.Name,
+            DriverSurname = user.Surname,
             FreeSeats = input.FreeSeats,
             Description = input.Description
         };
