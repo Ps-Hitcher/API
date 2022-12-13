@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 public interface IUserRepository
 {
-    UserModel GetUser(Guid Id);
+    public UserModel GetUser(Guid Id);
     DbSet<UserModel> GetUserList();
     public bool IsValidPhone(string PhoneNumber);
     public void DeleteUser(Guid Id);
     public void Save();
+
+    public string GetHoroName_(string YearOfBirth);
 
     public void OnUserLogged(object source, EventArgs e);
     public static int GetUserAge(string YearOfBirth){

@@ -63,7 +63,7 @@ public class HomeController : Controller
     
     public IActionResult Index()
     {
-        return View("Index",_travelList);
+        return View("Index", _travelList);
     }
 
     public IActionResult Privacy(string message)
@@ -106,13 +106,16 @@ public class HomeController : Controller
     
     public IActionResult Datecher()
     {
-        
-        return View("Datecher", _userList);
-        
+        return View("Datecher", _userList);    
     }
     
     public IActionResult Calculator()
-    {
+    { 
+        var StringId = HttpContext.Session.GetString(LoggedUser);
+        Guid id = Guid.Parse(StringId);
+        var name = _userRepository.GetUser(id).Name;
+        var zodiac = _userRepository.GetHoroName_(_userRepository.GetUser(id).YearOfBirth);
+        ViewBag.Message = name + " ★ " + zodiac;
         return View(_userList);
     }
     
