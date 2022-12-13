@@ -30,19 +30,20 @@
             <form asp-controller="Home" asp-action="Index" method="post" id="form">
                 <fieldset>
                     <label for="OriginText">Where are you coming from?</label><br>
-                    <input type="text" name="OriginText" id="OriginText"/>
+                    <input type="text" name="OriginText" id="OriginText" class="form-control1"/>
                     <input asp-for="Origin" type="hidden" name="Origin" id="Origin"/>
                     <input asp-for="OriginLat" type="hidden" name="OriginLat" id="OriginLat"/>
                     <input asp-for="OriginLng" type="hidden" name="OriginLng" id="OriginLng"/>
                 </fieldset>
                 <fieldset>
                     <label for="DestinationText">Where would you want to go?</label><br>
-                    <input type="text" name="DestinationText" id="DestinationText"/>
+                    <input type="text" name="DestinationText" id="DestinationText" class="form-control1"/>
                     <input asp-for="Destination" type="hidden" name="Destination" id="Destination"/>
                     <input asp-for="DestinationLat" type="hidden" name="DestinationLat" id="DestinationLat"/>
                     <input asp-for="DestinationLng" type="hidden" name="DestinationLng" id="DestinationLng"/>
                     <input asp-for="Bearings" type="hidden" name="Bearings" id="Bearings"/>
                 </fieldset>
+                <br></br>
                 <div class="wrap">
                     <button onclick="getData()" type="button" id="submit" name="submit" class="travel">Submit</button>
                     <button onclick="calcRouteMapView()" type="button" id="calcRoute" name="calcRoute" class="travel">Get Route</button>
