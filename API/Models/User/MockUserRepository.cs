@@ -65,7 +65,7 @@ public class MockUserRepository : IUserRepository
         return age;
     }
 
-    public static string GetHoroName(string YearOfBirth)
+    public string GetHoroName_(string YearOfBirth)
     {
         int month = DateTime.Parse(YearOfBirth).Month;
         int day = DateTime.Parse(YearOfBirth).Day;

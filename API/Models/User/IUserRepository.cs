@@ -8,6 +8,8 @@ public interface IUserRepository
     public void DeleteUser(Guid Id);
     public void Save();
 
+    public string GetHoroName_(string YearOfBirth);
+
     public void OnUserLogged(object source, EventArgs e);
     public static int GetUserAge(string YearOfBirth){
         DateTime today = DateTime.Today;

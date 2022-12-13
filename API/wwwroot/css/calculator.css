@@ -233,10 +233,10 @@ select{
 }
 #statement{
     display: flex;
-    justify-content: center;
+    justify-content: inherit;
     margin-top: 50px;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 #print1{
@@ -256,11 +256,5 @@ select{
     font-size: 20px;
     text-align: center;
 }
-#statement1{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    text-transform: uppercase;
-    font-size: 20px;
-}
+
 
