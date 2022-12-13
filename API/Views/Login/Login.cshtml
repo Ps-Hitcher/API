@@ -47,16 +47,17 @@
             </ul>
           </div>
           <div class="cont_text_inputs">
-            <input type="text" class="input_form_sign " placeholder="NAME" name="name_us"/>
-            <input type="text" class="input_form_sign d_block active_inp" placeholder="EMAIL" name="emauil_us"/>
-            <input type="password" class="input_form_sign d_block  active_inp" placeholder="PASSWORD" name="pass_us"/>
+            @* <input asp-for = "UserName" class="input_form_sign " placeholder="USERNAME" /> *@
+            <input asp-for = "Email"  class="input_form_sign d_block active_inp" placeholder="EMAIL"/>
+            <input asp-for="Password"  type = "password" class="input_form_sign d_block  active_inp" placeholder="PASSWORD"/>
             <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us"/>
             <a class="link_forgot_pass d_block"></a>
             <div class="terms_and_cons d_none">
             </div>
           </div>
           <div class="cont_btn">
-            <button class="btn_sign">SIGN IN</button>
+            
+            <button class="btn_sign" type="submit" value="SUBMIT" >SIGN IN</button>
           </div>
         </form>
         </form>

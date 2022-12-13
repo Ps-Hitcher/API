@@ -72,7 +72,7 @@ public class HomeController : Controller
         if (TempData["UserModel"] is not null)
         {
             UserModel user = JsonConvert.DeserializeObject<UserModel>((string)TempData["UserModel"]);
-            return View(user);
+            return View("Privacy", user);
         }
         else
         {
@@ -106,9 +106,7 @@ public class HomeController : Controller
     
     public IActionResult Datecher()
     {
-        
-        return View("Datecher",_userList);
-        
+        return View("Datecher", _userList);    
     }
     
     public IActionResult Calculator()
@@ -124,7 +122,7 @@ public class HomeController : Controller
     public IActionResult Trip(FormInput? input)
     {
         ViewData["Input"] = input ?? new FormInput();
-        return View();
+        return View("Trip");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
