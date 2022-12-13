@@ -21,7 +21,7 @@ public static class TravelFilter
             <= 0 => 0,
             >= 300 => 12,
             >= 50 => (2.1 * Math.Log(tripLength)),
-            _ => (Math.Pow(1.045, tripLength) - 1)
+            _ => (Math.Pow(1.045, tripLength) - 0.5)
         } * 1000;
         return tripLength;
     }
@@ -63,7 +63,7 @@ public static class TravelFilter
 ////////Common Variable Declaration End////////////////////////////////////////////////////////////
 ////////Relevance Check Start//////////////////////////////////////////////////////////////////////
         var averageBearing = metaList.Average(meta => meta.Bearing);
-        var searchRelevanceBearings = Math.Abs(averageBearing - (double)searchInfo.Bearings) <= 35;
+        var searchRelevanceBearings = Math.Abs(averageBearing - (double)searchInfo.Bearings) <= 45;
         bool searchRelevanceOrigin = false, searchRelevanceDestination = false;
 
         foreach (var meta in metaList)
