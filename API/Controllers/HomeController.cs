@@ -199,8 +199,8 @@ public class HomeController : Controller
     public IActionResult Datecher()
     {
         SearchResults info = TempData.Get<SearchResults>("results");
-
-        return View(info);
+        
+        return View("Datecher", info);
     }
     
     public IActionResult Calculator()
@@ -210,7 +210,7 @@ public class HomeController : Controller
         var name = _userRepository.GetUser(id).Name;
         var zodiac = _userRepository.GetHoroName_(_userRepository.GetUser(id).YearOfBirth);
         ViewBag.Message = name + " ★ " + zodiac;
-        return View(_userList);
+        return View("Calculator" ,_userList);
     }
     
     public IActionResult Trip(FormInput? input)
