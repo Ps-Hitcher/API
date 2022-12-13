@@ -164,7 +164,7 @@ public class HomeController : Controller
         if (TempData["UserModel"] is not null)
         {
             UserModel user = JsonConvert.DeserializeObject<UserModel>((string)TempData["UserModel"]);
-            return View(user);
+            return View("Privacy", user);
         }
         else
         {
@@ -193,7 +193,7 @@ public class HomeController : Controller
     
     public IActionResult Users()
     {
-        return View(_userList);
+        return View("Users", _userList);
     }
 
     [HttpGet]
@@ -201,16 +201,23 @@ public class HomeController : Controller
     {
         SearchResults info = TempData.Get<SearchResults>("results");
         
-        
-        
         return View(info);
-        
+    }
+    
+    public IActionResult Calculator()
+    { 
+        var StringId = HttpContext.Session.GetString(LoggedUser);
+        Guid id = Guid.Parse(StringId);
+        var name = _userRepository.GetUser(id).Name;
+        var zodiac = _userRepository.GetHoroName_(_userRepository.GetUser(id).YearOfBirth);
+        ViewBag.Message = name + " ★ " + zodiac;
+        return View(_userList);
     }
     
     public IActionResult Trip(FormInput? input)
     {
         ViewData["Input"] = input ?? new FormInput();
-        return View();
+        return View("Trip");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -301,9 +308,9 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Login()
-    {
-        return View(Login);
-    }
+    // public IActionResult Login()
+    // {
+    //     return View(Login);
+    // }
 
 }

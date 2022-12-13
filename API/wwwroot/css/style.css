@@ -298,7 +298,7 @@ body{
 
 /*button*/
 .ConfirmOkey{
-    --enhanced-glow-color: rgb(219, 219, 220);
+    --enhanced-glow-color: rgb(236, 232, 233);
     border: none;
     padding: 1em 3em;
     color: var(--enhanced-glow-color);
@@ -321,4 +321,13 @@ body{
 }
 .choose{
     text-align: right;
+}
+
+.Submit{
+    border: none;
+    color: white;
+    font-size: 12px;
+    background: none;
+    outline: none;
+    cursor: pointer;
 }

@@ -18,10 +18,9 @@ namespace WebApplication2.Controllers
 
         private const String LoggedUser = "_User";
 
-        //public delegate void UserLoggedEventHandler(object source, EventArgs args); 
+        // delegate void UserLoggedEventHandler(object source, EventArgs args); 
         // public event UserLoggedEventHandler UserLogged;
         public event EventHandler<EventArgs> UserLogged;
-
 
         public LoginController(DataContext context, IUserRepository userRepository)
         {
@@ -29,7 +28,6 @@ namespace WebApplication2.Controllers
             _userRepository = userRepository;
 
             UserLogged += _userRepository.OnUserLogged;
-
         }
 
         public IActionResult Login()
@@ -42,17 +40,26 @@ namespace WebApplication2.Controllers
         {
             if (model != null)
             {
-                var user = _context.Users.FirstOrDefault(s => s.Name == model.Name && s.Surname == model.Surname);
+                var user = _context.Users.FirstOrDefault(s =>
+                    s.Email == model.Email && s.Password == model.Password);
                 if (user != null)
                 {
                     HttpContext.Session.SetString(LoggedUser, user.Id.ToString());
                     OnUserLogged();
                     return RedirectToAction("Index", "Home", new { user.Id });
                 }
-
+                else
+                {
+                    model.Id = Guid.NewGuid();
+                    _context.Users.Add(model);
+                    _context.SaveChanges();
+                    HttpContext.Session.SetString(LoggedUser, model.Id.ToString());
+                    OnUserLogged();
+                    return RedirectToAction("Privacy", "Home");
+                }
             }
 
-            return RedirectToAction("Login");
+            return View("Login");
         }
 
         protected virtual void OnUserLogged()

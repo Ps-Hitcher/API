@@ -66,7 +66,7 @@ public class MockUserRepositoryTest
             Name = "Jonas",
             Surname = "Makalis",
             YearOfBirth = "2001-01-19",
-            PhoneNumber = "868293827",
+            PhoneNumber = "86829",
             Address = "Jonu g.2",
             Description = "Kosmetologas",
             Email = "Jonas.Makalelis@gmail.com"
@@ -74,11 +74,11 @@ public class MockUserRepositoryTest
 
         context.Database.EnsureCreated();
         context.AddRange(record1);
+        context.AddRange(record2);
         context.SaveChanges();
         
         var mockUserRepository = new MockUserRepository(context);
-        mockUserRepository.IsValidPhone(record1.PhoneNumber);
-        
+     
         Assert.AreEqual(mockUserRepository.IsValidPhone(_user1.PhoneNumber),true);
         Assert.AreEqual(mockUserRepository.IsValidPhone(_user2.PhoneNumber),false);
     }
@@ -210,5 +210,4 @@ public class MockUserRepositoryTest
         Assert.False(answer);
         
     }
-    
 }

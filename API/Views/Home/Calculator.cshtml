@@ -1,0 +1,197 @@
+﻿@model Microsoft.EntityFrameworkCore.DbSet<UserModel>
+@using WebApplication2.Models.User
+@using WebApplication2.Models.User
+@using static WebApplication2.Models.User.IUserRepository
+@using System.Security.Principal
+
+<!--CUSTOM CSS STYLE -->
+<link rel="stylesheet" type="text/css" href="~/css/calculator.css">
+
+<div class="text-center">
+    <br><br>
+    <img src="~/img/Calculator.jpg" alt="user" width=650px height=150px>
+    <br><br>
+</div>
+
+<!DOCTYPE html>
+<html>
+<body>
+<div class="hearts">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+</div>
+
+<div class="container calculator">
+    <div class="content text-center align-content-center">  
+        
+        <img src="icon.png" alt="">
+        <div class="inputarea">
+            @* <input type="text" placeholder="Enter your Name" id="NameOne" onfocus="this.value = ''"> *@
+            <select type="text"  id="NameOne" class="form-control"  onfocus="this.value = ''">
+                <option selected="">@ViewBag.Message </option>
+                @* @foreach (var user in Model) *@
+                @* { *@
+                @*     <option value="">@Html.DisplayFor(modelItem => user.Name) *@
+                @*         ★ <small class="horoname" id="HonorOne" onfocus="this.value = ''">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option> *@
+                @* } *@
+                
+            </select>
+            @* <input type="text" placeholder="Enter His/Her Name" id="NameTwo" onfocus="this.value = ''"> *@
+            <select type="text"  id="NameTwo" class="form-control"  onfocus="this.value = ''">
+                <option selected="">Select Name </option>
+                @foreach (var user in Model)
+                {
+                    <option value="">@Html.DisplayFor(modelItem => user.Name)
+                        ★ <small class="horoname" id="HonorTwo">@IUserRepository.GetHoroName(user.YearOfBirth)</small></option>
+                }
+            </select>
+        </div>
+        <br></br>
+        <a href="#" onclick="love()" type="submit" class="ConfirmCalculate" >Calculate</a>
+        <br></br>
+        <div class="state">
+        <p id="print">Your relationship result here</p>
+            <p id="statement"></p>
+            </div>
+    </div>
+    
+</div>
+
+<div class="hearts1">
+    <div class="heart1"></div>
+    <div class="heart1"></div>
+    <div class="heart1"></div>
+    <div class="heart1"></div>
+    <div class="heart1"></div>
+</div>
+</body>
+</html>
+<style>
+.form-control{
+    width: 200px;
+    height: 45px;
+    margin: 5px;
+    color: white;
+    border: 2px solid #d7385c;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+</style>
+<script>
+        function love(){
+        var random = Math.floor(Math.random()*100);
+        document.getElementById("print").innerHTML = random + "%" + " of love";
+        if(random<=0 || random<=5){
+             document.getElementById("statement").innerHTML = "While they may seem a perfect couple" +
+              " with little flaws, man and woman do see differences and the conflicts cropping up." +
+              " Having too much common ground can make things dull between them. ";
+        }
+        else if(random<=5 || random<=10){
+              document.getElementById("statement").innerHTML = "Inspite of them having a good understanding" +
+              " of one another, both of them are quite stubborn and adamant in their characteristics. " +
+              "It does not take much time for the natives of the first sign of the zodiac and" +
+              " the second sign of the zodiac to lock horns with each other over petty matters," +
+              " where their opinions differ.";
+        }
+        else if(random<=10 || random<=15){
+                document.getElementById("statement").innerHTML = "Both are perfect for each other " +
+                 "even though they seem cold to others because of their emotionless nature. ";
+        }
+        else if(random<=15 || random<=20){
+              document.getElementById("statement").innerHTML = "They may start to find faults in each " +
+              "other for no good reason and thus, may start to see conflicts between each other. " +
+              "There may be hundreds of things that may lead to a potential fallout but if both  " +
+              "put in equal amount of efforts and start to compromise and adjust, their relationship " +
+              "can go a long way and be compatible enough. ";
+        }
+        else if(random<=20 || random<=25){
+             document.getElementById("statement").innerHTML = "They are always on the same page when it " +
+              "comes to love. They are never quick to reach a conclusion and thus, their relationship " +
+              "lasts longer than most. They are serious about each other and wish to have a long-term " +
+              "relationship with one another. This is something they respect and admire about each other the most. ";
+        }
+        else if(random<=25 || random<=30){
+               document.getElementById("statement").innerHTML = "They are very hardworking and are" +
+                " often able to communicate things easily, with silence. They believe in doing " +
+                 "things that matter, be it a normal conversation, they will do it with great sincerety.";
+        }
+        else if(random<=30 || random<=35){
+                document.getElementById("statement").innerHTML = " It becomes difficult for the relationship" +
+                 " between the two going on for a long time until they are ready to compromise as well as " +
+                 "understand each other and it is most likely that over a span of time they " +
+                 "can grow tired of one another. ";
+        }
+        else if(random<=35 || random<=40){
+               document.getElementById("statement").innerHTML = "They share their lives with each" +
+                " other and keep the secrets of each other safe. They help each other reach the" +
+                " high mountain of success in life and keep calm when situations start to get adverse. ";
+        }
+        else if(random<=40 || random<=45){
+               document.getElementById("statement").innerHTML = "They are by nature, very jolly," +
+                " exhuberant and light hearted towards each other. The most amazing quality that " +
+                " they have is that they know how to overcome the worst case scenario intellectually," +
+                " trying to take help from the negatives and implementing the positives together.";
+         }
+         else if(random<=45 || random<=50){
+                document.getElementById("statement").innerHTML = "Both are very sentimental in nature, " +
+                 "as they tend to show a lot of sympathy towards others," +
+                 " and one another, making them a good match indeed.";
+         }
+         else if(random<=50 || random<=55){
+                  document.getElementById("statement").innerHTML = "They will learn a lot about life " +
+                   "and their relationship will reach new heights if they tackle with patience and commitment. ";
+         }
+         else if(random<=55 || random<=60){
+                   document.getElementById("statement").innerHTML = "Their relationship may see ups and" +
+                    " downs but they will be able to overcome all that comes their way. They have" +
+                    " potential and a real chance at an honest relationship. ";
+         }
+         else if(random<=60 || random<=65){
+                    document.getElementById("statement").innerHTML = "They are progressive, productive " +
+                     "and highly compatible with each other. Both must be sure and content about the " +
+                     "decisions they make for opinions that do matter.";
+         }
+         else if(random<=65 || random<=70){
+                    document.getElementById("statement").innerHTML = "As a couple, they will achieve a lot" +
+                    " of success, going through thick and thins together, come whatever may, in varied " +
+                    "circumstances. They will do exactly what is needed, set their priorities and analyze, " +
+                    "to conquer a scenario.";
+                       
+         }
+         else if(random<=70 || random<=75){
+                    document.getElementById("statement").innerHTML = "They create a strong and long-lasting bond. " +
+                    "There may be hurdles along their paths, but their strong relationship would overcome everything. ";
+         }         
+         else if(random<=75 || random<=80){
+                     document.getElementById("statement").innerHTML = "Their fine taste allows them to adorn their " +
+                      "homes with antique items or suave pieces. They believe in a quality life and live life " +
+                      "king size. From their clothing to their accessories to their cars, everything is swanky. ";
+         }  
+         else if(random<=80 || random<=85){
+                    document.getElementById("statement").innerHTML = "They are a power-couple and their " +
+                    "teamwork can work wonders. They are patient and do not take any short-cuts " +
+                    "to success. They plan logically, keeping every aspect in mind. ";
+         } 
+         else if(random<=85 || random<=90){
+                  document.getElementById("statement").innerHTML = "Their love story is a page-by-page read. " +
+                   "They are best suited for each other and both prefer a long-lasting relationship. " +
+                   "They may not embrace each other publically, but, they are extremely supportive of each other.";
+         }
+                 
+        else if(random<=90 || random<=95){
+                  document.getElementById("statement").innerHTML = "They are always on the same page when " +
+                   "it comes to love. They are never quick to reach a conclusion and thus, their relationship" +
+                   " lasts longer than most. They are serious about each other and wish to have a long-term " +
+                   "relationship with one another.";
+        }
+        else if(random<=95 || random<=100){
+                   document.getElementById("statement").innerHTML = "They are ambitious beings who think ahead " +
+                   "of time. Their relationship is a success because they are faithful and advance in their " +
+                   "relationship as their wavelengths match deeper. They have a peaceful bond and believe in fair play.";
+        }
+    }
+</script>

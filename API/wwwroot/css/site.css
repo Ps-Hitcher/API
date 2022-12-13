@@ -269,7 +269,7 @@ body {
 }
 
 .item3 {
-  grid-column: 6/7;
+  grid-column: 7/9;
   grid-row: 1 / 2;
 }
 
@@ -357,7 +357,7 @@ body {
 .travel{
   --glow-color: rgb(219, 219, 220);
   --glow-spread-color: rgba(136, 123, 255, 0.78);
-  --enhanced-glow-color: rgb(246, 241, 248);
+  --enhanced-glow-color: rgb(215, 56, 92);
   --btn-color: rgb(61, 71, 136);
   border: .25em solid var(--glow-color);
   padding: 1em 3em;
@@ -633,7 +633,7 @@ a.Edit{
   background: transparent;
 }
 .login .mydiv label {
-  position: absolute;
+  position: relative;
   top:0;
   left: 0;
   padding: 10px 0;
@@ -663,12 +663,12 @@ a.Edit{
 }
 
 .login a:hover {
-  background: #538ff8;
+  background: #1a233a;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #538ff8,
+  box-shadow: 0 0 5px #d9e0ee,
   0 0 25px #538ff8,
-  0 0 50px #538ff8,
+  0 0 50px #e3e9f5,
   0 0 100px #538ff8;
 }
 
@@ -738,7 +738,7 @@ a.Edit{
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #538ff8);
+  background: linear-gradient(360deg, transparent, #000000);
   animation: btn-anim4 1s linear infinite;
   animation-delay: .75s
 }
