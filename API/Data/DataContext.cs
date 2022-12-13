@@ -16,7 +16,6 @@ public class DataContext : DbContext
     public DbSet<UserModel> Users { get; set; }
     public DbSet<TravelModel> Trips { get; set; }
     public DbSet<MetaModel> Meta { get; set; }
-    public DbSet<CoordsModel> Coords { get; set; }
     public DbSet<ErrorModel> Errors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,8 +25,6 @@ public class DataContext : DbContext
             v => JsonConvert.DeserializeObject<List<string>>(v))
             );
         modelBuilder.Entity<MetaModel>()
-            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.MetaDestination));
-        modelBuilder.Entity<CoordsModel>()
-            .HasKey(nameof(CoordsModel.MetaId), nameof(CoordsModel.position));
+            .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
     }
 }

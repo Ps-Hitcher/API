@@ -1,15 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace WebApplication2.Models.Travel;
 
 public class MetaModel
 {  
     [Required]
+    [Key]
     public Guid TravelId { get; set; }
     [Required]
     [StringLength(100)]
-    public String MetaDestination { get; set; }
+    public String Origin { get; set; }
+    public double OriginLat { get; set; }
+    public double OriginLng { get; set; }
+    [Required]
+    [Key]
+    [StringLength(100)]
+    public String Destination { get; set; }
+    public double DestinationLat { get; set; }
+    public double DestinationLng { get; set; }
     public double Bearing { get; set; }
     public double Distance { get; set; }
 }

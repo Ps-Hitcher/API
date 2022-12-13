@@ -44,17 +44,17 @@
 							<h3 class="text-trip">TRIP DETAILS</h3>
 						</div>
 						<br><br>
-						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="setTimeout(() => { prepareForSave(); }, 500)">
+						<form asp-controller="Home" asp-action="AddTravel" method="post" onchange="setTimeout(() => { updateChange(); }, 500)">
 							<div class="panel-body-trip">
 							</div>
 							<br><br>
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
-										<label for="Origin">Origin</label>
-										<td><input type="text" class="form-control" id="Origin"
+										<label for="OriginText">Origin</label>
+										<td><input type="text" class="form-control" id="OriginText"
 										           placeholder="Enter Origin" required/></td>
-										<input asp-for="Origin" type="hidden" class="form-control" id="OriginSave">
+										<input asp-for="Origin" type="hidden" id="OriginSave">
 									</tr>
 								</div>
 							</div>
@@ -62,10 +62,10 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<tr>
-										<label for="Destination">Destination</label>
-										<td><input type="text" class="form-control" id="Destination"
+										<label for="DestinationText">Destination</label>
+										<td><input type="text" class="form-control" id="DestinationText"
 										           placeholder="Enter Destination" required=""/></td>
-										<input asp-for="Destination" type="hidden" class="form-control" id="DestinationSave">
+										<input asp-for="Destination" type="hidden" id="DestinationSave">
 									</tr>
 								</div>
 							</div>
@@ -89,6 +89,8 @@
 											<input asp-for="Stopovers" type="hidden" id="Stopovers">
 											<input asp-for="Bearings" type="hidden" id="Bearings">
 											<input asp-for="Distance" type="hidden" id="Distance">
+											<input asp-for="Lat" type="hidden" id="Lat">
+											<input asp-for="Lng" type="hidden" id="Lng">
 										</div>
 									</tr>
 								</div>
@@ -126,11 +128,11 @@
 							<div class="row gutters">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 									<div class="container">
-										<button type="submit" class="btn" onclick="openPopup()">Create Trip</button>
+										<button type="button" class="btn" onclick="prepareForSave()">Create Trip</button>
 										<div class="popup" id="popup">
 											<h2>Thank you!</h2>
 											<p>Trip created successfully</p>
-											<button type="button" onclick="closePopup()">OK</button>
+											<button type="submit" onclick="closePopup()">OK</button>
 										</div>
 									</div>
 								</div>
@@ -142,39 +144,28 @@
 		</div>
 	</div>
 </div>
+
 <script>
-let popup = document.getElementById("popup");
-
-function openPopup(){
-	popup.classList.add("open-popup");
-}
-
-function closePopup(){
-	popup.classList.remove("open-popup");
-}
-
-</script>
-<script>
-			function add(){
-              var new_chq_no = parseInt($('#total_chq').val())+1;
-              var new_input="<input type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
-              $('#new_chq').append(new_input);
-              $('#total_chq').val(new_chq_no);
-			  addAutocompleteStopover();
-            }
-            function remove(){
-              var last_chq_no = $('#total_chq').val();
-              if(last_chq_no>1){
-                $('#Stopover'+last_chq_no).remove();
-                $('#total_chq').val(last_chq_no-1);
-				removeAutocompleteStopover();
-				setTimeout(() => { prepareForSave(); }, 500);
-              }
-            }
+	function add(){
+		var new_chq_no = parseInt($('#total_chq').val())+1;
+		var new_input="<input type='text' class='form-control' id='Stopover"+new_chq_no+"'placeholder='Enter Stopover'>";
+		$('#new_chq').append(new_input);
+		$('#total_chq').val(new_chq_no);
+		addAutocompleteStopover();
+	}
+	function remove(){
+		var last_chq_no = $('#total_chq').val();
+		if(last_chq_no>1){
+			$('#Stopover'+last_chq_no).remove();
+			$('#total_chq').val(last_chq_no-1);
+		removeAutocompleteStopover();
+		setTimeout(() => { prepareForSave(); }, 500);
+		}
+	}
 </script>
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
         loadGoogleMapCreate();
     }, false);
-</script>            									
+</script>				

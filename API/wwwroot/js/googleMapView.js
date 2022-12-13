@@ -17,14 +17,34 @@ const directionsServiceMapView = new google.maps.DirectionsService();
 //Create a Geocoder object, used for reverse geocoding.
 const geocoderMapView = new google.maps.Geocoder();
 
+function getData() {
+    
+    if(document.getElementById("OriginText").value !== "") {
+        document.getElementById("Origin").value = formatAddressSymbols(formatAddress(autocompleteOrigin.getPlace().adr_address));
+        geocodeAddress("Origin", document.getElementById("OriginText").value);
+    }
+    if(document.getElementById("DestinationText").value !== "") {
+        document.getElementById("Destination").value = formatAddressSymbols(formatAddress(autocompleteDestination.getPlace().adr_address));
+        geocodeAddress("Destination",document.getElementById("DestinationText").value);
+    }
+    if((document.getElementById("DestinationText").value !== "") && (document.getElementById("OriginText").value !== "")) {
+        setTimeout(() => {document.getElementById("Bearings").value = getBearings(
+            document.getElementById("OriginLat").value,
+                document.getElementById("OriginLng").value,
+                document.getElementById("DestinationLat").value,
+                document.getElementById("DestinationLng").value);}, 500);
+    }
+    setTimeout(() => {document.getElementById("form").requestSubmit()}, 2000);
+}
+
 
 //define calcRoute function
 function calcRouteMapView() {
-
+    
     //create request
     const request = {
-        origin: document.getElementById("Origin").value,
-        destination: document.getElementById("Destination").value,
+        origin: document.getElementById("OriginText").value,
+        destination: document.getElementById("DestinationText").value,
         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
         unitSystem: google.maps.UnitSystem.METRIC
     };
@@ -35,8 +55,8 @@ function calcRouteMapView() {
 
             //Get distance and time
             const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("Origin").value + ".<br />To: " +
-                document.getElementById("Destination").value + ".<br /> Driving distance  : " +
+            output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("OriginText").value + ".<br />To: " +
+                document.getElementById("DestinationText").value + ".<br /> Driving distance  : " +
                 result.routes[0].legs[0].distance.text + ".<br />Duration  : " +
                 result.routes[0].legs[0].duration.text + ".</div>";
 

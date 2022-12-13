@@ -1,5 +1,4 @@
-﻿@* @model List<TravelModel> *@
-@model Microsoft.EntityFrameworkCore.DbSet<TravelModel>
+@model WebApplication2.Models.Travel.SearchTravel
 @using WebApplication2.Models.Travel
 @using System.Security.Principal
 @using WebApplication2.Models.User
@@ -28,16 +27,29 @@
 <div class="grid-container">
     <div class="item2">
         <div class="text-left">
-            <form>
-                <label for="origin">Where are you coming from?</label><br>
-                <input type="text" id="Origin" placeholder="City name:" class="form-control1" required><br><br>
-                <label for="destination">Where would you want to go?</label><br>
-                <input type="text" id="Destination" placeholder="City name:" class="form-control1" required><br><br/>
+            <form asp-controller="Home" asp-action="Index" method="post" id="form">
+                <fieldset>
+                    <label for="OriginText">Where are you coming from?</label><br>
+                    <input type="text" name="OriginText" id="OriginText"/>
+                    <input asp-for="Origin" type="hidden" name="Origin" id="Origin"/>
+                    <input asp-for="OriginLat" type="hidden" name="OriginLat" id="OriginLat"/>
+                    <input asp-for="OriginLng" type="hidden" name="OriginLng" id="OriginLng"/>
+                </fieldset>
+                <fieldset>
+                    <label for="DestinationText">Where would you want to go?</label><br>
+                    <input type="text" name="DestinationText" id="DestinationText"/>
+                    <input asp-for="Destination" type="hidden" name="Destination" id="Destination"/>
+                    <input asp-for="DestinationLat" type="hidden" name="DestinationLat" id="DestinationLat"/>
+                    <input asp-for="DestinationLng" type="hidden" name="DestinationLng" id="DestinationLng"/>
+                    <input asp-for="Bearings" type="hidden" name="Bearings" id="Bearings"/>
+                </fieldset>
+                <div class="wrap">
+                    <button onclick="getData()" type="button" id="submit" name="submit" class="travel">Submit</button>
+                    <button onclick="calcRouteMapView()" type="button" id="calcRoute" name="calcRoute" class="travel">Get Route</button>
+                    <button onclick="userLocationMapView()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
+                </div>
             </form>
-            <div class="wrap">
-                <button onclick="calcRouteMapView()" type="button" id="submit" name="submit" class="travel">Submit</button>
-                <button onclick="userLocationMapView()" type="button" id="userLocation" name="userLocation" class="travel">Use your location</button>
-            </div>
+            
         </div>
         <div id="output">
         </div>
@@ -46,11 +58,11 @@
         <div id="googleMapView">
         </div>
     </div>
-      
+    
     <div class="item4">
-        <br></br>
+        <br/>
         <div>
-            <table class="table-borderless table-responsive p-4">
+            <table name="DataTable" class="table-borderless table-responsive p-4">
                 <thead>
                 <tr class="border-bottom">
                     <th>
@@ -86,7 +98,7 @@
                 </tr>
                 </thead>
 
-                @foreach (var Travel in Model)
+                @foreach (var Travel in Model.TravelResults)
                 {
                     <tr class="border-bottom">
                         <td>
@@ -95,7 +107,7 @@
                                     <img src="~/img/profile.jpg" width="40" class="rounded-circle">
                                     <div class="d-flex flex-column  p-2">
                                         <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Travel.Id) </span>
-                                        <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverID)</small>
+                                        <small class="text-mute">@Html.DisplayFor(modelItem => Travel.DriverId)</small>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +163,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                
                             </td>
                     </tr>
                 }
@@ -168,3 +180,28 @@
         loadGoogleMapView();
     }, false);
 </script>
+
+@* <script type="text/javascript"> *@
+@*     $(function () { *@
+@*         // $("form").validate(); *@
+@* *@
+@*         $("form").on("submit", function (e) { *@
+@*             e.preventDefault(); *@
+@* *@
+@*             let dataString = $(this).serialize(); *@
+@*             console.log(dataString); *@
+@* *@
+@*             $.ajax({ *@
+@*                 type: "POST", *@
+@*                 url: "/Home/Index", *@
+@*                 data: dataString, *@
+@*                 dataType: "json", *@
+@*                 success: function (response) { *@
+@*                     alert("W"); *@
+@*                     $("DataTable").location.reload(); *@
+@*                 } *@
+@*             }); *@
+@*         }); *@
+@*         return false; *@
+@*     }) *@
+@* </script> *@
