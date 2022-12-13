@@ -139,7 +139,6 @@ public class HomeController : Controller
         {
             SearchTravel = t,
             UserModel = queriedUserList.ToList(),
-            test = "test"
         };
         TempData.Put("results", results);
         return RedirectToAction("Datecher", "Home");
