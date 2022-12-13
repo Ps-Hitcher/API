@@ -30,5 +30,4 @@ public class TravelModel
     [StringLength(1000), Display(Name = "Description")]
     public string? Description { get; set; }
     
-    public List<TravelModel> TravelResults { get; set; }
 }

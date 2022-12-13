@@ -6,25 +6,27 @@ public static class TravelFilter
 {
     private const double R = 6371e3;
     private const double DegreeY = 100, DegreeX = 60;
-    public static bool CloseCoords(double? lat1, double? lon1, double? lat2, double? lon2)
-    {
-        var diffLat = lat2 - lat1; 
-        var diffLng = lon2 - lon1;
 
-        return (diffLat <= 0.12) && (diffLng <= 0.2);
+    private static bool CloseCoords(double lat1, double lon1, double lat2, double lon2, double divertionDistance)
+    {
+        var distance = DistanceBetweenCoordinates(lat1, lon1, lat2, lon2);
+        return distance <= divertionDistance;
     }
-    
-    public static double PossibleDivertionDistance(double tripLength) {
-        return tripLength switch
+
+    private static double PossibleDivertionDistance(double tripLength)
+    {
+        tripLength /= 1000;
+        tripLength = tripLength switch
         {
             <= 0 => 0,
             >= 300 => 12,
             >= 50 => (2.1 * Math.Log(tripLength)),
             _ => (Math.Pow(1.045, tripLength) - 1)
-        };
+        } * 1000;
+        return tripLength;
     }
 
-    public static double DistanceBetweenCoordinates(double lat1, double lon1, double lat2, double lon2) {
+    private static double DistanceBetweenCoordinates(double lat1, double lon1, double lat2, double lon2) {
         // Pythagorean theorem
         // let x, y;
         // x = dx * Math.cos((lat1 + lat2) / 2);
@@ -42,7 +44,7 @@ public static class TravelFilter
     
         return d;
     }
-    
+
     public static double GetBearings(double lat1, double lon1, double lat2, double lon2) {
     
         var x = ((Math.Cos(lat1) * Math.Sin(lat2)) - (Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1)));
@@ -51,6 +53,73 @@ public static class TravelFilter
         b = ((((b * 180) / Math.PI) + 360) % 360);
     
         return b;
+    }
+
+    public static bool RelevantRideFull(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
+    {
+////////Common Variable Declaration Start//////////////////////////////////////////////////////////
+        var tripDistance = metaList.Sum(meta => meta.Distance);
+        var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
+////////Common Variable Declaration End////////////////////////////////////////////////////////////
+////////Relevance Check Start//////////////////////////////////////////////////////////////////////
+        var averageBearing = metaList.Average(meta => meta.Bearing);
+        var searchRelevanceBearings = Math.Abs(averageBearing - (double)searchInfo.Bearings) <= 35;
+        bool searchRelevanceOrigin = false, searchRelevanceDestination = false;
+
+        foreach (var meta in metaList)
+        {
+            if ((Math.Abs(meta.Bearing - (double)searchInfo.Bearings) <= 20) && !searchRelevanceBearings)
+            {
+                searchRelevanceBearings = true;
+            }
+            if ((
+                CloseCoords(
+                    meta.OriginLat, meta.OriginLng, 
+                    (double)searchInfo.OriginLat, (double)searchInfo.OriginLng, 
+                    tripDivertionDistance
+                )) && !searchRelevanceOrigin
+            )
+            {
+                searchRelevanceOrigin = true;
+            }
+            if ((
+                CloseCoords(
+                    meta.DestinationLat, meta.DestinationLng, 
+                    (double)searchInfo.DestinationLat, (double)searchInfo.DestinationLng, 
+                    tripDivertionDistance
+                )) && !searchRelevanceDestination
+            )
+            {
+                searchRelevanceDestination = true;
+            }
+        }
+
+        return (searchRelevanceBearings) && (searchRelevanceOrigin) && (searchRelevanceDestination);
+/////////Relevance Check End///////////////////////////////////////////////////////////////////////
+    }
+    public static bool RelevantRideOrigin(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
+    {
+////////Common Variable Declaration Start//////////////////////////////////////////////////////////
+        var tripDistance = metaList.Sum(meta => meta.Distance);
+        var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
+////////Common Variable Declaration End////////////////////////////////////////////////////////////
+////////Relevance Check Start//////////////////////////////////////////////////////////////////////
+        return metaList.Any(meta => (CloseCoords
+            (meta.OriginLat, meta.OriginLng, (double)searchInfo.OriginLat, 
+                (double)searchInfo.OriginLng, tripDivertionDistance)));
+/////////Relevance Check End///////////////////////////////////////////////////////////////////////
+    }
+    public static bool RelevantRideDestination(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
+    {
+////////Common Variable Declaration Start//////////////////////////////////////////////////////////
+        var tripDistance = metaList.Sum(meta => meta.Distance);
+        var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
+////////Common Variable Declaration End////////////////////////////////////////////////////////////
+////////Relevance Check Start//////////////////////////////////////////////////////////////////////
+        return metaList.Any(meta => (CloseCoords
+        (meta.DestinationLat, meta.DestinationLng, (double)searchInfo.DestinationLat, 
+            (double)searchInfo.DestinationLng, tripDivertionDistance)));
+/////////Relevance Check End///////////////////////////////////////////////////////////////////////
     }
     
     // public static bool isNearOrigin(result, userOriginLat, userOriginLon) {

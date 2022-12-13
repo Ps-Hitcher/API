@@ -64,7 +64,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var data = new SearchTravel();
-        data.TravelModel!.TravelResults = _travelList.ToList();
+        data.TravelResults = _travelList.ToList();
         return View(data);
     }
     // [HttpGet]
@@ -76,93 +76,73 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Index(SearchTravel t)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             var data = new SearchTravel();
-            data.TravelModel!.TravelResults = _travelList.ToList();
-            return View(null);
+            data.TravelResults = _travelList.ToList();
+            return View(data);
         }
         Console.WriteLine("Origin Lat - " + t.OriginLat);
         Console.WriteLine("Origin Lng - " + t.OriginLng);
         Console.WriteLine("Destination Lat - " + t.DestinationLat);
         Console.WriteLine("Destination Lng - " + t.DestinationLng);
+        SearchInfo searchInfo = new SearchInfo()
+        {
+            Origin = t.Origin,
+            OriginLat = t.OriginLat,
+            OriginLng = t.OriginLng,
+            Destination = t.Destination,
+            DestinationLat = t.DestinationLat,
+            DestinationLng = t.DestinationLng,
+            Bearings = t.Bearings
+        };
         // t = new TravelModel();
         IEnumerable<MetaModel> queriedMetaContext = _metaList.ToList();
         IEnumerable<TravelModel> queriedTripList = Enumerable.Empty<TravelModel>();
         IEnumerable<UserModel> queriedUserList = Enumerable.Empty<UserModel>();
-        IEnumerable<MetaModel> queriedMetaList = queriedMetaContext;
         foreach (var travel in _travelList)
         {
             // var queriedTripMetaContext = _metaList.Where(e => e.TravelId == travel.Id).ToList();
-            var queriedTripMetaList =
+            IEnumerable<MetaModel> queriedMetaList = 
                 from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
-            if ((t.OriginLat != null) && (t.DestinationLat != null))
+            if (t is { OriginLat: { }, DestinationLat: { } })
             {
-                queriedMetaList = queriedTripMetaList.Where(e =>
-                    (Math.Abs(e.OriginLat - (double)t.OriginLat) <= 0.12 &&
-                        Math.Abs(e.OriginLng - (double)t.OriginLng) <= 0.2) &&
-                    (Math.Abs(e.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
-                        Math.Abs(e.DestinationLng - (double)t.DestinationLng) <= 0.2));
-                // queriedMetaList =
-                //     from meta in queriedTripMetaList
-                //     where (
-                //         (Math.Abs(meta.OriginLat - (double)t.OriginLat) <= 0.12 &&
-                //          Math.Abs(meta.OriginLng - (double)t.OriginLng) <= 0.2) &&
-                //         (Math.Abs(meta.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
-                //          Math.Abs(meta.DestinationLng - (double)t.DestinationLng) <= 0.2))
-                //     select meta;
+                if (TravelFilter.RelevantRideFull(searchInfo, queriedMetaList))
+                {
+                    queriedTripList = queriedTripList.Append(travel);
+                }
             }
             else if (t.OriginLat != null)
             {
-                // queriedMetaContext = queriedTripMetaList.Where(e =>
-                //     (Math.Abs(e.OriginLat - (double)t.OriginLat) <= 0.12 &&
-                //          Math.Abs(e.OriginLng - (double)t.OriginLng) <= 0.2));
-                queriedMetaList = 
-                    from meta in queriedTripMetaList
-                    where 
-                        (Math.Abs(meta.OriginLat - (double)t.OriginLat) <= 0.12 && 
-                         Math.Abs(meta.OriginLng - (double)t.OriginLng) <= 0.2)
-                        select meta;
+                if (TravelFilter.RelevantRideOrigin(searchInfo, queriedMetaList))
+                {
+                    queriedTripList = queriedTripList.Append(travel);
+                }
             }
             else if (t.DestinationLat != null)
             {
-                queriedMetaList = queriedTripMetaList.Where(e =>
-                    (Math.Abs(e.DestinationLat - (double)t.DestinationLat) <= 0.12 &&
-                        Math.Abs(e.DestinationLng - (double)t.DestinationLng) <= 0.2));
+                if (TravelFilter.RelevantRideDestination(searchInfo, queriedMetaList))
+                {
+                    queriedTripList = queriedTripList.Append(travel);
+                }
             }
-            // var diffLat = lat2 - lat1; 
-            // var diffLng = lon2 - lon1;
-            //
-            // return (diffLat <= 0.12) && (diffLng <= 0.2);
             else
             {
                 var data = new SearchTravel();
-                data.TravelModel!.TravelResults = _travelList.ToList();
+                data.TravelResults = _travelList.ToList();
                 return View(null);
             }
-            if (queriedMetaList.Any())
-            {
-                queriedTripList = queriedTripList.Append(travel);
-            }
         }
-        t.TravelModel.TravelResults = queriedTripList.ToList();
-        foreach (var trip in queriedTripList)
-        {
-            foreach (var user in _userList)
-            {
-                if (user.Id == trip.DriverId)
-                {
-                    queriedUserList = queriedUserList.Append(user);
-                }
-            }
-        }
+        t.TravelResults = queriedTripList.ToList();
+        queriedUserList = (from trip in queriedTripList from user in _userList where user.Id == trip.DriverId select user).Aggregate(queriedUserList, (current, user) => current.Append(user));
         var results = new SearchResults
         {
             SearchTravel = t,
-            UserModel = queriedUserList.ToList()
+            UserModel = queriedUserList.ToList(),
+            test = "test"
         };
-
-        return RedirectToAction("Datecher", "Home", results);
+        TempData.Put("results", results);
+        return RedirectToAction("Datecher", "Home");
     }
     // public IActionResult Index(double lat1, double lng1, double lat2, double lng2)
     // {
@@ -217,9 +197,9 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult Datecher(SearchResults info)
+    public IActionResult Datecher()
     {
-        
+        SearchResults info = TempData.Get<SearchResults>("results");
         
         
         

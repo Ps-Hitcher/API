@@ -1,6 +1,4 @@
-﻿@using WebApplication2.Models.Travel
-@model WebApplication2.Models.Travel.SearchTravel
-@* @model Microsoft.EntityFrameworkCore.DbSet<TravelModel> *@
+﻿@model WebApplication2.Models.Travel.SearchTravel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -40,8 +38,8 @@
                     <input asp-for="Destination" type="hidden" name="Destination" id="Destination"/>
                     <input asp-for="DestinationLat" type="hidden" name="DestinationLat" id="DestinationLat"/>
                     <input asp-for="DestinationLng" type="hidden" name="DestinationLng" id="DestinationLng"/>
+                    <input asp-for="Bearings" type="hidden" name="Bearings" id="Bearings"/>
                 </fieldset>
-                <input asp-for="Bearings" type="hidden" name="Bearings" id="Bearings"/>
                 <div class="wrap">
                     <button onclick="getData()" type="button" id="submit" name="submit" class="travel">Submit</button>
                     <button onclick="calcRouteMapView()" type="button" id="calcRoute" name="calcRoute" class="travel">Get Route</button>
@@ -97,7 +95,7 @@
                 </tr>
                 </thead>
 
-                @foreach (var Travel in Model.TravelModel.TravelResults)
+                @foreach (var Travel in Model.TravelResults)
                 {
                     <tr class="border-bottom">
                         <td>

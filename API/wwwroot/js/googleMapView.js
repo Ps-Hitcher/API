@@ -27,6 +27,13 @@ function getData() {
         document.getElementById("Destination").value = formatAddressSymbols(formatAddress(autocompleteDestination.getPlace().adr_address));
         geocodeAddress("Destination",document.getElementById("DestinationText").value);
     }
+    if((document.getElementById("DestinationText").value !== "") && (document.getElementById("OriginText").value !== "")) {
+        setTimeout(() => {document.getElementById("Bearings").value = getBearings(
+            document.getElementById("OriginLat").value,
+                document.getElementById("OriginLng").value,
+                document.getElementById("DestinationLat").value,
+                document.getElementById("DestinationLng").value);}, 500);
+    }
     setTimeout(() => {document.getElementById("form").requestSubmit()}, 2000);
 }
 

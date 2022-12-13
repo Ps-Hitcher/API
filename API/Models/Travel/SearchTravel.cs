@@ -9,14 +9,15 @@ public class SearchTravel
     public double? DestinationLat { get; set; }
     public double? DestinationLng { get; set; }
     public double? Bearings { get; set; }
-    public TravelModel? TravelModel { get; set; }
+    public List<TravelModel>? TravelResults { get; set; }
 
     public SearchTravel()
     {
-        this.TravelModel = new TravelModel();
+        this.TravelResults = new List<TravelModel>();
     }
     public SearchTravel(TravelModel t)
     {
-        this.TravelModel = t;
+        this.TravelResults = new List<TravelModel>();
+        this.TravelResults.Add(t);
     }
 }
