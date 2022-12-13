@@ -7,7 +7,6 @@ public class SearchResults
 {
     public SearchTravel? SearchTravel { get; set; }
     public List<UserModel> UserModel { get; set; }
-    public string test { get; set; }
 
     public SearchResults()
     {

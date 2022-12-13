@@ -48,9 +48,9 @@
           </div>
           <div class="cont_text_inputs">
             @* <input asp-for = "UserName" class="input_form_sign " placeholder="USERNAME" /> *@
-            <input asp-for = "Email"  class="input_form_sign d_block active_inp" placeholder="EMAIL"/>
-            <input asp-for="Password"  type = "password" class="input_form_sign d_block  active_inp" placeholder="PASSWORD"/>
-            <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us"/>
+            <input asp-for = "Email"  class="input_form_sign d_block active_inp text-white" placeholder="EMAIL"/>
+            <input asp-for="Password"  type = "password" class="input_form_sign d_block  active_inp text-white" placeholder="PASSWORD"/>
+            <input type="password" class="input_form_sign text-white" placeholder="CONFIRM PASSWORD" name="conf_pass_us"/>
             <a class="link_forgot_pass d_block"></a>
             <div class="terms_and_cons d_none">
             </div>
@@ -134,7 +134,7 @@
     text-decoration: none;
     font-family: Helvetica;
     font-size: 16px;
-    color: #999;
+    color:white;
     line-height: 14px;
     padding: 20px;
     display: block;
@@ -149,7 +149,7 @@
     position: relative;
     width: 100%;
     float: left;
-    background-color: #999;
+    background-color: white;
     height: 2px;
   }
   
@@ -166,6 +166,7 @@
     float: left;
     width: 100%;
     margin-top: 20px;
+    color: white;
   }
   
   .input_form_sign {
@@ -183,6 +184,7 @@
     padding: 0px;
     opacity: 0;
     display: none;
+    color: white;
   }
   
   .active_inp {
