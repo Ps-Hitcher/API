@@ -31,7 +31,7 @@ function getData() {
                 document.getElementById("DestinationLat").value,
                 document.getElementById("DestinationLng").value);}, 500);
     }
-    setTimeout(() => {document.getElementById("form").requestSubmit()}, 2000);
+    setTimeout(() => {document.getElementById("form").requestSubmit()}, 1000);
 }
 
 
