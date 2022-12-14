@@ -14,9 +14,6 @@ function loadGoogleMapView() {
 //create a DirectionsService object to use the route method and get a result for our request
 const directionsServiceMapView = new google.maps.DirectionsService();
 
-//Create a Geocoder object, used for reverse geocoding.
-const geocoderMapView = new google.maps.Geocoder();
-
 function getData() {
     
     if(document.getElementById("OriginText").value !== "") {

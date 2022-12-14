@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models.Travel;
+﻿using WebApplication2.Models.Travel;
+
+namespace WebApplication2.Models;
 
 public class SearchTravel
 {

@@ -121,6 +121,41 @@ public static class TravelFilter
             (double)searchInfo.DestinationLng, tripDivertionDistance)));
 /////////Relevance Check End///////////////////////////////////////////////////////////////////////
     }
+
+    public static string CoordConstuctor(IEnumerable<MetaModel> enumMetaList, string origin, string destination)
+    {
+        var metaList = enumMetaList.ToList();
+        var pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == origin);
+        var LatLng = metaList[pos].OriginLat + "," + metaList[pos].OriginLng + ",";
+
+        while (true)
+        {
+            LatLng += metaList[pos].DestinationLat + "," + metaList[pos].DestinationLng + ",";
+            if (metaList[pos].Destination == destination)
+            {
+                return LatLng;
+            }
+            pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == metaList[pos].Destination);
+        } 
+    }
+    
+                
+    // var temp = false;
+    // foreach (var meta in queriedMetaList)
+    // {
+    //     if (!temp)
+    //     {
+    //         LatLng += meta.OriginLat + "," + meta.OriginLng;
+    //         temp = true;
+    //     }
+    //     LatLng += "," + meta.DestinationLat + "," + meta.DestinationLng;
+    // }
+    // LatLng += ";";
+    // LatLng += + "\""
+    
+    
+    
+    
     
     // public static bool isNearOrigin(result, userOriginLat, userOriginLon) {
     //

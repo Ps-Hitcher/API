@@ -43,31 +43,32 @@
 
 <div class="card">
     <div class="slider">
-        @foreach (var user in Model.UserModel)
+        @for (int i = 0; i < Model.TravelUser.TravelModel.Count; ++i)
         {
             <div class="item item2">
                 <div class="item-inner">
                     <img src="~/img/profile.jpg" alt="profile" class="profileFoto"></img>
                     <h4>
-                        @Html.DisplayFor(modelItem => user.Name) @Html.DisplayFor(modelItem => user.Surname)
-                        <h6> @Html.DisplayFor(modelItem => user.Type)</h6>
+                        @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Name) @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Surname)
+                        <h6> @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Type)</h6>
                         <div class="Phone">
-                            <h6>Email: <small class="text-card">@Html.DisplayFor(modelItem => user.Email)</small></h6>
-                            <h6>Phone: <small class="text-card">@Html.DisplayFor(modelItem => user.PhoneNumber)</small></h6>
+                            <h6>Email: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Email)</small></h6>
+                            <h6>Phone: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].PhoneNumber)</small></h6>
                             @* https://techfunda.com/howto/90/calling-external-method *@
-                            <h6>Age: <small class="text-card">@IUserRepository.GetUserAge(user.YearOfBirth)</small></h6>
+                            <h6>Age: <small class="text-card">@IUserRepository.GetUserAge(Model.TravelUser.UserModel[i].YearOfBirth)</small></h6>
                         </div>
                     </h4>
                     <h6>About me:</h6>
                     <div class="about">
-                        <h6>Description: <small class="text-card">@Html.DisplayFor(modelItem => user.Description)</small></h6>
+                        <h6>Description: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Description)</small></h6>
                     </div>
                     <br></br>
                     <a>
                         <button href="#myModal2" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkey">CHOOSE</button>
                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkey">POKE</button>
 
-                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkey">TRIP</button>
+                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name=@Html.DisplayFor(modelItem => i) class="ConfirmOkey" 
+                                onclick="calcRouteMapPreview(this.name, @Model.TravelUser.LatLng)">TRIP</button>
                     </a>
                     <br></br>
                 </div>

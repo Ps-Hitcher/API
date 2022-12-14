@@ -5,12 +5,17 @@ namespace WebApplication2.Models;
 
 public class SearchResults
 {
-    public SearchTravel? SearchTravel { get; set; }
-    public List<UserModel> UserModel { get; set; }
+    public string? Origin { get; set; }
+    public double? OriginLat { get; set; }
+    public double? OriginLng { get; set; }
+    public string? Destination { get; set; }
+    public double? DestinationLat { get; set; }
+    public double? DestinationLng { get; set; }
+    public double? Bearings { get; set; }
+    public TravelUser TravelUser { get; set; }
 
     public SearchResults()
     {
-        this.SearchTravel = new SearchTravel();
-        this.UserModel = new List<UserModel>();
+        this.TravelUser = new TravelUser();
     }
 }

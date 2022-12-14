@@ -100,6 +100,7 @@ public class HomeController : Controller
         IEnumerable<MetaModel> queriedMetaContext = _metaList.ToList();
         IEnumerable<TravelModel> queriedTripList = Enumerable.Empty<TravelModel>();
         IEnumerable<UserModel> queriedUserList = Enumerable.Empty<UserModel>();
+        var LatLng = "\"";
         foreach (var travel in _travelList)
         {
             // var queriedTripMetaContext = _metaList.Where(e => e.TravelId == travel.Id).ToList();
@@ -110,6 +111,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideFull(searchInfo, queriedMetaList))
                 {
                     queriedTripList = queriedTripList.Append(travel);
+                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination) + ";";
                 }
             }
             else if (t.OriginLat != null)
@@ -117,6 +119,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideOrigin(searchInfo, queriedMetaList))
                 {
                     queriedTripList = queriedTripList.Append(travel);
+                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination);
                 }
             }
             else if (t.DestinationLat != null)
@@ -124,6 +127,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideDestination(searchInfo, queriedMetaList))
                 {
                     queriedTripList = queriedTripList.Append(travel);
+                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination);
                 }
             }
             else
@@ -135,10 +139,17 @@ public class HomeController : Controller
         }
         t.TravelResults = queriedTripList.ToList();
         queriedUserList = (from trip in queriedTripList from user in _userList where user.Id == trip.DriverId select user).Aggregate(queriedUserList, (current, user) => current.Append(user));
+        
         var results = new SearchResults
         {
-            SearchTravel = t,
-            UserModel = queriedUserList.ToList(),
+            Origin = t.Origin,
+            OriginLat = t.OriginLat,
+            OriginLng = t.OriginLng,
+            Destination = t.Destination,
+            DestinationLat = t.DestinationLat,
+            DestinationLng = t.DestinationLng,
+            Bearings = t.Bearings,
+            TravelUser = new TravelUser(LatLng + "\"", queriedTripList.ToList(), queriedUserList.ToList())
         };
         TempData.Put("results", results);
         return RedirectToAction("Datecher", "Home");
