@@ -23,6 +23,7 @@ public class MockUserRepositoryTest
     private UserModel _user2;
     private IList<UserModel> _users;
     
+    
 
     [SetUp]
     public void Setup()
@@ -37,10 +38,79 @@ public class MockUserRepositoryTest
     {
         Assert.AreEqual(MockUserRepository.GetUserAge((_user1.YearOfBirth)), 20);
         Assert.AreEqual(MockUserRepository.GetUserAge((_user2.YearOfBirth)), -1);
-        Assert.AreEqual(MockUserRepository.GetUserAge("2002-12-12"), 19);
+        Assert.AreEqual(MockUserRepository.GetUserAge("2002-12-30"), 19);
         
     }
- 
+
+    [Test]
+    public void GetHoroName_ShouldRetunOkResponse_WhenReturnsTheRightAnswer()
+    {
+        var _contextOptions1 = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(_contextOptions1);
+
+        var record1 = new UserModel
+        {
+            Id = Guid.Parse("86cb5f75-80f0-410e-9ab6-26ed5bdb7ff4"),
+            Name = "Antanas",
+            Surname = "Lipkauskas",
+            YearOfBirth = "2002-02-12",
+            PhoneNumber = "861720382",
+            Address = "Liepu g.2",
+            Description = "Statybininkas",
+            Email = "Antanas.Lipkauskas@gmail.com"
+        };
+        
+        var record2 = new UserModel
+        {
+            Id = Guid.Parse("86cb5f75-80f0-410e-9ab6-26ed5bdb7ff5"),
+            Name = "Lukas",
+            Surname = "Sinkevic",
+            YearOfBirth = "1992-04-27",
+            PhoneNumber = "86292",
+            Address = "Jonu g.2",
+            Description = "Vairuotojas",
+            Email = "Lukas.Sink@gmail.com"
+        };
+
+        context.Database.EnsureCreated();
+        context.AddRange(record1);
+        context.AddRange(record2);
+        context.SaveChanges();
+        
+        var mockUserRepository = new MockUserRepository(context);
+        
+        Assert.AreEqual(mockUserRepository.GetHoroName_(record2.YearOfBirth), "Taurus");
+        Assert.AreEqual(mockUserRepository.GetHoroName_(record1.YearOfBirth), "Aquarius");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-01-19"), "Capricorn");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-01-20"), "Aquarius");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-02-19"), "Pisces");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-03-19"), "Pisces");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-03-21"), "Aries");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-04-19"), "Aries");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-05-20"), "Taurus");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-05-21"), "Gemini");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-06-20"), "Gemini");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-06-21"), "Cancer");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-07-22"), "Cancer");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-07-23"), "Leo");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-08-22"), "Leo");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-09-22"), "Virgo");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-08-23"), "Virgo");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-10-22"), "Libra");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-09-23"), "Libra");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-10-23"), "Scorpio");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-11-21"), "Scorpio");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-11-22"), "Sagittarius");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-12-21"), "Sagittarius");
+        Assert.AreEqual(mockUserRepository.GetHoroName_("2005-12-22"), "Capricorn");
+        
+    }
+    
+
+
     [Test]
     public void IsValidPhone_ShouldReturnOkResponse_WhenReturnsTheRightAnswer()
     {
@@ -210,4 +280,7 @@ public class MockUserRepositoryTest
         Assert.False(answer);
         
     }
+    
+    
+    
 }
