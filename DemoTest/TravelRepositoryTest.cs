@@ -37,7 +37,9 @@ public class TravelRepositoryTest
             Time = new DateTime(1900, 01, 01, 02, 45, 00, 00),
             DriverId = Guid.Parse("86cb5f75-80f0-410e-9ab6-26ed5bdb7ff4"),
             FreeSeats = 2,
-            Description = "kelione1"
+            Description = "kelione1",
+            DriverName = "Domas",
+            DriverSurname = "Nemanius"
         };
         
         var record2 = new TravelModel
@@ -49,7 +51,9 @@ public class TravelRepositoryTest
             Time = new DateTime(2022, 11, 29, 01, 06, 00, 00),
             DriverId = Guid.Parse("00000000-0000-0000-0000-000000000000"),
             FreeSeats = 2,
-            Description = "kelione2"
+            Description = "kelione2",
+            DriverName = "Domas",
+            DriverSurname = "Nemanius"
         };
 
         context.Database.EnsureCreated();
@@ -84,7 +88,9 @@ public class TravelRepositoryTest
             Time = new DateTime(1900, 01, 01, 02, 45, 00, 00),
             DriverId = Guid.Parse("00000000-0000-0000-0000-000000000000"),
             FreeSeats = 2,
-            Description = "kelione1"
+            Description = "kelione1",
+            DriverName = "Domas",
+            DriverSurname = "Nemanius"
         };
         
         var record2 = new TravelModel
@@ -96,7 +102,9 @@ public class TravelRepositoryTest
             Time = new DateTime(2022, 11, 29, 01, 06, 00, 00),
             DriverId = Guid.Parse("00000000-0000-0000-0000-000000000000"),
             FreeSeats = 2,
-            Description = "kelione2"
+            Description = "kelione2",
+            DriverName = "Domas",
+            DriverSurname = "Nemanius"
         };
 
         context.Database.EnsureCreated();
