@@ -205,6 +205,11 @@ public class HomeController : Controller
     {
         return View("Users", _userList);
     }
+    
+    public IActionResult MyTrip()
+    {
+        return View("MyTrips", _userList);
+    }
 
     [HttpGet]
     public IActionResult Datecher()

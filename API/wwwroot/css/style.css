@@ -299,7 +299,7 @@ body{
 
 /*button*/
 .ConfirmOkay{
-    --enhanced-glow-color: rgb(236, 232, 233);
+    --enhanced-glow-color: rgb(202, 206, 231);
     border: none;
     padding: 1em 3em;
     color: var(--enhanced-glow-color);
@@ -314,12 +314,32 @@ body{
     display: inline-block;
 }
 
+.ConfirmOkayCompatibility{
+    --enhanced-glow-colorCOMPAT: rgb(236, 224, 138);
+    border: none;
+    padding: 1em 3em;
+    color: var(--enhanced-glow-colorCOMPAT);
+    font-size: 11px;
+    font-weight: bold;
+    background: none;
+    outline: none;
+    box-shadow: 0 0 1em  var( --enhanced-glow-colorCOMPAT),
+    0 0  2em var(--enhanced-glow-colorCOMPAT),
+    inset 0 0 .10em .10em var( --enhanced-glow-colorCOMPAT);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    object-position: center;
+}
 
 #button1 , #button2 {
     display:block;
     margin-bottom: 1em;
     border-radius: 5px;
  
+}
+
+#buttonCompatibility, #PhotoCompatibility{
+    margin-top: 0.5em;
 }
 .choose{
     text-align: right;

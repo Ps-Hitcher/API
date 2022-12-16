@@ -280,11 +280,19 @@ body {
 
 .item5 {
   grid-column: 6/9;
- 
 }
+
+.item50{
+  grid-column: 10/7;
+}
+
 .item6 {
   grid-column: 1/4;
   grid-row: 1 / 8;
+}
+.item9{
+  grid-column: 1/3;
+  grid-row: 1/ 6;
 }
 
 .awesome{
@@ -356,8 +364,8 @@ body {
 /*button*/
 .travel{
   --glow-color: rgb(219, 219, 220);
-  --glow-spread-color: rgba(136, 123, 255, 0.78);
-  --enhanced-glow-color: rgb(215, 56, 92);
+  --glow-spread-color: rgb(61, 71, 136);
+  --enhanced-glow-color: rgb(53, 53, 190);
   --btn-color: rgb(61, 71, 136);
   border: .25em solid var(--glow-color);
   padding: 1em 3em;

@@ -47,7 +47,8 @@
         {
             <div class="item item2">
                 <div class="item-inner">
-                    <img src="~/img/profile.jpg" alt="profile" class="profileFoto"></img>
+                    <span><button class="ConfirmOkayCompatibility" id="buttonCompatibility" data-dismiss="modal1">COMPATIBILITY</button></span> 
+                    <img src="~/img/profile.jpg" alt="profile" id="PhotoCompatibility" class="profileFoto"></img>
                     <h4>
                         @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Name) @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Surname)
                         <h6> @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Type)</h6>
@@ -66,8 +67,7 @@
                     <a>
                         <button href="#myModal2" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">CHOOSE</button>
                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">POKE</button>
-
-                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name=@Html.DisplayFor(modelItem => i) class="ConfirmOkay" 
+                        <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name=@Html.DisplayFor(modelItem => i) class="ConfirmOkay"
                                 onclick="calcRouteMapPreview(this.name, @Model.TravelUser.LatLng)">TRIP</button>
                     </a>
                     <br></br>
@@ -97,10 +97,6 @@
                     <form action="#">
                         <div class="choose">
 
-                            <a>
-                                <button href="#myModal3" data-toggle="modal" type="button" id="ConfirmChoose" name="Confirm" class="ConfirmOkay">CHOOSE</button>
-                            </a>
-                        
                         </div>
                     </form>
                     
@@ -189,4 +185,8 @@ table, th, td {
     overflow: hidden;
     box-shadow: 0 0 20px rgb(255,255,255);
 }
+
+
+
+
 </style>
