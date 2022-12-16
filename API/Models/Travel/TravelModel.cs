@@ -22,6 +22,7 @@ public class TravelModel
     public DateTime Time { get; set; }
     
     [Required]
+    
     public Guid DriverId { get; set; }
 
     public string DriverName { get; set; }

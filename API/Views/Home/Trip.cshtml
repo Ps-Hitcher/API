@@ -8,6 +8,8 @@
 
     <!--CUSTOM CSS STYLE -->
 <link rel="stylesheet" type="text/css" href="~/css/trip.css">
+<script
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
 
 <br><br>
 <div class="text-center">
@@ -99,7 +101,8 @@
 							<div class="col-sm-10-trip">
 								<div class="form-group">
 									<label for="FreeSeats">Leave Time</label>
-									<input asp-for="Time" type="Time"  id="LeaveTime" required="">
+									<input  type="date"  id="LeaveDate" required="">
+									<input asp-for="Time" type="time"  id="LeaveTime" required="">
 								</div>
 							</div>
 							<br><br>

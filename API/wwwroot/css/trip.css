@@ -1,6 +1,6 @@
 ﻿
 .btn{
-    --enhanced-glow-color: rgb(219, 219, 220);
+    --enhanced-glow-color: rgb(226, 228, 245);
     padding: 1em 3em;
     color: var(--enhanced-glow-color);
     font-size: 11px;
