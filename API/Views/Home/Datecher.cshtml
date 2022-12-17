@@ -68,7 +68,7 @@
                         <button href="#myModal2" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">CHOOSE</button>
                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">POKE</button>
                         <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name=@Html.DisplayFor(modelItem => i) class="ConfirmOkay"
-                                onclick="calcRouteMapPreview(this.name, @Model.TravelUser.LatLng)">TRIP</button>
+                                onclick="calcRouteMapPreview(this.name, @Model.TravelUser.LatLng, @Model.OriginLat, @Model.OriginLng, @Model.DestinationLat, @Model.DestinationLng)">TRIP</button>
                     </a>
                     <br></br>
                 </div>

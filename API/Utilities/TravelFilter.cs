@@ -129,7 +129,7 @@ public static class TravelFilter
                     metaList[pos].DestinationLng, (double)searchInfo.DestinationLat, (double)searchInfo.DestinationLng);
                 var distanceMetaDestinationDistance = Math.Sqrt((2 * (distanceMetaDestination * distanceMetaDestination)) -
                                                            (2 * (distanceMetaDestination * distanceMetaDestination) * 
-                                                            Math.Cos(bearingDiff)));
+                                                            Math.Cos(bearingDiff / 180 * Math.PI)));
                 if (distanceMetaDestinationDistance <= tripDivertionDistance)
                 {
                     searchRelevanceDestinationAlternate = true;
