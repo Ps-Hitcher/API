@@ -18,10 +18,10 @@ public static class TravelFilter
         tripLength /= 1000;
         tripLength = tripLength switch
         {
-            <= 0 => 0,
+            <= 1 => 0,
             >= 300 => 12,
             >= 50 => (2.1 * Math.Log(tripLength)),
-            _ => (Math.Pow(1.045, tripLength) - 0.5)
+            _ => (Math.Pow(1.043, tripLength))
         } * 1000;
         return tripLength;
     }
@@ -45,81 +45,133 @@ public static class TravelFilter
         return d;
     }
 
-    public static double GetBearings(double lat1, double lon1, double lat2, double lon2) {
-    
-        var x = ((Math.Cos(lat1) * Math.Sin(lat2)) - (Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1)));
-        var y = (Math.Sin(lon2 - lon1) * Math.Cos(lat2));
-        var b = Math.Atan2(y, x);
-        b = ((((b * 180) / Math.PI) + 360) % 360);
-    
-        return b;
-    }
-
-    public static bool RelevantRideFull(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
+    // Function iterates through the metaData list and finds if the searched trip is similar enough to the current trip.
+    public static bool RelevantRideFull(SearchInfo searchInfo, IEnumerable<MetaModel> enumMetaList, 
+        string origin, string destination)
     {
-////////Common Variable Declaration Start//////////////////////////////////////////////////////////
-        var tripDistance = metaList.Sum(meta => meta.Distance);
-        var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
-////////Common Variable Declaration End////////////////////////////////////////////////////////////
-////////Relevance Check Start//////////////////////////////////////////////////////////////////////
+        // Create the metaList from and enumerableMetaList.
+        var metaList = enumMetaList.ToList();
+        // Find the first leg of the current trip.
+        var pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == origin);
+        // Calculate the possible relevant divertion distance.
+        var tripDivertionDistance = PossibleDivertionDistance(metaList.Sum(meta => meta.Distance));
+        // Calculate the average bearing of the entire trip.
         var averageBearing = metaList.Average(meta => meta.Bearing);
+        // If the average bearing is similar to the bearing of the searched trip, then the bearing check has passed.
         var searchRelevanceBearings = Math.Abs(averageBearing - (double)searchInfo.Bearings) <= 45;
-        bool searchRelevanceOrigin = false, searchRelevanceDestination = false;
+        // Set the Origin relevance and Destination relevance and Bearing leg relevance checks to false.
+        bool searchRelevanceOrigin = false, searchRelevanceDestination = false, searchRelevanceBearingsLeg = false,
+            searchRelevanceOriginAlternate = false, searchRelevanceDestinationAlternate = false;
 
-        foreach (var meta in metaList)
+        // Iterates through the entire metaList in a linear order.
+        while (true)
         {
-            if ((Math.Abs(meta.Bearing - (double)searchInfo.Bearings) <= 20) && !searchRelevanceBearings)
+            // If the current leg of the trip is similar in bearings to the searched bearing, 
+            // then searchRelevanceBearingsLeg is set to 'true'.
+            if ((Math.Abs(metaList[pos].Bearing - (double)searchInfo.Bearings) <= 30) && !searchRelevanceBearingsLeg)
             {
-                searchRelevanceBearings = true;
+                searchRelevanceBearingsLeg = true;
             }
+            // If the current leg Origin is close to the searched Origin point,
+            // searchRelevanceOrigin = 'false' and searchRelevanceOriginAlternate = 'false'
+            // then
+            // searchRelevanceOrigin is set to 'true'.
             if ((
                 CloseCoords(
-                    meta.OriginLat, meta.OriginLng, 
+                    metaList[pos].OriginLat, metaList[pos].OriginLng, 
                     (double)searchInfo.OriginLat, (double)searchInfo.OriginLng, 
                     tripDivertionDistance
-                )) && !searchRelevanceOrigin
+                )) && !searchRelevanceOrigin && !searchRelevanceOriginAlternate
             )
             {
                 searchRelevanceOrigin = true;
             }
+            // If the searchRelevanceOrigin = 'false' and searchRelevanceOriginAlternate = 'false', 
+            // check if the searchInfo Origin point is close to the trip route.
+            // If it is close enough, set searchRelevanceOriginAlternate = 'true'.
+            if ((!searchRelevanceOrigin) && (!searchRelevanceOriginAlternate))
+            {
+                var bearingDiff = Math.Abs((double)(searchInfo.Bearings - metaList[pos].Bearing));
+                var distanceMetaOrigin = DistanceBetweenCoordinates(metaList[pos].OriginLat, 
+                    metaList[pos].OriginLng, (double)searchInfo.OriginLat, (double)searchInfo.OriginLng);
+                var distanceMetaOriginDistance = Math.Sqrt((2 * (distanceMetaOrigin * distanceMetaOrigin)) -
+                                                           ((2 * (distanceMetaOrigin * distanceMetaOrigin)) * 
+                                                            Math.Cos(bearingDiff / 180 * Math.PI)));
+                if (distanceMetaOriginDistance <= tripDivertionDistance)
+                {
+                    searchRelevanceOriginAlternate = true;
+                }
+            }
+            // If the current leg Destination is close to the searched Destination point,
+            // searchRelevanceDestination = 'false' and searchRelevanceDestinationAlternate = 'false'
+            // and either searchRelevanceOrigin = 'true', or searchRelevanceOriginAlternate = 'true', then
+            // searchRelevanceDestination is set to 'true'.
             if ((
-                CloseCoords(
-                    meta.DestinationLat, meta.DestinationLng, 
-                    (double)searchInfo.DestinationLat, (double)searchInfo.DestinationLng, 
-                    tripDivertionDistance
-                )) && !searchRelevanceDestination
-            )
+                    CloseCoords(
+                        metaList[pos].DestinationLat, metaList[pos].DestinationLng, 
+                        (double)searchInfo.DestinationLat, (double)searchInfo.DestinationLng, 
+                        tripDivertionDistance
+                    )) && (!searchRelevanceDestination && !searchRelevanceDestinationAlternate) &&
+                (searchRelevanceOrigin || searchRelevanceOriginAlternate)
+               )
             {
                 searchRelevanceDestination = true;
             }
+            // If the searchRelevanceDestination = 'false' and searchRelevanceDestinationAlternate = 'false', 
+            // and either searchRelevanceOrigin = 'true', or searchRelevanceOriginAlternate = 'true',
+            // check if the searchInfo Destination point is close to the trip route.
+            // If it is close enough, set searchRelevanceDestinationAlternate = 'true'.
+            if ((!searchRelevanceDestination && !searchRelevanceDestinationAlternate) &&
+                (searchRelevanceOrigin || searchRelevanceOriginAlternate))
+            {
+                var bearingDiff = Math.Abs((double)(searchInfo.Bearings - metaList[pos].Bearing));
+                var distanceMetaDestination = DistanceBetweenCoordinates(metaList[pos].DestinationLat, 
+                    metaList[pos].DestinationLng, (double)searchInfo.DestinationLat, (double)searchInfo.DestinationLng);
+                var distanceMetaDestinationDistance = Math.Sqrt((2 * (distanceMetaDestination * distanceMetaDestination)) -
+                                                           (2 * (distanceMetaDestination * distanceMetaDestination) * 
+                                                            Math.Cos(bearingDiff)));
+                if (distanceMetaDestinationDistance <= tripDivertionDistance)
+                {
+                    searchRelevanceDestinationAlternate = true;
+                }
+            }
+            // If enough of the checks have passed, the function returns true.
+            if ((searchRelevanceBearings || searchRelevanceBearingsLeg) &&
+                (searchRelevanceOrigin || searchRelevanceOriginAlternate) && 
+                (searchRelevanceDestination || searchRelevanceDestinationAlternate))
+            {
+                return true;
+            }
+            // If the end of the metaList has been reached, but not all the checks have passed,
+            // the function returns false.
+            if (metaList[pos].Destination == destination)
+            {
+                return false;
+            }
+            // If the current leg of the trip has a good bearing, but not all the criteria match,
+            // set the searchRelevanceBearingsLeg check back to false.
+            searchRelevanceBearingsLeg = false;
+            // Set the position index of the metaList to the next leg of the trip.
+            pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == metaList[pos].Destination);
         }
-
-        return (searchRelevanceBearings) && (searchRelevanceOrigin) && (searchRelevanceDestination);
-/////////Relevance Check End///////////////////////////////////////////////////////////////////////
     }
+
     public static bool RelevantRideOrigin(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
     {
-////////Common Variable Declaration Start//////////////////////////////////////////////////////////
         var tripDistance = metaList.Sum(meta => meta.Distance);
         var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
-////////Common Variable Declaration End////////////////////////////////////////////////////////////
-////////Relevance Check Start//////////////////////////////////////////////////////////////////////
         return metaList.Any(meta => (CloseCoords
             (meta.OriginLat, meta.OriginLng, (double)searchInfo.OriginLat, 
                 (double)searchInfo.OriginLng, tripDivertionDistance)));
-/////////Relevance Check End///////////////////////////////////////////////////////////////////////
     }
+    
     public static bool RelevantRideDestination(SearchInfo searchInfo, IEnumerable<MetaModel> metaList)
     {
-////////Common Variable Declaration Start//////////////////////////////////////////////////////////
         var tripDistance = metaList.Sum(meta => meta.Distance);
         var tripDivertionDistance = PossibleDivertionDistance(tripDistance);
-////////Common Variable Declaration End////////////////////////////////////////////////////////////
-////////Relevance Check Start//////////////////////////////////////////////////////////////////////
         return metaList.Any(meta => (CloseCoords
         (meta.DestinationLat, meta.DestinationLng, (double)searchInfo.DestinationLat, 
             (double)searchInfo.DestinationLng, tripDivertionDistance)));
-/////////Relevance Check End///////////////////////////////////////////////////////////////////////
     }
 
     public static string CoordConstuctor(IEnumerable<MetaModel> enumMetaList, string origin, string destination)
@@ -138,75 +190,4 @@ public static class TravelFilter
             pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == metaList[pos].Destination);
         } 
     }
-    
-                
-    // var temp = false;
-    // foreach (var meta in queriedMetaList)
-    // {
-    //     if (!temp)
-    //     {
-    //         LatLng += meta.OriginLat + "," + meta.OriginLng;
-    //         temp = true;
-    //     }
-    //     LatLng += "," + meta.DestinationLat + "," + meta.DestinationLng;
-    // }
-    // LatLng += ";";
-    // LatLng += + "\""
-    
-    
-    
-    
-    
-    // public static bool isNearOrigin(result, userOriginLat, userOriginLon) {
-    //
-    //     let originLat = result.routes[0].legs[0].start_location.lat();
-    //     let originLon = result.routes[0].legs[0].start_location.lon();
-    //     let distance = distanceBetweenCoordinates(originLat, originLon, userOriginLat, userOriginLon);
-    //     let divertion = possibleDivertionDistance(fullTripDist(result));
-    //
-    //     return distance <= divertion;
-    // }
-    //
-    // public static bool isNearDestination(result, userDestinationLat, userDestinationLon) {
-    //
-    //     let destinationLat = result.routes[0].legs[0].end_location.lat();
-    //     let destinationLon = result.routes[0].legs[0].end_location.lon();
-    //     let distance = distanceBetweenCoordinates(destinationLat, destinationLon, userDestinationLat, userDestinationLon);
-    //     let divertion = possibleDivertionDistance(fullTripDist(result));
-    //
-    //     return distance <= divertion;
-    // }
-    //
-    // public static bool isSimilarTrip(result, userTrip) {
-    //
-    //     let userOriginLat = userTrip.routes[0].legs[0].start_location.lat();
-    //     let userOriginLon = userTrip.routes[0].legs[0].start_location.lon();
-    //     let userDestinationLat = userTrip.routes[0].legs[0].end_location.lat();
-    //     let userDestinationLon = userTrip.routes[0].legs[0].end_location.lon();
-    //
-    //     return isNearOrigin(result, userOriginLat, userOriginLon) && isNearDestination(result, userDestinationLat, userDestinationLon);
-    // }
-    //
-    // public static double tripDistanceDifference(result, userTrip) {
-    //
-    //     let userOriginLat = userTrip.routes[0].legs[0].start_location.lat();
-    //     let userOriginLon = userTrip.routes[0].legs[0].start_location.lon();
-    //     let userDestinationLat = userTrip.routes[0].legs[0].end_location.lat();
-    //     let userDestinationLon = userTrip.routes[0].legs[0].end_location.lon();
-    //
-    //     let tripOriginLat = result.routes[0].legs[0].start_location.lat();
-    //     let tripOriginLon = result.routes[0].legs[0].start_location.lon();
-    //     let tripDestinationLat = result.routes[0].legs[0].end_location.lat();
-    //     let tripDestinationLon = result.routes[0].legs[0].end_location.lon();
-    //
-    //     let userDistance = distanceBetweenCoordinates(userOriginLat, userOriginLon, userDestinationLat, userDestinationLon);
-    //     let tripDistance = distanceBetweenCoordinates(tripOriginLat, tripOriginLon, tripDestinationLat, tripDestinationLon);
-    //
-    //     return userDistance / (tripDistance / 100);
-    // }
-    //
-    // function similarBearing(result, userBearing) {
-    //
-    // }
-    
 }

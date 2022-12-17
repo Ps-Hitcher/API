@@ -67,11 +67,6 @@ public class HomeController : Controller
         data.TravelResults = _travelList.ToList();
         return View(data);
     }
-    // [HttpGet]
-    // public IActionResult Index()
-    // {
-    //     return View(null);
-    // }
     
     [HttpPost]
     public IActionResult Index(SearchTravel t)
@@ -103,12 +98,11 @@ public class HomeController : Controller
         var LatLng = "\"";
         foreach (var travel in _travelList)
         {
-            // var queriedTripMetaContext = _metaList.Where(e => e.TravelId == travel.Id).ToList();
             IEnumerable<MetaModel> queriedMetaList = 
                 from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
             if (t is { OriginLat: { }, DestinationLat: { } })
             {
-                if (TravelFilter.RelevantRideFull(searchInfo, queriedMetaList))
+                if (TravelFilter.RelevantRideFull(searchInfo, queriedMetaList, travel.Origin, travel.Destination))
                 {
                     queriedTripList = queriedTripList.Append(travel);
                     LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination) + ";";
@@ -154,19 +148,6 @@ public class HomeController : Controller
         TempData.Put("results", results);
         return RedirectToAction("Datecher", "Home");
     }
-    // public IActionResult Index(double lat1, double lng1, double lat2, double lng2)
-    // {
-    //     if (_travelList.Count() > 0)
-    //     {
-    //         _travelList = _travelRepository.GetTravelList().Where(e => (TravelFilter.CloseCoords(lat1, lng1, 54.6989925, 25.2576996) && TravelFilter.CloseCoords(lat2, lng2, 25.2627452, 54.6719751)));
-    //     }
-    //     
-    //     
-    //     
-    //     return View(_travelList);
-    // }
-    //
-    // public void GetTripInfo()
 
     public IActionResult Privacy(string message)
     {

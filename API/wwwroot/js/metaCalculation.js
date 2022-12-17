@@ -28,6 +28,10 @@ function distanceBetweenCoordinates(lat1, lon1, lat2, lon2) {
 
 function getBearings(lat1, lon1, lat2, lon2) {
 
+    lat1 = lat1 * Math.PI / 180;
+    lat2 = lat2 * Math.PI / 180;
+    lon1 = lon1 * Math.PI / 180;
+    lon2 = lon2 * Math.PI / 180;
     let x = ((Math.cos(lat1) * Math.sin(lat2)) - (Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)));
     let y = (Math.sin(lon2 - lon1) * Math.cos(lat2));
     let b = Math.atan2(y, x);
