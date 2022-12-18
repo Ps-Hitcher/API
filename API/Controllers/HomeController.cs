@@ -28,15 +28,19 @@ public class HomeController : Controller
     
     private readonly IMetaRepository _metaRepository;
     private DbSet<MetaModel> _metaList;
-    
+
+    private readonly IChosenTripsRepository _chosenTripsRepository;
+    private DbSet<ChosenTripsModel> _chosenTripsList;
+
     private readonly ICorrelationIDGenerator _correlationIdGenerator;
     private IErrorRepository _errorRepository;
     
     private const String LoggedUser = "_User";
     public HomeController(ILogger<HomeController> logger,
         IUserRepository userRepository, ITravelRepository travelRepository, 
-        IMetaRepository metaRepository, IErrorRepository errorRepository, 
-        ICorrelationIDGenerator correlationIdGenerator, DataContext context)
+        IMetaRepository metaRepository, IChosenTripsRepository chosenTripsRepository, 
+        IErrorRepository errorRepository, ICorrelationIDGenerator correlationIdGenerator, 
+        DataContext context)
         //Using dependency injection for UserModel
     {
         _logger = logger; 
@@ -44,10 +48,12 @@ public class HomeController : Controller
         _userRepository = userRepository;
         _travelRepository = travelRepository;
         _metaRepository = metaRepository;
+        _chosenTripsRepository = chosenTripsRepository;
         _errorRepository = errorRepository;
         _userList = _userRepository.GetUserList();//debug
         _travelList = _travelRepository.GetTravelList();//debug
         _metaList = _metaRepository.GetMetaList();//debug
+        _chosenTripsList = _chosenTripsRepository.GetChosenTrips();
     }
 
     
@@ -77,11 +83,7 @@ public class HomeController : Controller
             data.TravelResults = _travelList.ToList();
             return View(data);
         }
-        Console.WriteLine("Origin Lat - " + t.OriginLat);
-        Console.WriteLine("Origin Lng - " + t.OriginLng);
-        Console.WriteLine("Destination Lat - " + t.DestinationLat);
-        Console.WriteLine("Destination Lng - " + t.DestinationLng);
-        SearchInfo searchInfo = new SearchInfo()
+        var searchInfo = new SearchInfo()
         {
             Origin = t.Origin,
             OriginLat = t.OriginLat,
@@ -95,7 +97,8 @@ public class HomeController : Controller
         IEnumerable<MetaModel> queriedMetaContext = _metaList.ToList();
         IEnumerable<TravelModel> queriedTripList = Enumerable.Empty<TravelModel>();
         IEnumerable<UserModel> queriedUserList = Enumerable.Empty<UserModel>();
-        var LatLng = "\"";
+        IEnumerable<ChosenTripsModel> chosenTripsModels = _chosenTripsList.ToList();
+        var latLng = "\"";
         foreach (var travel in _travelList)
         {
             IEnumerable<MetaModel> queriedMetaList = 
@@ -105,7 +108,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideFull(searchInfo, queriedMetaList, travel.Origin, travel.Destination))
                 {
                     queriedTripList = queriedTripList.Append(travel);
-                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination) + ";";
+                    latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";";
                 }
             }
             else if (t.OriginLat != null)
@@ -113,7 +116,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideOrigin(searchInfo, queriedMetaList))
                 {
                     queriedTripList = queriedTripList.Append(travel);
-                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination);
+                    latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination);
                 }
             }
             else if (t.DestinationLat != null)
@@ -121,7 +124,7 @@ public class HomeController : Controller
                 if (TravelFilter.RelevantRideDestination(searchInfo, queriedMetaList))
                 {
                     queriedTripList = queriedTripList.Append(travel);
-                    LatLng += TravelFilter.CoordConstuctor(queriedMetaList, travel.Origin, travel.Destination);
+                    latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination);
                 }
             }
             else
@@ -132,8 +135,11 @@ public class HomeController : Controller
             }
         }
         t.TravelResults = queriedTripList.ToList();
-        queriedUserList = (from trip in queriedTripList from user in _userList where user.Id == trip.DriverId select user).Aggregate(queriedUserList, (current, user) => current.Append(user));
-        
+        var stringId = HttpContext.Session.GetString(LoggedUser);
+        var currentUserId = Guid.Parse(stringId);
+
+        queriedUserList = (from travel in t.TravelResults from chosenTrip in chosenTripsModels where (travel.Id == chosenTrip.TravelId) && (chosenTrip.Driver) from user in _userList where (chosenTrip.UserId == user.Id) && (user.Id != currentUserId) select user).Aggregate(queriedUserList, (current, user) => current.Append(user));
+
         var results = new SearchResults
         {
             Origin = t.Origin,
@@ -143,7 +149,7 @@ public class HomeController : Controller
             DestinationLat = t.DestinationLat,
             DestinationLng = t.DestinationLng,
             Bearings = t.Bearings,
-            TravelUser = new TravelUser(LatLng + "\"", queriedTripList.ToList(), queriedUserList.ToList())
+            TravelUser = new TravelUser(latLng + "\"", queriedTripList.ToList(), queriedUserList.ToList())
         };
         TempData.Put("results", results);
         return RedirectToAction("Datecher", "Home");
@@ -161,8 +167,8 @@ public class HomeController : Controller
         {
             // return View(new UserModel());
             // return View(_userList.FirstOrDefault(user => user.Id == Guid.Parse(HttpContext.Session.GetString(LoggedUser))));
-            var StringId = HttpContext.Session.GetString(LoggedUser);
-            Guid id = Guid.Parse(StringId);
+            var stringId = HttpContext.Session.GetString(LoggedUser);
+            Guid id = Guid.Parse(stringId);
             return View(_userRepository.GetUser(id));
         }
     }
@@ -189,15 +195,57 @@ public class HomeController : Controller
     
     public IActionResult MyTrip()
     {
-        return View("MyTrips", _userList);
+        var stringId = HttpContext.Session.GetString(LoggedUser);
+        var id = Guid.Parse(stringId);
+        var chosenTrips = _chosenTripsList.Where(e => e.UserId == id);
+        var travelList = Enumerable.Empty<TravelModel>();
+        var travelContext = _travelList.ToList();
+        IEnumerable<MetaModel> queriedMetaContext = _metaList.ToList();
+        var latLng = "\"";
+        
+        foreach (var chosen in chosenTrips)
+        {
+            foreach (var travel in travelContext.Where(travel => travel.Id == chosen.TravelId))
+            {
+                travelList = travelList.Append(travel);
+                IEnumerable<MetaModel> queriedMetaList = 
+                    from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
+                latLng = queriedMetaList.Aggregate(latLng, (current, meta) => current + (TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";"));
+            }
+        }
+        // foreach (var chosen in chosenTrips)
+        // {
+        //     foreach (var travel in travelContext)
+        //     {
+        //         if (travel.Id == chosen.UserId)
+        //         {
+        //             travelList = travelList.Append(travel);
+        //             IEnumerable<MetaModel> queriedMetaList = 
+        //                 from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
+        //             foreach (var meta in queriedMetaList)
+        //             {
+        //                 latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";";
+        //             }
+        //         }
+        //         
+        //     }
+        // }
+        
+        var myTrips = new MyTrips()
+        {
+            myTrips = chosenTrips.ToList(),
+            travels = travelList.ToList(),
+            LatLng = latLng
+        };
+        return View("MyTrips", myTrips);
     }
 
     [HttpGet]
     public IActionResult Datecher()
     {
-        SearchResults info = TempData.Get<SearchResults>("results");
+        var info = TempData.Get<SearchResults>("results");
         
-        return View("Datecher", info);
+        return View("Datecher", info ?? new SearchResults());
     }
     
     public IActionResult Calculator()
@@ -219,13 +267,14 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        if(_errorRepository.GetErrorList().Count() > 0)
+        if(_errorRepository.GetErrorList().Any())
         {
             return View(_errorRepository.Get());
         }
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
     public IActionResult AddUser(UserModel user)
     {
         if (!_userRepository.IsValidPhone(user.PhoneNumber))
@@ -251,16 +300,17 @@ public class HomeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpPost]
     public IActionResult AddTravel(FormInput input)
     {
         var travelId = Guid.NewGuid();
         var stopStr = new List<string>(input.Stopovers.Split(";"));
         stopStr.Remove(input.Destination);
-        var StringId = HttpContext.Session.GetString(LoggedUser);
-        Guid id = Guid.Parse(StringId);
+        var stringId = HttpContext.Session.GetString(LoggedUser);
+        var id = Guid.Parse(stringId);
         var user = _userRepository.GetUser(id);
         
-        TravelModel travel = new TravelModel
+        var travel = new TravelModel
         {
             Id = travelId,
             Origin = input.Origin,
@@ -275,12 +325,19 @@ public class HomeController : Controller
         };
         _travelList.Add(travel);
 
+        var chosenTrip = new ChosenTripsModel
+        {
+            UserId = id,
+            TravelId = travelId,
+            Driver = true
+        };
+        _chosenTripsList.Add(chosenTrip);
         
-        List<string> stopoverList = new List<string>(input.Stopovers.Split(";"));
-        List<double> bearingList = new List<double>(Array.ConvertAll(input.Bearings.Split(","), Double.Parse));
-        List<double> distanceList = new List<double>(Array.ConvertAll(input.Distance.Split(","), Double.Parse));
-        List<double> latList = new List<double>(Array.ConvertAll(input.Lat.Split(","), Double.Parse));
-        List<double> lngList = new List<double>(Array.ConvertAll(input.Lng.Split(","), Double.Parse));
+        var stopoverList = new List<string>(input.Stopovers.Split(";"));
+        var bearingList = new List<double>(Array.ConvertAll(input.Bearings.Split(","), Double.Parse));
+        var distanceList = new List<double>(Array.ConvertAll(input.Distance.Split(","), Double.Parse));
+        var latList = new List<double>(Array.ConvertAll(input.Lat.Split(","), Double.Parse));
+        var lngList = new List<double>(Array.ConvertAll(input.Lng.Split(","), Double.Parse));
         for (var i = 0; i < stopoverList.Count; i++)
         {
             MetaModel meta = new MetaModel();
@@ -305,13 +362,27 @@ public class HomeController : Controller
 
         _travelRepository.Save();
         _metaRepository.Save();
+        _chosenTripsRepository.Save();
 
         return RedirectToAction(nameof(Index));
     }
 
-    // public IActionResult Login()
-    // {
-    //     return View(Login);
-    // }
-
+    public IActionResult ChooseTrip(SearchResults info)
+    {
+        Console.WriteLine("test");
+        var stringId = HttpContext.Session.GetString(LoggedUser);
+        var userId = Guid.Parse(stringId);
+        var tripId = Guid.Parse(info.TravelId);
+        
+        var chosenTrip = new ChosenTripsModel
+        {
+            UserId = userId,
+            TravelId = tripId,
+            Driver = false
+        };
+        _chosenTripsList.Add(chosenTrip);
+        _chosenTripsRepository.Save();
+        
+        return RedirectToAction(nameof(Index));
+    }
 }

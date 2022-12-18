@@ -1,5 +1,4 @@
-﻿@* @model List<UserModel> *@
-@model WebApplication2.Models.SearchResults
+﻿@model WebApplication2.Models.SearchResults
 @using WebApplication2.Models.User
 @using WebApplication2.Models.Travel
 @using WebApplication2.Models
@@ -43,7 +42,7 @@
 
 <div class="card">
     <div class="slider">
-        @for (int i = 0; i < Model.TravelUser.TravelModel.Count; ++i)
+        @for (var i = 0; i < Model.TravelUser.UserModel.Count; ++i)
         {
             <div class="item item2">
                 <div class="item-inner">
@@ -51,7 +50,7 @@
                     <img src="~/img/profile.jpg" alt="profile" id="PhotoCompatibility" class="profileFoto"></img>
                     <h4>
                         @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Name) @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Surname)
-                        <h6> @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Type)</h6>
+                        @* <h6> @Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Type)</h6> *@
                         <div class="Phone">
                             <h6>Email: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Email)</small></h6>
                             <h6>Phone: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].PhoneNumber)</small></h6>
@@ -63,14 +62,15 @@
                     <div class="about">
                         <h6>Description: <small class="text-card">@Html.DisplayFor(modelItem => Model.TravelUser.UserModel[i].Description)</small></h6>
                     </div>
-                    <br></br>
+                    <br>
                     <a>
-                        <button href="#myModal2" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">CHOOSE</button>
+                        <button href="#myModal2" data-toggle="modal" type="button" id="Confirm" name=@Model.TravelUser.TravelModel[i].Id class="ConfirmOkay"
+                                onclick="setTravelId(this.name)">CHOOSE</button>
                         <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="ConfirmOkay">POKE</button>
                         <button href="#myModal1" data-toggle="modal" type="button" id="Confirm" name=@Html.DisplayFor(modelItem => i) class="ConfirmOkay"
                                 onclick="calcRouteMapPreview(this.name, @Model.TravelUser.LatLng, @Model.OriginLat, @Model.OriginLng, @Model.DestinationLat, @Model.DestinationLng)">TRIP</button>
                     </a>
-                    <br></br>
+                    <br>
                 </div>
             </div>
         }
@@ -94,19 +94,14 @@
         <div class="modal-dialog modal1-confirm">
             <div class="modal1-content">
                 <div class="modal1-header">
-                    <form action="#">
-                        <div class="choose">
 
-                        </div>
-                    </form>
-                    
                     Route information:
                 </div>
-                <br></br>
+                <br>
                 <div id="googleMapPreview">
                 
                 </div>
-                <br></br>
+                <br>
                 <div class="text-center">
                     <table style="width:100%">
                         <tr>
@@ -123,10 +118,10 @@
                         </tr>
                     </table>
                 </div>
-                <br></br>
+                <br>
                 <div class="modal1-footer">
                     <button class="ConfirmOkay" id="button1" data-dismiss="modal1">CLOSE</button>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -144,9 +139,14 @@
             <div class="modal-body">
                 <p class="awesome text-center">SUCCESSFULLY CHOSEN TRIP!</p>
             </div>
+            
             <div class="modal-footer">
-                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <form asp-controller="Home" asp-action="ChooseTrip" method="post">
+                    <input asp-for="TravelId" type="hidden" id="travelId"/>
+                    <button class="btn btn-success btn-block" type="submit" onclick="console.log(document.getElementById('travelId').value)">OK</button>
+                </form>
             </div>
+            
         </div>
     </div>
 </div>
@@ -164,8 +164,7 @@
 </script>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
-        //Nors dabar visvien nerodys kelio, tik sukurs map.
-        loadGoogleMapPreview("googleMapPreview", "Route Info goes here");
+        loadGoogleMapPreview();
     }, false);
 </script>
 
@@ -185,8 +184,4 @@ table, th, td {
     overflow: hidden;
     box-shadow: 0 0 20px rgb(255,255,255);
 }
-
-
-
-
 </style>

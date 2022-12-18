@@ -12,6 +12,7 @@ public class SearchResults
     public double? DestinationLat { get; set; }
     public double? DestinationLng { get; set; }
     public double? Bearings { get; set; }
+    public string TravelId { get; set; }
     public TravelUser TravelUser { get; set; }
 
     public SearchResults()

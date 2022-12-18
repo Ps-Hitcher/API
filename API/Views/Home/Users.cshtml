@@ -26,9 +26,9 @@
         <th>
             <span class="ml-2">Date Of Birth</span>
         </th>
-        <th>
-            <span class="ml-2">User Type</span>
-        </th>
+        @* <th> *@
+        @*     <span class="ml-2">User Type</span> *@
+        @* </th> *@
         <th>
             <span class="ml-2">Phone Number</span>
         </th>
@@ -62,11 +62,11 @@
                     <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.YearOfBirth)</span>
                 </div>
             </td>
-            <td>
-                <div class="p-2">
-                    <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span>
-                </div>
-            </td>
+            @* <td> *@
+            @*     <div class="p-2"> *@
+            @*         <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.Type)</span> *@
+            @*     </div> *@
+            @* </td> *@
             <td>
                 <div class="p-2">
                     <span class="font-weight-bold">@Html.DisplayFor(modelItem => user.PhoneNumber)</span>

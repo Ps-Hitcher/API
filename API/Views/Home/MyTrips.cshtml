@@ -1,7 +1,8 @@
 ﻿@* MyTrip_Tab *@
-@using WebApplication2.Models.Travel
+@model WebApplication2.Models.MyTrips
 
 @using System.Security.Principal
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using WebApplication2.Models.User
 <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBeiiVAS5Jmf-OW_KsR5jnzgA833PE5nng&libraries=places"></script>
@@ -38,9 +39,7 @@
 </div>
     <div class="item6">
         <h6 class="MyTrips">TRIPS CREATED BY ME:</h6>
-        <br></br>
-        @* <img src="~/img/byMe.jpg" alt="user" width=350px height=100px> *@
-        @* <br><br> *@
+        <br>
         
         <table  name="DataTable" class="table-borderless table-responsive p-4 tableMyTrips">
             <thead>
@@ -79,68 +78,72 @@
             </tr>
             </thead>
 
-            @* @foreach (var Trips in Model.TravelResults) *@
-            @* { *@
-            <tr class="border-bottom">
-                <td>
-                <div class="text-center">
-                    <div class="p-2 d-flex align-items-center mb-2">
-                        <img src="~/img/profile.jpg" width="40" class="rounded-circle">
-                        <div class="d-flex flex-column  p-2">
-                            <span>Kamilė Samusiovaite</span>
-                            @* <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Trips.DriverName) @Html.DisplayFor(modelItem => Trips.DriverSurname) </span> *@
-                        </div>
-                    </div>
-                </div>
-                <td>
-                    <div class="p-2">
-                        <div class="text-center">
-                            @* <span>@Html.DisplayFor(modelItem => Trips.Origin)</span> *@
-                            <span>Vilnius</span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="p-2 ">
-                        <div class="text-center">
-                            @* <span>@Html.DisplayFor(modelItem => Trips.Destination)</span> *@
-                            <span>Ukmergė</span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="p-2">
-                        <div class="text-center">
-                            @* <small>@Html.DisplayFor(modelItem => Trips.Time)</small> *@
-                            <small>10:00</small>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="p-2">
-                        <div class="text-center">
-                            @* <small>@Html.DisplayFor(modelItem => Trips.FreeSeats)</small> *@
-                            <small>2</small>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="action">
-                        <a>
-                            @* <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button> *@
-                            <button type="button" class="ConfirmMyTrip">VIEW</button>
-                        </a>
-                    </div>
-                </td>
-                
-            </tr>
-            @* } *@
-
+            @for (var i = 0; i < Model.myTrips.Count; ++i)
+            {
+                @if (Model.myTrips[i].Driver)
+                {
+                    @foreach (var travel in Model.travels)
+                    {
+                        @if (Model.myTrips[i].TravelId == travel.Id)
+                        {
+                            <tr class="border-bottom">
+                                <td>
+                                <div class="text-center">
+                                    <div class="p-2 d-flex align-items-center mb-2">
+                                        <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                        <div class="d-flex flex-column  p-2">
+                                            @* <span>Kamilė Samusiovaite</span> *@
+                                        </div>
+                                    </div>
+                                </div>
+                                <td>
+                                    <div class="p-2">
+                                        <div class="text-center">
+                                            <span>@Html.DisplayFor(modelItem => travel.Origin)</span>
+                                            @* <span>Vilnius</span> *@
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="p-2 ">
+                                        <div class="text-center">
+                                            <span>@Html.DisplayFor(modelItem => travel.Destination)</span>
+                                            @* <span>Ukmergė</span> *@
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="p-2">
+                                        <div class="text-center">
+                                            <small>@Html.DisplayFor(modelItem => travel.Time)</small>
+                                            @* <small>10:00</small> *@
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="p-2">
+                                        <div class="text-center">
+                                            <small>@Html.DisplayFor(modelItem => travel.FreeSeats)</small>
+                                            @* <small>2</small> *@
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a>
+                                            <button type="button" class="ConfirmMyTrip" name=@i>VIEW</button>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            }
         </table>
-
-        <br></br>
-    <br></br>
-    <br></br>
+    <br>
+    <br>
+    <br>
     <h6 class="MyTrips">TRIPS I CHOSE TO TAKE WITH OTHERS:</h6>
         @* <br></br> *@
          @* <img src="~/img/others.jpg" alt="user" width=550px height=100px> *@
@@ -183,62 +186,70 @@
         </tr>
         </thead>
 
-        @* @foreach (var Trips in Model.TravelResults) *@
-        @* { *@
-        <tr class="border-bottom">
-            <td>
-            <div class="text-center">
-                <div class="p-2 d-flex align-items-center mb-2">
-                    <img src="~/img/profile.jpg" width="40" class="rounded-circle">
-                    <div class="d-flex flex-column  p-2">
-                        <span>Kamilė Samusiovaite</span>
-                        @* <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => Trips.DriverName) @Html.DisplayFor(modelItem => Trips.DriverSurname) </span> *@
-                    </div>
-                </div>
-            </div>
-            <td>
-                <div class="p-2">
-                    <div class="text-center">
-                        @* <span>@Html.DisplayFor(modelItem => Trips.Origin)</span> *@
-                        <span>Vilnius</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="p-2 ">
-                    <div class="text-center">
-                        @* <span>@Html.DisplayFor(modelItem => Trips.Destination)</span> *@
-                        <span>Ukmergė</span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="p-2">
-                    <div class="text-center">
-                        @* <small>@Html.DisplayFor(modelItem => Trips.Time)</small> *@
-                        <small>10:00</small>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="p-2">
-                    <div class="text-center">
-                        @* <small>@Html.DisplayFor(modelItem => Trips.FreeSeats)</small> *@
-                        <small>2</small>
-                    </div>
-                </div>
-            </td>
-            
-            <td>
-            <div class="action">
-                <a>
-                    @* <button href="#myModal" data-toggle="modal" type="button" id="Confirm" name="Confirm" class="Confirm">CHOOSE</button> *@
-                    <button type="button" class="ConfirmMyTrip">VIEW</button>
-                </a>
-            </div>
-            </td>
-        </tr>
-        @* } *@
+    @for (var i = 0; i < Model.myTrips.Count; ++i)
+    {
+        @if (!Model.myTrips[i].Driver)
+        {
+            @foreach (var travel in Model.travels)
+            {
+                @if (Model.myTrips[i].TravelId == travel.Id)
+                {
+                    <tr class="border-bottom">
+                        <td>
+                        <div class="text-center">
+                            <div class="p-2 d-flex align-items-center mb-2">
+                                <img src="~/img/profile.jpg" width="40" class="rounded-circle">
+                                <div class="d-flex flex-column  p-2">
+                                    @* <span>Kamilė Samusiovaite</span> *@
+                                    <span class="d-block font-weight-bold">@Html.DisplayFor(modelItem => travel.DriverName) @Html.DisplayFor(modelItem => travel.DriverSurname) </span>
+                                </div>
+                            </div>
+                        </div>
+                        <td>
+                            <div class="p-2">
+                                <div class="text-center">
+                                    <span>@Html.DisplayFor(modelItem => travel.Origin)</span>
+                                    @* <span>Vilnius</span> *@
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-2 ">
+                                <div class="text-center">
+                                    <span>@Html.DisplayFor(modelItem => travel.Destination)</span>
+                                    @* <span>Ukmergė</span> *@
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-2">
+                                <div class="text-center">
+                                    <small>@Html.DisplayFor(modelItem => travel.Time)</small>
+                                    @* <small>10:00</small> *@
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="p-2">
+                                <div class="text-center">
+                                    <small>@Html.DisplayFor(modelItem => travel.FreeSeats)</small>
+                                    @* <small>2</small> *@
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="action">
+                                <a>
+                                    <button type="button" class="ConfirmMyTrip" name=@i>VIEW</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    }
     </table>
 </div>
 </div>

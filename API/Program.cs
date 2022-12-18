@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, MockUserRepository>();//Dependancy injection for using UserModel
 builder.Services.AddScoped<ITravelRepository, TravelRepository>();//Dependancy injection for using TravelModel
 builder.Services.AddScoped<IMetaRepository, MetaRepository>();//Dependancy injection for using MetaModel
+builder.Services.AddScoped<IChosenTripsRepository, ChosenTripsRepository>();//Dependancy injection for using MetaModel
 builder.Services.AddScoped<ICorrelationIDGenerator, CorrelationIdGenerator>();  //Dependancy injection for CorrelationIdGenerator
 builder.Services.AddScoped<IErrorRepository, ErrorRepository>();
 builder.Services.AddDbContext<DataContext>(options =>

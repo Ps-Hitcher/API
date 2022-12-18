@@ -14,6 +14,7 @@ using WebApplication2.Data;
 using WebApplication2.Models;
 using WebApplication2.Models.Errors;
 using WebApplication2.Models.Travel;
+using ITravelRepository = WebApplication2.Models.ITravelRepository;
 
 namespace DemoTest;
 

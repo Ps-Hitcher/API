@@ -64,7 +64,7 @@ function calcRouteMapPreview(position, coords, originLatSearch, originLngSearch,
             directionsRendererMapPreviewExisting.setDirections(resultExisting);
 
             bounds = resultExisting.routes[0].bounds;
-            setTimeout(() => {mapPreview.fitBounds(bounds)}, 50);
+            setTimeout(() => {mapPreview.fitBounds(bounds)}, 75);
         } else {
             window.alert("Cannot display this trip");
         }
@@ -74,9 +74,14 @@ function calcRouteMapPreview(position, coords, originLatSearch, originLngSearch,
             //display route
             directionsRendererMapPreviewSearch.setDirections(resultSearch);
 
-            setTimeout(() => {mapPreview.fitBounds(bounds.union(resultSearch.routes[0].bounds))}, 60);
+            setTimeout(() => {mapPreview.fitBounds(bounds.union(resultSearch.routes[0].bounds))}, 100);
         } else {
             console.log("Cannot display current search.");
         }
     });
+}
+
+function setTravelId(travelId)
+{
+    document.getElementById("travelId").value = travelId;
 }

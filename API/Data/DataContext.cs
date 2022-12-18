@@ -16,6 +16,7 @@ public class DataContext : DbContext
     public DbSet<UserModel> Users { get; set; }
     public DbSet<TravelModel> Trips { get; set; }
     public DbSet<MetaModel> Meta { get; set; }
+    public DbSet<ChosenTripsModel> ChosenTrips { get; set; }
     public DbSet<ErrorModel> Errors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,5 +27,7 @@ public class DataContext : DbContext
             );
         modelBuilder.Entity<MetaModel>()
             .HasKey(nameof(MetaModel.TravelId), nameof(MetaModel.Destination));
+        modelBuilder.Entity<ChosenTripsModel>()
+            .HasKey(nameof(ChosenTripsModel.TravelId), nameof(ChosenTripsModel.UserId));
     }
 }

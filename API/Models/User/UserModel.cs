@@ -5,8 +5,8 @@ namespace WebApplication2.Models.User;
 
 public class UserModel : IComparable<UserModel>
 {
+    [Required]
     public Guid Id { get; set; }
-    public UserType? Type { get; set; }
     public string? Name { get; set; }
     public string? Surname { get; set; }
     public string? YearOfBirth { get; set; }
@@ -14,18 +14,13 @@ public class UserModel : IComparable<UserModel>
     public string? PhoneNumber { get; set; }
     public string? Address { get; set; }
     public string? Description { get; set; }
+    [Required]
+    public string Password { get; set; } = null!;
 
-    public string? Password { get; set; }
-    
-    //public CarStruct? Car { get; set; }
     public Double? Rating { get; set; }
-
     public String? CarModel { get; set; }
-    
     public String? CarNumber { get; set; }
-    
     public Double? Fuel { get; set; }
-
 
 
     public int CompareTo(UserModel? other)

@@ -174,7 +174,7 @@ public static class TravelFilter
             (double)searchInfo.DestinationLng, tripDivertionDistance)));
     }
 
-    public static string CoordConstuctor(IEnumerable<MetaModel> enumMetaList, string origin, string destination)
+    public static string CoordConstructor(IEnumerable<MetaModel> enumMetaList, string origin, string destination)
     {
         var metaList = enumMetaList.ToList();
         var pos = metaList.FindIndex(0, metaList.Count, e => e.Origin == origin);
