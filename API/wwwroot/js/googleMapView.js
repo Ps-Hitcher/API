@@ -104,3 +104,55 @@ function geocodeSuccessMapView(position) {
 
     geocodeLatLng(userLocationCoords);
 }
+
+function calcRouteMapViewMyTrip(position, coords) {
+    let trips = coords.split(";");
+    let meta = trips[position].split(",");
+
+    for(let i = 0; i < meta.length; ++i) {
+        if(meta[i] === "") {
+            meta.splice(i, 1);
+            --i;
+            continue;
+        }
+    }
+    console.log(coords);
+    console.log("test #" + position);
+    console.log(meta);
+    let originLat = meta[0];
+    let originLng = meta[1];
+    let destinationLat = meta[meta.length - 2];
+    let destinationLng = meta[meta.length - 1];
+    meta.splice(0, 2);
+    meta.splice(-2, 2);
+
+    let stopovers = [];
+    for(let i = 1; i < meta.length; i += 2) {
+        stopovers.push({
+            location: {lat: parseFloat(meta[i - 1]), lng: parseFloat(meta[i])},
+            stopover: true
+        });
+    }
+
+    const requestExisting = {
+        origin: {lat: parseFloat(originLat), lng: parseFloat(originLng)},
+        destination: {lat: parseFloat(destinationLat), lng: parseFloat(destinationLng)},
+        waypoints: stopovers,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+        unitSystem: google.maps.UnitSystem.METRIC
+    };
+    let bounds;
+    //pass the request to the route method
+    directionsServiceMapView.route(requestExisting, function (resultExisting, statusExisting) {
+        if (statusExisting === google.maps.DirectionsStatus.OK) {
+            //display route
+            directionsRendererMapView.setDirections(resultExisting);
+
+            bounds = resultExisting.routes[0].bounds;
+            setTimeout(() => {mapView.fitBounds(bounds)}, 75);
+        } else {
+            window.alert("Cannot display this trip");
+        }
+    });
+}

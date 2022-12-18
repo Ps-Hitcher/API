@@ -27,7 +27,7 @@
      <h6 class="MyTrips">ROUTE:</h6>
     <br></br>
     
-    <div id="googleMapCreate">
+    <div id="googleMapView">
     </div>
     <br></br>
     <div class="wrap">
@@ -131,7 +131,8 @@
                                 <td>
                                     <div class="action">
                                         <a>
-                                            <button type="button" class="ConfirmMyTrip" name=@i>VIEW</button>
+                                            <button type="button" class="ConfirmMyTrip" name=@Html.DisplayFor(modelItem => i) 
+                                                    onclick="calcRouteMapViewMyTrip(this.name, @Model.LatLng)">VIEW</button>
                                         </a>
                                     </div>
                                 </td>
@@ -241,7 +242,7 @@
                         <td>
                             <div class="action">
                                 <a>
-                                    <button type="button" class="ConfirmMyTrip" name=@i>VIEW</button>
+                                    <button type="button" class="ConfirmMyTrip" name=@i onclick="calcRouteMapViewMyTrip(this.name, @Model.LatLng)">VIEW</button>
                                 </a>
                             </div>
                         </td>
@@ -261,7 +262,7 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        loadGoogleMapCreate();
+        loadGoogleMapView();
     }, false);
 </script>	
 

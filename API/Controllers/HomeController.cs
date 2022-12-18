@@ -210,24 +210,20 @@ public class HomeController : Controller
                 travelList = travelList.Append(travel);
                 IEnumerable<MetaModel> queriedMetaList = 
                     from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
-                latLng = queriedMetaList.Aggregate(latLng, (current, meta) => current + (TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";"));
+                latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";";
             }
         }
-        // foreach (var chosen in chosenTrips)
+        // // foreach (var chosen in chosenTrips)
         // {
         //     foreach (var travel in travelContext)
         //     {
-        //         if (travel.Id == chosen.UserId)
+        //         if (travel.Id == chosen.TravelId)
         //         {
         //             travelList = travelList.Append(travel);
         //             IEnumerable<MetaModel> queriedMetaList = 
         //                 from meta in queriedMetaContext where travel.Id == meta.TravelId select meta;
-        //             foreach (var meta in queriedMetaList)
-        //             {
-        //                 latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";";
-        //             }
+        //             latLng += TravelFilter.CoordConstructor(queriedMetaList, travel.Origin, travel.Destination) + ";";
         //         }
-        //         
         //     }
         // }
         
@@ -235,7 +231,7 @@ public class HomeController : Controller
         {
             myTrips = chosenTrips.ToList(),
             travels = travelList.ToList(),
-            LatLng = latLng
+            LatLng = latLng + "\""
         };
         return View("MyTrips", myTrips);
     }
